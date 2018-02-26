@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WalkingSchoolBus</string>
+    <string name="walking_groups_title">My Walking Groups</string>
+    <string name="walking_groups_join_button_text">Join Walking Group</string>
+    <string name="my_group_details_leave_button">Leave Group</string>
+    <string name="my_group_details_title">Group Details</string>
 </resources>
