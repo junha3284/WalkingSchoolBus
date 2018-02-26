@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WalkingSchoolBus</string>
+    <string name="title_monitored_children">your children</string>
+    <string name="action_add">add</string>
+    <string name="action_remove">Remove</string>
+    <string name="title_info">Information</string>
+    <string name="title_walking_group">Walking Group</string>
+    <string name="msg_password">Password:</string>
+    <string name="msg_email">Email:</string>
+    <string name="msg_example_email">example@gamil.com</string>
 </resources>
