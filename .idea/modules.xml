@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WalkingSchoolBus.iml" filepath="$PROJECT_DIR$/WalkingSchoolBus.iml" />
+      <module fileurl="file://C:\Users\Richard Wong\Documents\School\Fall 2018\CMPT276\The Walking School Bus\walkinggroupapp\WalkingSchoolBus.iml" filepath="C:\Users\Richard Wong\Documents\School\Fall 2018\CMPT276\The Walking School Bus\walkinggroupapp\WalkingSchoolBus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Richard Wong\Documents\School\Fall 2018\CMPT276\The Walking School Bus\walkinggroupapp\app\app.iml" filepath="C:\Users\Richard Wong\Documents\School\Fall 2018\CMPT276\The Walking School Bus\walkinggroupapp\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/walkinggroupapp.iml" filepath="$PROJECT_DIR$/walkinggroupapp.iml" />
     </modules>
   </component>
 </project>
