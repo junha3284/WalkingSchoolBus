@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">WalkingSchoolBus</string>
+    <string name="title_active_groups">Active Groups</string>
+    <string name="join_group_details_destination">Destination</string>
+    <string name="join_group_details_meeting_place">Meeting Place</string>
+    <string name="join_group_details_join">Join</string>
+    <string name="join_group_details_members">Members</string>
 </resources>
