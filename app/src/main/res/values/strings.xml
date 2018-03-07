@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">The Walking School Bus</string>
     <string name="the_walking_school_bus">The Walking School Bus</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
@@ -14,5 +14,7 @@
     <string name="email">Email:</string>
     <string name="confirm_password">Confirm Password:</string>
     <string name="log_out">Log Out</string>
+    <string name="welcome_back">Welcome Back,</string>
 
+>>>>>>> Stashed changes
 </resources>

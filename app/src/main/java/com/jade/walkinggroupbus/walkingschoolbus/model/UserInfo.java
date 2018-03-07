@@ -1,9 +1,5 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
-/**
- * Created by Richard Wong on 2018-02-27.
- */
-
 public class UserInfo {
     private String email;
     private String password;
