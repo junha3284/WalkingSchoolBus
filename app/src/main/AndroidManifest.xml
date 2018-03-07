@@ -19,7 +19,7 @@
         <activity android:name=".WalkingGroupsActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
-        <activity android:name=".myGroupDetailsActivity"
+        <activity android:name=".MyGroupDetailsActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
     </application>

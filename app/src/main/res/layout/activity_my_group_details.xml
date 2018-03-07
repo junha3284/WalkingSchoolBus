@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jade.walkinggroupbus.walkingschoolbus.myGroupDetailsActivity">
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.MyGroupDetailsActivity">
 
     <TextView
-        android:id="@+id/text_my_group_details_title"
+        android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -25,5 +25,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
-        android:text="@string/my_group_details_leave_button" />
+        android:text="@string/action_LeaveGroup" />
 </RelativeLayout>

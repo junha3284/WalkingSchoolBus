@@ -3,7 +3,7 @@ package com.jade.walkinggroupbus.walkingschoolbus;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class myGroupDetailsActivity extends AppCompatActivity {
+public class MyGroupDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
