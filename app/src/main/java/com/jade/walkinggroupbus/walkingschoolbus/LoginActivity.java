@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.i("Login", "" + userInfo.getPassword());
 
             // Launches Register activity
-            Button button_btn = (Button) findViewById(R.id.register);
+            Button button_btn = (Button) findViewById(R.id.button_register);
             button_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -44,14 +44,14 @@ public class LoginActivity extends AppCompatActivity {
             });
 
             // Handles Login information
-            Button mainmenu = (Button) findViewById(R.id.login);
+            Button mainmenu = (Button) findViewById(R.id.button_login);
             mainmenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     // Check fields for user input
-                    EditText edit_password = (EditText) findViewById(R.id.passField);
-                    EditText edit_email = (EditText) findViewById(R.id.userfield);
+                    EditText edit_password = (EditText) findViewById(R.id.edit_passField);
+                    EditText edit_email = (EditText) findViewById(R.id.edit_userfield);
 
                     String inputPassword = edit_password.getText().toString();
                     String inputEmail = edit_email.getText().toString();
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void action_errorMessage(){
-            TextView text_error = (TextView) findViewById(R.id.errorLogin);
+            TextView text_error = (TextView) findViewById(R.id.text_errorLogin);
             String message = "Error, there is an incorrect field.";
             text_error.setText(message);
         }
