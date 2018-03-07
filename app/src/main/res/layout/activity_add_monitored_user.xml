@@ -11,12 +11,38 @@
         android:layout_height="match_parent">
 
         <TableLayout
+            android:id="@+id/tableLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/tableLayout">
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="97dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/msg_name"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="0dp"
+                    android:ems="10"
+                    android:hint="Please input name"
+                    android:inputType="textPassword" />
+
+            </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -28,10 +54,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
-                    android:text="@string/msg_email" />
+                    android:text="@string/msg_email"
+                    android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/edit_moniotred_user_email"
+                    android:id="@+id/edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -46,33 +73,10 @@
 
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/msg_password" />
-
-                <EditText
-                    android:id="@+id/editText2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="0dp"
-                    android:ems="10"
-                    android:inputType="textPassword" />
-            </TableRow>
-
         </TableLayout>
 
         <Button
-            android:id="@+id/button_add_monitored_user"
+            android:id="@+id/button_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/tableLayout"

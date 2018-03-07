@@ -8,4 +8,5 @@
     <string name="msg_password">Password:</string>
     <string name="msg_email">Email:</string>
     <string name="msg_example_email">example@gamil.com</string>
+    <string name="msg_name">Name:</string>
 </resources>
