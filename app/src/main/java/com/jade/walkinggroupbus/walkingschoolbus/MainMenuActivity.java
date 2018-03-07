@@ -27,10 +27,10 @@ public class MainMenuActivity extends AppCompatActivity {
 
         userInfo = UserInfo.userInfo();
 
-        TextView text_displayName = (TextView) findViewById(R.id.name);
+        TextView text_displayName = (TextView) findViewById(R.id.text_name);
         text_displayName.setText(userInfo.getName());
 
-        Button action_logOut = (Button) findViewById(R.id.logOut);
+        Button action_logOut = (Button) findViewById(R.id.button_logOut);
         action_logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
