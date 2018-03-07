@@ -21,15 +21,15 @@ public class RegisterActivity extends AppCompatActivity {
 
         userInfo = UserInfo.userInfo();
 
-        Button button_confirm = (Button) findViewById(R.id.confirm);
+        Button button_confirm = (Button) findViewById(R.id.button_confirm);
         button_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Store entered information
-                EditText edit_passwordEntry = (EditText) findViewById(R.id.enterPass);
-                EditText edit_passwordConfirm = (EditText) findViewById(R.id.confirmPass);
-                EditText edit_emailEntry = (EditText) findViewById(R.id.enterEmail);
-                EditText edit_nameEntry = (EditText) findViewById(R.id.enterName);
+                EditText edit_passwordEntry = (EditText) findViewById(R.id.edit_enterPass);
+                EditText edit_passwordConfirm = (EditText) findViewById(R.id.edit_confirmPass);
+                EditText edit_emailEntry = (EditText) findViewById(R.id.edit_enterEmail);
+                EditText edit_nameEntry = (EditText) findViewById(R.id.edit_enterName);
 
                 // Get data from EditText box
                 String password1 = edit_passwordEntry.getText().toString();
@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         // Brings user back to login screen
-        Button button_cancel = (Button) findViewById(R.id.cancel);
+        Button button_cancel = (Button) findViewById(R.id.button_cancel);
         button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     // Handles error messages
     private void action_errorMessage(String message){
-        TextView text_errorMessage = (TextView) findViewById(R.id.error);
+        TextView text_errorMessage = (TextView) findViewById(R.id.text_error);
         text_errorMessage.setText(message);
     }
 }
