@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.jade.walkinggroupbus.walkingschoolbus.Model.UserInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;

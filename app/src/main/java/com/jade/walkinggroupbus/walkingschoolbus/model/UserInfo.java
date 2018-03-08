@@ -107,4 +107,9 @@ public class UserInfo {
                 ", walkingGroups=" + walkingGroups +
                 '}';
     }
+
+    public String toStringForList() {
+        return "name='" + name + '\'' +
+                ", email='" + email;
+    }
 }
