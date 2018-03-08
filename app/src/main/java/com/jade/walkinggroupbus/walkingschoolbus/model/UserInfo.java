@@ -3,11 +3,16 @@ package com.jade.walkinggroupbus.walkingschoolbus.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by choijun-ha on 2018-03-06.
+ */
+
 public class UserInfo {
+
     private Long id;
+    private String name;
     private String email;
     private String password;
-    private String name;
 
     private List<UserInfo> monitoredByUsers = new ArrayList<>();
     private List<UserInfo> monitorsUsers = new ArrayList<>();
@@ -15,19 +20,20 @@ public class UserInfo {
 
     private String href;
 
-    // Singleton Implementation
-    private static UserInfo instance;
-
-    private UserInfo() {
-        // private to prevent public instantiation
+    public Long getId() {
+        return id;
     }
 
-    // Checks to see if an instance of UserInfo already exists
-    public static UserInfo userInfo(){
-        if (instance == null){
-            instance = new UserInfo();
-        }
-        return instance;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -44,22 +50,6 @@ public class UserInfo {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public List<UserInfo> getMonitoredByUsers() {
@@ -94,7 +84,6 @@ public class UserInfo {
         this.href = href;
     }
 
-    // UI for Logcat messages.
     @Override
     public String toString() {
         return "User{" +
@@ -109,7 +98,7 @@ public class UserInfo {
     }
 
     public String toStringForList() {
-        return "name='" + name + '\'' +
-                ", email='" + email;
+        return "name=" + name + '\'' +
+                ", email='" + email ;
     }
 }
