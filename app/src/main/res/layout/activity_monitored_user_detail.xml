@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jade.walkinggroupbus.walkingschoolbus.MonitoredUserDetail">
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.MonitoredUserDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:textSize="28sp" />
 
         <Button
-            android:id="@+id/button_remove_monitored_user"
+            android:id="@+id/button_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -39,8 +39,8 @@
             android:id="@+id/button_create_WalkingGroupActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button_remove_monitored_user"
-            android:layout_alignBottom="@+id/button_remove_monitored_user"
+            android:layout_alignBaseline="@+id/button_remove"
+            android:layout_alignBottom="@+id/button_remove"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="27dp"
@@ -57,7 +57,7 @@
             android:layout_marginTop="98dp"
             android:layout_toLeftOf="@+id/text_name"
             android:layout_toStartOf="@+id/text_name"
-            android:text="Name"
+            android:text="@string/msg_name"
             android:textSize="20sp" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:layout_alignStart="@+id/textView3"
             android:layout_below="@+id/textView3"
             android:layout_marginTop="51dp"
-            android:text="Email"
+            android:text="@string/msg_email"
             android:textSize="20sp" />
 
         <TextView
@@ -79,7 +79,7 @@
             android:layout_alignBottom="@+id/textView3"
             android:layout_toEndOf="@+id/title_title"
             android:layout_toRightOf="@+id/title_title"
-            android:text="Unknown"
+            android:text="@string/msg_unknown"
             android:textSize="20sp" />
 
         <TextView
@@ -90,7 +90,7 @@
             android:layout_alignBottom="@+id/textView4"
             android:layout_alignLeft="@+id/text_name"
             android:layout_alignStart="@+id/text_name"
-            android:text="Unknown"
+            android:text="@string/msg_unknown"
             android:textSize="20sp" />
 
     </RelativeLayout>

@@ -1,7 +1,5 @@
 package com.jade.walkinggroupbus.walkingschoolbus.Model;
 
-import com.jade.walkinggroupbus.walkingschoolbus.MoniterdUsers;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,15 +7,15 @@ import java.util.List;
  * Created by choijun-ha on 2018-03-06.
  */
 
-public class User {
+public class UserInfo {
 
     private Long id;
     private String name;
     private String email;
     private String password;
 
-    private List<User> monitoredByUsers = new ArrayList<>();
-    private List<User> monitorsUsers = new ArrayList<>();
+    private List<UserInfo> monitoredByUsers = new ArrayList<>();
+    private List<UserInfo> monitorsUsers = new ArrayList<>();
     private List<Void> walkingGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
 
     private String href;
@@ -54,19 +52,19 @@ public class User {
         this.password = password;
     }
 
-    public List<User> getMonitoredByUsers() {
+    public List<UserInfo> getMonitoredByUsers() {
         return monitoredByUsers;
     }
 
-    public void setMonitoredByUsers(List<User> monitoredByUsers) {
+    public void setMonitoredByUsers(List<UserInfo> monitoredByUsers) {
         this.monitoredByUsers = monitoredByUsers;
     }
 
-    public List<User> getMonitorsUsers() {
+    public List<UserInfo> getMonitorsUsers() {
         return monitorsUsers;
     }
 
-    public void setMonitorsUsers(List<User> monitorsUsers) {
+    public void setMonitorsUsers(List<UserInfo> monitorsUsers) {
         this.monitorsUsers = monitorsUsers;
     }
 
@@ -99,7 +97,6 @@ public class User {
                 '}';
     }
 
-    @Override
     public String toStringForList() {
         return "name=" + name + '\'' +
                 ", email='" + email ;

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class AddMonitoredUser extends AppCompatActivity {
+public class AddMonitoredUserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class AddMonitoredUser extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context,AddMonitoredUser.class);
+        Intent intent = new Intent(context,AddMonitoredUserActivity.class);
         return intent;
     }
 

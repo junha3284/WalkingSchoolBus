@@ -9,15 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.jade.walkinggroupbus.walkingschoolbus.Model.User;
+import com.jade.walkinggroupbus.walkingschoolbus.Model.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoniterdUsers extends AppCompatActivity {
+public class MoniterdUsersActivity extends AppCompatActivity {
 
-    //TODO: import User class
-    List<User> monitoredUsers;
+    List<UserInfo> monitoredUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +44,10 @@ public class MoniterdUsers extends AppCompatActivity {
         listMoniotredUsers.setOnItemClickListener(new ListView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View viewClicked, int position, long id) {
-                User clickedUser = monitoredUsers.get(position);
+                UserInfo clickedUser = monitoredUsers.get(position);
                 String name = clickedUser.getName();
                 String email = clickedUser.getEmail();
-                Intent intentCalculateServing = MonitoredUserDetail.makeIntent(MoniterdUsers.this, name, email);
+                Intent intentCalculateServing = MonitoredUserDetailActivity.makeIntent(MoniterdUsersActivity.this, name, email);
                 startActivity(intentCalculateServing);
             }
         });
@@ -59,15 +58,16 @@ public class MoniterdUsers extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = AddMonitoredUser.makeIntent(MoniterdUsers.this);
+                Intent intent = AddMonitoredUserActivity.makeIntent(MoniterdUsersActivity.this);
                 startActivity(intent);
             }
         });
     }
 
     private String[] getMonitoredUserDescriptions(){
-        String[] description = new String[monitoredUsers.size()];
-        for(int i =0; i < monitoredUsers.size(); i++)
+        int size = 0;//todo = monitoredUsers.size();
+        String[] description = new String[size];
+        for(int i =0; i < size; i++)
             description[i] = monitoredUsers.get(i).toStringForList();
         return description;
     }
