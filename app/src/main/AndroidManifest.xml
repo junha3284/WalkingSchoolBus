@@ -18,7 +18,9 @@
         </activity>
         <activity android:name=".MoniterdUsersActivity" />
         <activity android:name=".MonitoredUserDetailActivity" />
-        <activity android:name=".AddMonitoredUserActivity"></activity>
+        <activity android:name=".AddMonitoredUserActivity"/>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainMenuActivity" ></activity>
     </application>
 
 </manifest>
