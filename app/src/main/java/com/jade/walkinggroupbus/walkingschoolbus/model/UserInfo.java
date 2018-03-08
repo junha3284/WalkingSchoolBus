@@ -109,5 +109,10 @@ public class UserInfo {
                 '}';
     }
 
+
+    public String toStringForList() {
+        return "name='" + name + '\'' +
+                ", email='" + email;
+    }
 }
 
