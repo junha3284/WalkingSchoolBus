@@ -2,6 +2,7 @@ package com.jade.walkinggroupbus.walkingschoolbus;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,18 +10,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
+import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
+
+import retrofit2.Call;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    // Singleton
     private UserInfo userInfo;
+
+    // Server Details
+    private static final String TAG = "ServerTest";
+    private long userId = 0;
+    private WGServerProxy proxy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Singleton
         userInfo = UserInfo.userInfo();
 
+        // Build the server proxy
+        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), null);
+
+        // Takes user input, verifies, then passes to server
         Button button_confirm = (Button) findViewById(R.id.button_confirm);
         button_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void action_confirmPassword(String password1, String password2) {
 
+        // Checks to see if password field was left blank
         if (password1.length() < 1 || password2.length() < 1){
             String message = "Error, passwords do not match.";
             action_errorMessage(message);
@@ -88,6 +105,11 @@ public class RegisterActivity extends AppCompatActivity {
 
             // Display message to show successful registration
             Toast.makeText(RegisterActivity.this, "Registration Successful.", Toast.LENGTH_LONG).show();
+
+            // Make call to server to store data
+            Call<UserInfo> caller = proxy.createNewUser(userInfo);
+            ProxyBuilder.callProxy(RegisterActivity.this, caller, returnedUser -> response(returnedUser));
+
             finish();
         }
         else{
@@ -100,5 +122,11 @@ public class RegisterActivity extends AppCompatActivity {
     private void action_errorMessage(String message){
         TextView text_errorMessage = (TextView) findViewById(R.id.text_error);
         text_errorMessage.setText(message);
+    }
+
+    // Receive user identifier ID.
+    private void response(UserInfo user) {
+        Log.w(TAG, "Server replied with user: " + user.toString());
+        userInfo.setId(user.getId());
     }
 }
