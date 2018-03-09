@@ -1,5 +1,6 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,4 +108,11 @@ public class UserInfo {
                 ", walkingGroups=" + walkingGroups +
                 '}';
     }
+
+
+    public String toStringForList() {
+        return "name='" + name + '\'' +
+                ", email='" + email;
+    }
 }
+
