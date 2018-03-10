@@ -7,12 +7,14 @@ import java.util.List;
 public class UserInfo {
     private Long id;
     private String email;
+
     private String password;
     private String name;
 
     private List<UserInfo> monitoredByUsers = new ArrayList<>();
     private List<UserInfo> monitorsUsers = new ArrayList<>();
-    private List<Void> walkingGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
+    private List<Group> memberOfGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
+    private List<Group> leadsGroups = new ArrayList<>();
 
     private String href;
 
@@ -27,8 +29,10 @@ public class UserInfo {
     public static UserInfo userInfo(){
         if (instance == null){
             instance = new UserInfo();
+            return instance;
         }
-        return instance;
+        else
+            return instance;
     }
 
     public String getEmail() {
@@ -79,12 +83,20 @@ public class UserInfo {
         this.monitorsUsers = monitorsUsers;
     }
 
-    public List<Void> getWalkingGroups() {
-        return walkingGroups;
+    public List<Group> getMemberOfGroups() {
+        return memberOfGroups;
     }
 
-    public void setWalkingGroups(List<Void> walkingGroups) {
-        this.walkingGroups = walkingGroups;
+    public void setMemberOfGroups(List<Group> memberOfGroups) {
+        this.memberOfGroups = memberOfGroups;
+    }
+
+    public List<Group> getLeadsGroups() {
+        return leadsGroups;
+    }
+
+    public void setLeadsGroups(List<Group> leadsGroups) {
+        this.leadsGroups = leadsGroups;
     }
 
     public void addWalkingGroup(String groupName) {
@@ -108,7 +120,7 @@ public class UserInfo {
                 ", password='" + password + '\'' +
                 ", monitoredByUsers=" + monitoredByUsers +
                 ", monitorsUsers=" + monitorsUsers +
-                ", walkingGroups=" + walkingGroups +
+                ", walkingGroups=" + memberOfGroups +
                 '}';
     }
 
