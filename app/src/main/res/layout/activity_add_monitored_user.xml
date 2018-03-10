@@ -40,7 +40,7 @@
                     android:layout_marginTop="0dp"
                     android:ems="10"
                     android:hint="Please input name"
-                    android:inputType="textPassword" />
+                    android:inputType="textPersonName" />
 
             </TableRow>
 

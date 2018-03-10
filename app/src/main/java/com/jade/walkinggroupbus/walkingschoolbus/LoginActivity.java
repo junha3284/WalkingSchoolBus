@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
         storePassword_sharedPreferences();
 
         // Displays stored user information on Logcat for testing purposes. Use tag 'ServerTest' in Logcat without apostrophes.
-        //setupListUsers();
+        setupListUsers();
 
         // Set Id in userInfo
         LogIn();
@@ -209,10 +209,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void response(UserInfo returnedUser) {
-        Log.w(TAG, "Set userInfo's Id field:");
-        Toast.makeText(this, "***" +returnedUser.toString(), Toast.LENGTH_LONG).show();
+        // store data about the user from the server in userInfo
+        Log.w(TAG, "Set userInfo basic fields:");
         userInfo.setId(returnedUser.getId());
         userInfo.setName(returnedUser.getName());
+        userInfo.setHref(returnedUser.getHref());
+        userInfo.setLeadsGroups(returnedUser.getLeadsGroups());
+        userInfo.setMemberOfGroups(returnedUser.getMemberOfGroups());
+        userInfo.setMonitoredByUsers(returnedUser.getMonitoredByUsers());
+        userInfo.setMonitorsUsers(returnedUser.getMonitorsUsers());
+
+        // and create MainMenuActivity;
         action_mainMenu();
     }
 
