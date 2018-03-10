@@ -43,7 +43,9 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
+        // set Texts which present the data about the MonitoredUser
         setTexts();
+
         setBtns();
     }
 
@@ -61,7 +63,7 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         removeBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo: remove the user who is the owner of the detailed info from the logged in user
+                // removed MonitoredUser( the owner of detailed Info) from the User's MonitorsUsers
                 removeMonitoredUser();
             }
         });
@@ -74,8 +76,11 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
     }
 
     private void removeMonitoredUser(){
+        //get the id of one of the MonitoredUsers, who is the owner of the Detailed Info
         Intent intent = getIntent();
         Long monitoredUserId = intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID,-1);
+
+        // request to the server for deleting the monitoredUser from the MonitorsUsers
         Call<Void> caller = proxy.deleteMonitoredUser(userInfo.getId(), monitoredUserId);
         ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
     }

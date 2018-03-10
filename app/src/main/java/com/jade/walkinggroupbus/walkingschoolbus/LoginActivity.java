@@ -153,6 +153,63 @@ public class LoginActivity extends AppCompatActivity {
         return extractPassword;
     }
 
+    private void onReceiveToken(String token) {
+        // Replace the current proxy with one that uses the token!
+        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
+        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
+        sharedData.setToken(token);
+    }
+
+
+    private void response(Void returnedNothing) {
+        // Log message to signify successful login
+        Log.w(TAG, "Server replied to login request.");
+
+        // Store user info into Shared Preferences
+        storeEmail_sharedPreferences();
+        storePassword_sharedPreferences();
+
+        // Displays stored user information on Logcat for testing purposes. Use tag 'ServerTest' in Logcat without apostrophes.
+        setupListUsers();
+
+        // Set userInfo and create MainMenu Activity
+        LogIn();
+    }
+
+    private void response(List<UserInfo> returnedUsers) {
+        Log.w(TAG, "All Users:");
+        for (UserInfo user : returnedUsers) {
+            Log.w(TAG, "    User: " + user.toString());
+        }
+    }
+
+    private void response(UserInfo returnedUser) {
+        // store data about the user from the server in userInfo
+        Log.w(TAG, "Set userInfo basic fields:");
+        userInfo.setId(returnedUser.getId());
+        userInfo.setName(returnedUser.getName());
+        userInfo.setHref(returnedUser.getHref());
+        userInfo.setLeadsGroups(returnedUser.getLeadsGroups());
+        userInfo.setMemberOfGroups(returnedUser.getMemberOfGroups());
+        userInfo.setMonitoredByUsers(returnedUser.getMonitoredByUsers());
+        userInfo.setMonitorsUsers(returnedUser.getMonitorsUsers());
+
+        // and create MainMenuActivity;
+        action_mainMenu();
+    }
+
+    private void setupListUsers() {
+        // Make call
+        Call<List<UserInfo>> caller = proxy.getUsers();
+        ProxyBuilder.callProxy(LoginActivity.this, caller, returnedUsers -> response(returnedUsers));
+    }
+
+    private void LogIn(){
+        Call<UserInfo> caller = proxy.getUserByEmail(userInfo.getEmail());
+        ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
+    }
+
+
     private void storeEmail_sharedPreferences(){
         // Get user email
         String extractedEmail = userInfo.getEmail();
@@ -175,59 +232,5 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditor.commit();
     }
 
-    private void onReceiveToken(String token) {
-        // Replace the current proxy with one that uses the token!
-        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
-        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
-        sharedData.setToken(token);
-    }
-
-    private void response(Void returnedNothing) {
-        // Log message to signify successful login
-        Log.w(TAG, "Server replied to login request.");
-
-        // Store user info into Shared Preferences
-        storeEmail_sharedPreferences();
-        storePassword_sharedPreferences();
-
-        // Displays stored user information on Logcat for testing purposes. Use tag 'ServerTest' in Logcat without apostrophes.
-        setupListUsers();
-
-        // Set Id in userInfo
-        LogIn();
-    }
-
-    private void setupListUsers() {
-        // Make call
-        Call<List<UserInfo>> caller = proxy.getUsers();
-        ProxyBuilder.callProxy(LoginActivity.this, caller, returnedUsers -> response(returnedUsers));
-    }
-
-    private void LogIn(){
-        Call<UserInfo> caller = proxy.getUserByEmail(userInfo.getEmail());
-        ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
-    }
-
-    private void response(UserInfo returnedUser) {
-        // store data about the user from the server in userInfo
-        Log.w(TAG, "Set userInfo basic fields:");
-        userInfo.setId(returnedUser.getId());
-        userInfo.setName(returnedUser.getName());
-        userInfo.setHref(returnedUser.getHref());
-        userInfo.setLeadsGroups(returnedUser.getLeadsGroups());
-        userInfo.setMemberOfGroups(returnedUser.getMemberOfGroups());
-        userInfo.setMonitoredByUsers(returnedUser.getMonitoredByUsers());
-        userInfo.setMonitorsUsers(returnedUser.getMonitorsUsers());
-
-        // and create MainMenuActivity;
-        action_mainMenu();
-    }
-
-    private void response(List<UserInfo> returnedUsers) {
-        Log.w(TAG, "All Users:");
-        for (UserInfo user : returnedUsers) {
-           Log.w(TAG, "    User: " + user.toString());
-        }
-    }
 
 }

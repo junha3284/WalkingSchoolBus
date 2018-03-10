@@ -41,13 +41,17 @@ public class MoniterdUsersActivity extends AppCompatActivity {
         sharedData = SharedData.getSharedData();
 
         String token = sharedData.getToken();
+
+        // check if token is set properly
         if(token != null)
             proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
+        // get data about monitored Users from the server and populate the ListView with that
         getMonitoredUsers();
+
         setOnClickListeners();
         setBtns();
     }
@@ -96,11 +100,13 @@ public class MoniterdUsersActivity extends AppCompatActivity {
         refreshBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                // get data about monitored Users from the server and populate the ListView with that
                 getMonitoredUsers();
             }
         });
     }
 
+    // Convert List<UserInfo> into string which is usable for ListView Adapter
     private String[] getMonitoredUserDescriptions(){
         monitoredUsers = userInfo.getMonitorsUsers();
         int size = monitoredUsers.size();

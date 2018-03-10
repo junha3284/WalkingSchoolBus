@@ -55,17 +55,20 @@ public class AddMonitoredUserActivity extends AppCompatActivity {
                 String string_name = edit_name.getText().toString();
                 String string_email = edit_email.getText().toString();
                 //TODO: use string_email and string_use to validate user and add this person to this user's MonitorsUsers.
+                // request the server to add the user
                 addMonitoredUser(string_email);
             }
         });
     }
 
     public void addMonitoredUser(String email){
+        // request the server to get the id of the email owner
         Call<UserInfo> caller = proxy.getUserByEmail(email);
         ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
     }
 
     private void response(UserInfo returnedUser) {
+        // request the server to add MonitoredUser
         Call<List<UserInfo>> caller = proxy.addMonitoredUser(userInfo.getId(),returnedUser);
         ProxyBuilder.callProxy(caller,returnedList -> response(returnedList));
     }
