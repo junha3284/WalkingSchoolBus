@@ -26,7 +26,7 @@ public interface WGServerProxy {
     Call<Void> login(@Body UserInfo userWithEmailAndPassword);
 
     @GET("/users")
-    Call<List<UserInfo>> getUsers();
+    Call<List<UserInfo>> getUsers() ;
 
     @GET("/users/{id}")
     Call<UserInfo> getUserById(@Path("id") Long userId);
