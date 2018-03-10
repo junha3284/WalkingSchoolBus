@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
@@ -34,6 +35,10 @@ public class MainMenuActivity extends AppCompatActivity {
         TextView text_displayName = (TextView) findViewById(R.id.text_name);
         text_displayName.setText(userInfo.getName());
 
+        setButtons();
+    }
+
+    private void setButtons() {
         // Log out button
         Button action_logOut = (Button) findViewById(R.id.button_logOut);
         action_logOut.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +52,14 @@ public class MainMenuActivity extends AppCompatActivity {
                 Intent logInScreen = new Intent(MainMenuActivity.this, LoginActivity.class);
                 startActivity(logInScreen);
                 finish();
+            }
+        });
+        Button btnMonitorUsers = (Button) findViewById(R.id.button_monitorGroup);
+        btnMonitorUsers.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = MoniterdUsersActivity.makeIntent(MainMenuActivity.this);
+                startActivity(intent);
             }
         });
     }
