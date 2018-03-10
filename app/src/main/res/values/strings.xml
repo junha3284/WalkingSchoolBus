@@ -10,7 +10,6 @@
     <string name="msg_example_email">example@gamil.com</string>
     <string name="msg_name">Name:</string>
     <string name="msg_unknown">Unknown</string>
-    <string name="app_name">WalkingSchoolBus</string>
     <string name="title_active_groups">Active Groups</string>
     <string name="join_group_details_destination">Destination</string>
     <string name="join_group_details_meeting_place">Meeting Place</string>

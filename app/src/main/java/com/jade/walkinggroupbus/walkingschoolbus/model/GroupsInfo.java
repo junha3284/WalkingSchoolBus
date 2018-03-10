@@ -1,5 +1,8 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by c on 06/03/18.
  */
@@ -22,13 +25,15 @@ public class GroupsInfo {
     }
 
 
-    public String[] getNames() {
-        String[] groupNames = {};
+    public List<String> getNames() {
+        List<String> groupNames = new ArrayList<>();
         return groupNames;
     }
 
-    public float[] getCoordinates(String groupName) {
-        float[] coordinates = {0,0};
+    public List<Float> getCoordinates(String groupName) {
+        List<Float> coordinates = new ArrayList<>();
+        coordinates.add(new Float(0));
+        coordinates.add(new Float(0));
         return coordinates;
     }
 
@@ -42,8 +47,8 @@ public class GroupsInfo {
         return meetingPlace;
     }
 
-    public String[] getMembers(String groupName) {
-        String[] members = {};
+    public List<String> getMembers(String groupName) {
+        List<String> members = new ArrayList<>();
         return members;
     }
 }

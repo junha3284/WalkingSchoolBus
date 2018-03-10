@@ -13,6 +13,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 
+import java.util.List;
+
 public class JoinGroupActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap map;
@@ -32,13 +34,13 @@ public class JoinGroupActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        String[] groupNames = groupsInfo.getNames();
+        List<String> groupNames = groupsInfo.getNames();
 
-        for (int i = 0; i < groupNames.length; i++) {
-            float groupCoordinates[] = groupsInfo.getCoordinates(groupNames[i]);
+        for (int i = 0; i < groupNames.size(); i++) {
+            List<Float> groupCoordinates = groupsInfo.getCoordinates(groupNames.get(i));
             Marker marker = map.addMarker(new MarkerOptions()
-                            .position(new LatLng(groupCoordinates[0],groupCoordinates[1]))
-                            .title(groupNames[i]));
+                            .position(new LatLng(groupCoordinates.get(0),groupCoordinates.get(1)))
+                            .title(groupNames.get(i)));
         }
         map.setOnInfoWindowClickListener(this);
     }

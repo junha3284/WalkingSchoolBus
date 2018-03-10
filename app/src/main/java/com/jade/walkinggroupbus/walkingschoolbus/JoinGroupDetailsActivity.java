@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
+import java.util.List;
+
 public class JoinGroupDetailsActivity extends AppCompatActivity {
 
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
@@ -38,7 +40,7 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
     private void setGroupText() {
         String destination = groupsInfo.getDestination(groupName);
         String meetingPlace = groupsInfo.getMeetingPlace(groupName);
-        String members[] = groupsInfo.getMembers(groupName);
+        List<String> members = groupsInfo.getMembers(groupName);
 
         TextView textDestination = findViewById(R.id.text_destination);
         textDestination.setText(destination);
@@ -54,11 +56,11 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
 
 
     private void setJoinGroupButton() {
-        Button button = findViewById(R.id.button_join_group_join);
+        Button button = findViewById(R.id.button_join);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.addGroup(groupName);
+                user.addWalkingGroup(groupName);
 
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
