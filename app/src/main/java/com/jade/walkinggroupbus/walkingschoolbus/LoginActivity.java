@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // Singleton Pattern implementation
     private UserInfo userInfo;
+    private SharedData sharedData;
 
     public String inputPassword;
     public String inputEmail;
@@ -43,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // Singleton
             userInfo = UserInfo.userInfo();
+            sharedData = SharedData.getSharedData();
 
             // Build the server proxy
             proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), null);
@@ -175,6 +178,7 @@ public class LoginActivity extends AppCompatActivity {
         // Replace the current proxy with one that uses the token!
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
+        sharedData.setToken(token);
     }
 
     private void response(Void returnedNothing) {
