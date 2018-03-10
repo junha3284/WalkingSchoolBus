@@ -53,6 +53,7 @@ public class MoniterdUsersActivity extends AppCompatActivity {
 
     private void getMonitoredUsers(){
         //TODO: populate the list, moniotredUsers from Main User (singleton)
+
     }
 
 

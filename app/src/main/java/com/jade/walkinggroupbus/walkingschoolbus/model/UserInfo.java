@@ -12,7 +12,8 @@ public class UserInfo {
 
     private List<UserInfo> monitoredByUsers = new ArrayList<>();
     private List<UserInfo> monitorsUsers = new ArrayList<>();
-    private List<Void> memberOfGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
+    private List<Group> memberOfGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
+    private List<Group> leadsGroups = new ArrayList<>();
 
     private String href;
 
@@ -81,11 +82,11 @@ public class UserInfo {
         this.monitorsUsers = monitorsUsers;
     }
 
-    public List<Void> getWalkingGroups() {
+    public List<Group> getWalkingGroups() {
         return memberOfGroups;
     }
 
-    public void setWalkingGroups(List<Void> walkingGroups) {
+    public void setWalkingGroups(List<Group> walkingGroups) {
         this.memberOfGroups = walkingGroups;
     }
 
