@@ -192,7 +192,9 @@ public class LoginActivity extends AppCompatActivity {
         // Displays stored user information on Logcat for testing purposes. Use tag 'ServerTest' in Logcat without apostrophes.
         setupListUsers();
 
-        // Login
+        // Set Id in userInfo
+        setupUser();
+
         action_mainMenu();
     }
 
@@ -202,10 +204,19 @@ public class LoginActivity extends AppCompatActivity {
         ProxyBuilder.callProxy(LoginActivity.this, caller, returnedUsers -> response(returnedUsers));
     }
 
+    private void setupUser(){
+        Call<UserInfo> caller = proxy.getUserByEmail(userInfo.getEmail());
+        ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
+    }
+
+    private void response(UserInfo returnedUser) {
+        userInfo.setId(returnedUser.getId());
+    }
+
     private void response(List<UserInfo> returnedUsers) {
-        Log.w(TAG, "All Users:");
+        Log.d(TAG, "All Users:");
         for (UserInfo user : returnedUsers) {
-            Log.w(TAG, "    User: " + user.toString());
+           Log.w(TAG, "    User: " + user.toString());
         }
     }
 

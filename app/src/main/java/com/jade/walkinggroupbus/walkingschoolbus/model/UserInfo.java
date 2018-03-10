@@ -12,7 +12,7 @@ public class UserInfo {
 
     private List<UserInfo> monitoredByUsers = new ArrayList<>();
     private List<UserInfo> monitorsUsers = new ArrayList<>();
-    private List<Void> walkingGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
+    private List<Void> memberOfGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
 
     private String href;
 
@@ -27,8 +27,10 @@ public class UserInfo {
     public static UserInfo userInfo(){
         if (instance == null){
             instance = new UserInfo();
+            return instance;
         }
-        return instance;
+        else
+            return instance;
     }
 
     public String getEmail() {
@@ -80,11 +82,11 @@ public class UserInfo {
     }
 
     public List<Void> getWalkingGroups() {
-        return walkingGroups;
+        return memberOfGroups;
     }
 
     public void setWalkingGroups(List<Void> walkingGroups) {
-        this.walkingGroups = walkingGroups;
+        this.memberOfGroups = walkingGroups;
     }
 
     public String getHref() {
@@ -105,7 +107,7 @@ public class UserInfo {
                 ", password='" + password + '\'' +
                 ", monitoredByUsers=" + monitoredByUsers +
                 ", monitorsUsers=" + monitorsUsers +
-                ", walkingGroups=" + walkingGroups +
+                ", walkingGroups=" + memberOfGroups +
                 '}';
     }
 

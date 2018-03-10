@@ -3,25 +3,48 @@ package com.jade.walkinggroupbus.walkingschoolbus;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
+import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 public class MoniterdUsersActivity extends AppCompatActivity {
 
-    List<UserInfo> monitoredUsers;
+    private UserInfo userInfo;
+    private SharedData sharedData;
+    private WGServerProxy proxy;
+
+    private static final String TAG = "ServerTest";
+
+    private List<UserInfo> monitoredUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moniterd_users);
+
+        userInfo = UserInfo.userInfo();
+        sharedData = SharedData.getSharedData();
+
+        String token = sharedData.getToken();
+        if(token != null)
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
+        else {
+            ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
+        }
+
         getMonitoredUsers();
         updateListView();
         setOnClickListeners();
@@ -70,5 +93,12 @@ public class MoniterdUsersActivity extends AppCompatActivity {
         for(int i =0; i < size; i++)
             description[i] = monitoredUsers.get(i).toStringForList();
         return description;
+    }
+
+    private void onReceiveToken(String token) {
+        // Replace the current proxy with one that uses the token!
+        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
+        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
+        sharedData.setToken(token);
     }
 }

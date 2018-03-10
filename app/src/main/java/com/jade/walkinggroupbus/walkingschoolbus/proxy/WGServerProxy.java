@@ -34,6 +34,8 @@ public interface WGServerProxy {
     @GET("/users/byEmail")
     Call<UserInfo> getUserByEmail(@Query("email") String email);
 
+    @GET("/users/{id}/monitorsUsers")
+    Call<List<UserInfo>> getMonitoredUsers(@Path("id") Long userId);
     /**
      * MORE GOES HERE:
      * - Monitoring
