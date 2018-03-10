@@ -7,6 +7,7 @@ import java.util.List;
 public class UserInfo {
     private Long id;
     private String email;
+
     private String password;
     private String name;
 
@@ -82,12 +83,20 @@ public class UserInfo {
         this.monitorsUsers = monitorsUsers;
     }
 
-    public List<Group> getWalkingGroups() {
+    public List<Group> getMemberOfGroups() {
         return memberOfGroups;
     }
 
-    public void setWalkingGroups(List<Group> walkingGroups) {
-        this.memberOfGroups = walkingGroups;
+    public void setMemberOfGroups(List<Group> memberOfGroups) {
+        this.memberOfGroups = memberOfGroups;
+    }
+
+    public List<Group> getLeadsGroups() {
+        return leadsGroups;
+    }
+
+    public void setLeadsGroups(List<Group> leadsGroups) {
+        this.leadsGroups = leadsGroups;
     }
 
     public String getHref() {

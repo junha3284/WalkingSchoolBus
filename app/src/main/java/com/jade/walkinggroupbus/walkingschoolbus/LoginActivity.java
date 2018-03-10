@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
@@ -190,12 +191,10 @@ public class LoginActivity extends AppCompatActivity {
         storePassword_sharedPreferences();
 
         // Displays stored user information on Logcat for testing purposes. Use tag 'ServerTest' in Logcat without apostrophes.
-        setupListUsers();
+        //setupListUsers();
 
         // Set Id in userInfo
-        setupUser();
-
-        action_mainMenu();
+        LogIn();
     }
 
     private void setupListUsers() {
@@ -204,17 +203,21 @@ public class LoginActivity extends AppCompatActivity {
         ProxyBuilder.callProxy(LoginActivity.this, caller, returnedUsers -> response(returnedUsers));
     }
 
-    private void setupUser(){
+    private void LogIn(){
         Call<UserInfo> caller = proxy.getUserByEmail(userInfo.getEmail());
         ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
     }
 
     private void response(UserInfo returnedUser) {
+        Log.w(TAG, "Set userInfo's Id field:");
+        Toast.makeText(this, "***" +returnedUser.toString(), Toast.LENGTH_LONG).show();
         userInfo.setId(returnedUser.getId());
+        userInfo.setName(returnedUser.getName());
+        action_mainMenu();
     }
 
     private void response(List<UserInfo> returnedUsers) {
-        Log.d(TAG, "All Users:");
+        Log.w(TAG, "All Users:");
         for (UserInfo user : returnedUsers) {
            Log.w(TAG, "    User: " + user.toString());
         }
