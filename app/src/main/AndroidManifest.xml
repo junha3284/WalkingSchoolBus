@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MoniterdUsersActivity" />
+        <activity android:name=".MonitoredUserDetailActivity" />
+        <activity android:name=".AddMonitoredUserActivity"/>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainMenuActivity" ></activity>
         <activity android:name=".JoinGroupActivity" />
         <activity android:name=".JoinGroupDetailsActivity"></activity>
     </application>

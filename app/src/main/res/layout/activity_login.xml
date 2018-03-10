@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/text_title"
             android:layout_width="348dp"
             android:layout_height="56dp"
             android:layout_gravity="center_horizontal"
@@ -37,7 +37,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/username"
+                android:id="@+id/test_username"
                 android:layout_width="20dp"
                 android:layout_height="46dp"
                 android:layout_weight="1"
@@ -45,7 +45,7 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/userfield"
+                android:id="@+id/edit_userfield"
                 android:layout_width="67dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -59,14 +59,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/password"
+                android:id="@+id/text_password"
                 android:layout_width="147dp"
                 android:layout_height="wrap_content"
                 android:text="@string/password"
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/passField"
+                android:id="@+id/edit_passField"
                 android:layout_width="211dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -82,14 +82,14 @@
             tools:layout_editor_absoluteY="198dp">
 
             <Button
-                android:id="@+id/login"
+                android:id="@+id/button_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/login" />
 
             <Button
-                android:id="@+id/register"
+                android:id="@+id/button_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -97,7 +97,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/errorLogin"
+            android:id="@+id/text_errorLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_dark" />
