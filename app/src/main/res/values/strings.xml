@@ -15,7 +15,6 @@
     <string name="join_group_details_meeting_place">Meeting Place</string>
     <string name="join_group_details_join">Join</string>
     <string name="join_group_details_members">Members</string>
-    <string name="app_name">WalkingSchoolBus</string>
     <string name="walking_groups_title">My Walking Groups</string>
     <string name="action_JoinWalkingGroup">Join Walking Group</string>
     <string name="action_LeaveGroup">Leave Walking Group</string>
