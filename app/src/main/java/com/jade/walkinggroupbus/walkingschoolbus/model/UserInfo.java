@@ -99,9 +99,6 @@ public class UserInfo {
         this.leadsGroups = leadsGroups;
     }
 
-    public void addWalkingGroup(String groupName) {
-    }
-
     public String getHref() {
         return href;
     }

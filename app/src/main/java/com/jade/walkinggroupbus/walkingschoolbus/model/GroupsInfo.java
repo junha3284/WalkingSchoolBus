@@ -3,15 +3,12 @@ package com.jade.walkinggroupbus.walkingschoolbus.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by c on 06/03/18.
- */
 
 public class GroupsInfo {
 
+    private List<Group> walkingGroups = new ArrayList<>();
 
-
-    public static GroupsInfo instance;
+    private static GroupsInfo instance;
 
     private GroupsInfo() {
 
@@ -27,28 +24,72 @@ public class GroupsInfo {
 
     public List<String> getNames() {
         List<String> groupNames = new ArrayList<>();
+        for (Group group : walkingGroups) {
+            groupNames.add(group.getGroupDescription());
+        }
         return groupNames;
     }
 
-    public List<Float> getCoordinates(String groupName) {
-        List<Float> coordinates = new ArrayList<>();
-        coordinates.add(new Float(0));
-        coordinates.add(new Float(0));
+    // pre-condition: groupName in walkingGroups
+    public List<Double> getMeetingPlaceCoordinates(String groupName) {
+        List<Double> coordinates = new ArrayList<>();
+        for (Group group : walkingGroups) {
+            if (group.getGroupDescription().equals(groupName)) {
+                Double[] latCoordinates = group.getRouteLatArray();
+                Double[] lngCoordinates = group.getRouteLngArray();
+                coordinates.add(latCoordinates[0]);
+                coordinates.add(lngCoordinates[0]);
+            }
+        }
         return coordinates;
     }
 
-    public String getDestination(String groupName) {
-        String destination = "Destination";
-        return destination;
+    // pre-condition: groupName in walkingGroups
+    public List<Double> getDestinationCoordinates(String groupName) {
+        List<Double> coordinates = new ArrayList<>();
+        for (Group group : walkingGroups) {
+            if (group.getGroupDescription().equals(groupName)) {
+                Double[] latCoordinates = group.getRouteLatArray();
+                Double[] lngCoordinates = group.getRouteLngArray();
+                coordinates.add(latCoordinates[1]);
+                coordinates.add(lngCoordinates[1]);
+            }
+        }
+        return coordinates;
     }
 
-    public String getMeetingPlace(String groupName) {
-        String meetingPlace = "Meeting Place";
-        return meetingPlace;
-    }
-
-    public List<String> getMembers(String groupName) {
-        List<String> members = new ArrayList<>();
+    // pre-condition: groupName in walkingGroups
+    public List<UserInfo> getMembers(String groupName) {
+        List<UserInfo> members = new ArrayList<>();
+        for (Group group : walkingGroups) {
+            if (group.getGroupDescription().equals(groupName)) {
+                members = group.getMembers();
+            }
+        }
         return members;
+    }
+
+    // pre-condition: groupName in walkingGroups
+    public Long getGroupID(String groupName) {
+        Long groupID = null;
+        for (Group group : walkingGroups) {
+            if (group.getGroupDescription().equals(groupName)) {
+                groupID = group.getId();
+            }
+        }
+        return groupID;
+    }
+
+    // pre-condition: groupName in walkingGroups
+    public void setMembers(String groupName, List<UserInfo> users) {
+        for (Group group : walkingGroups) {
+            if (group.getGroupDescription().equals(groupName)) {
+                group.setMembers(users);
+            }
+        }
+    }
+
+    public void setGroups(List<Group> groups) {
+        walkingGroups = groups;
     }
 }

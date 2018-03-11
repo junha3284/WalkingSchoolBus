@@ -5,15 +5,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChildInfo {
-    private Long id;
-    private String email;
-    private String password;
-    private String name;
 
-    private List<UserInfo> monitoredByUsers = new ArrayList<>();
-    private List<UserInfo> monitorsUsers = new ArrayList<>();
-    private List<Void> walkingGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
+    private UserInfo child;
+    private boolean manageChild = false;
 
-    private String href;
-    
+
+    // Singleton Implementation
+    private static ChildInfo instance;
+
+    private ChildInfo() {
+
+    }
+
+    public static ChildInfo childInfo(){
+        if (instance == null){
+            instance = new ChildInfo();
+            return instance;
+        }
+        return instance;
+    }
+
+    public void setChildInfo(UserInfo user) {
+        child = user;
+    }
+
+    public boolean isActive() {
+        return manageChild;
+    }
+
+    public void activateUser() {
+        manageChild = true;
+    }
+
+    public void deactivateUser() {
+        manageChild = false;
+    }
+
+    public Long getId() {
+        Long id = child.getId();
+        return id;
+    }
 }
