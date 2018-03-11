@@ -39,4 +39,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
     // Logging in Retrofit
     compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.google.android.gms:play-services-maps:11.8.0'
 }

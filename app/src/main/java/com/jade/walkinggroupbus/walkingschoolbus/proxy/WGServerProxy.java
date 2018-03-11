@@ -2,6 +2,7 @@ package com.jade.walkinggroupbus.walkingschoolbus.proxy;
 
 import java.util.List;
 
+import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
 import retrofit2.Call;
@@ -27,7 +28,7 @@ public interface WGServerProxy {
     Call<Void> login(@Body UserInfo userWithEmailAndPassword);
 
     @GET("/users")
-    Call<List<UserInfo>> getUsers();
+    Call<List<UserInfo>> getUsers() ;
 
     @GET("/users/{id}")
     Call<UserInfo> getUserById(@Path("id") Long userId);
@@ -43,6 +44,12 @@ public interface WGServerProxy {
 
     @DELETE("/users/{idA}/monitorsUsers/{idB}")
     Call<Void> deleteMonitoredUser(@Path("idA") Long monitorUserID, @Path("idB") Long monitoredUserID);
+
+    @GET("/groups")
+    Call<List<Group>> getGroups();
+
+    @POST("/groups/{id}/membersUsers")
+    Call<List<UserInfo>> addNewMemberOfGroup(@Path("id") Long groupID, @Body Long userID);
 
     /**
      * MORE GOES HERE:

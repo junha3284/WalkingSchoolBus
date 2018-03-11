@@ -27,7 +27,7 @@ public class Group {
         return GroupDescription;
     }
 
-    public Double[] getRouteLatArrayy(){
+    public Double[] getRouteLatArray(){
         return routeLatArray;
     }
 

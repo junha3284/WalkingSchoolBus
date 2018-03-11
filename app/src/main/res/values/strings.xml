@@ -10,6 +10,11 @@
     <string name="msg_example_email">example@gamil.com</string>
     <string name="msg_name">Name:</string>
     <string name="msg_unknown">Unknown</string>
+    <string name="title_active_groups">Active Groups</string>
+    <string name="join_group_details_destination">Destination</string>
+    <string name="join_group_details_meeting_place">Meeting Place</string>
+    <string name="join_group_details_join">Join</string>
+    <string name="join_group_details_members">Members</string>
     <string name="the_walking_school_bus">The Walking School Bus</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
@@ -27,5 +32,6 @@
     <string name="welcome_back">Welcome Back,</string>
     <string name="API_KEY">99CC9DDB-3692-475A-A7D7-9E74C6DA048B</string>
     <string name="action_refresh">REFRESH</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
