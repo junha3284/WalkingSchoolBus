@@ -1,4 +1,20 @@
 <resources>
+    <string name="app_name">The Walking School Bus</string>
+    <string name="title_monitored_children">your children</string>
+    <string name="action_add">add</string>
+    <string name="action_remove">Remove</string>
+    <string name="title_info">Information</string>
+    <string name="title_walking_group">Walking Group</string>
+    <string name="msg_password">Password:</string>
+    <string name="msg_email">Email:</string>
+    <string name="msg_example_email">example@gamil.com</string>
+    <string name="msg_name">Name:</string>
+    <string name="msg_unknown">Unknown</string>
+    <string name="title_active_groups">Active Groups</string>
+    <string name="join_group_details_destination">Destination</string>
+    <string name="join_group_details_meeting_place">Meeting Place</string>
+    <string name="join_group_details_join">Join</string>
+    <string name="join_group_details_members">Members</string>
     <string name="app_name">WalkingSchoolBus</string>
     <string name="walking_groups_title">My Walking Groups</string>
     <string name="action_JoinWalkingGroup">Join Walking Group</string>
@@ -18,5 +34,9 @@
     <string name="email">Email:</string>
     <string name="confirm_password">Confirm Password:</string>
     <string name="log_out">Log Out</string>
+    <string name="welcome_back">Welcome Back,</string>
+    <string name="API_KEY">99CC9DDB-3692-475A-A7D7-9E74C6DA048B</string>
+    <string name="action_refresh">REFRESH</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
