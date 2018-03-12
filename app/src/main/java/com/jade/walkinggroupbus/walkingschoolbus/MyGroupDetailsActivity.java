@@ -33,11 +33,13 @@ public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapRe
 
     private SharedData sharedData;
     private WGServerProxy proxy;
+    private GoogleMap map;
+
     private UserInfo userInfo;
+
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
     private String groupName;
     private List<Double> groupCoordinates;
-    private GoogleMap map;
 
     private static final String TAG = "ServerTest";
 
@@ -46,6 +48,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_group_details);
 
+        // instantiate vars
         userInfo = UserInfo.userInfo();
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
@@ -122,7 +125,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void leaveGroup() {
-        // TODO: make user leave selected group
         Button btnLeave = (Button) findViewById(R.id.button_leave_group);
 
         btnLeave.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +138,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapRe
         });
     }
 
+    // call successful if nothing returned
     private void response(Void returnNothing){
         finish();
     }

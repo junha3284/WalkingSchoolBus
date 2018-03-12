@@ -1,5 +1,6 @@
 package com.jade.walkinggroupbus.walkingschoolbus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,19 +30,18 @@ public class WalkingGroupsActivity extends AppCompatActivity {
 
     private SharedData sharedData;
     private WGServerProxy proxy;
+
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
-
+    private UserInfo userInfo;
     private static final String TAG = "ServerTest";
-    private static final int REQUEST_CODE_MYGROUPDETAILS = 050;
-
-    private List<Group> myGroups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walking_groups);
 
-        // setup shared data
+        // setup shared data.
+        userInfo = UserInfo.userInfo();
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
 
@@ -54,19 +55,24 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         // when someone clicks a group
         registerClickCallback();
 
-        getGroupNames();
-
         // display the data to the list view
         refreshListView();
+
+        joinButton();
     }
 
-    private void getGroupNames() {
-        Call<List<Group>> caller = proxy.getGroups();
-        ProxyBuilder.callProxy(WalkingGroupsActivity.this, caller, returnedGroups -> response(returnedGroups));
-    }
+    private void joinButton() {
+        Button btnJoinGroups = (Button) findViewById(R.id.button_join_walking_group);
 
-    private void response(List<Group> returnedGroups) {
-        groupsInfo.setGroups(returnedGroups);
+        btnJoinGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // move to join walking group page
+                Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void refreshListView() {
@@ -106,7 +112,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 Intent intent = MyGroupDetailsActivity.makeIntent(WalkingGroupsActivity.this);
 
                 intent.putExtra("passedGroupName", groupNames.get(position));
-                startActivityForResult(intent, REQUEST_CODE_MYGROUPDETAILS);
+                startActivity(intent);
             }
         });
     }
