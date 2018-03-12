@@ -24,10 +24,11 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map_myGroupDetails"
-            android:layout_width="344dp"
-            android:layout_height="250dp" />
+        <Button
+            android:id="@+id/button_displayMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_SeeGroupLocation" />
 
         <TextView
             android:id="@+id/text_members"

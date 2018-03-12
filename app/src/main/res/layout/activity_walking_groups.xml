@@ -40,4 +40,15 @@
         android:layout_marginBottom="26dp"
         android:text="@string/action_JoinWalkingGroup" />
 
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/button_join_walking_group"
+        android:layout_marginEnd="29dp"
+        android:layout_marginRight="29dp"
+        android:text="go next" />
+
 </RelativeLayout>

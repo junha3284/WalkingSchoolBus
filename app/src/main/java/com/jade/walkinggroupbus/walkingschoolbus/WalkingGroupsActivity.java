@@ -59,6 +59,20 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         refreshListView();
 
         joinButton();
+        //testButton();
+    }
+
+    // debug button for testing map without group creation
+    private void testButton() {
+        Button gotoNext = (Button) findViewById(R.id.testButton);
+
+        gotoNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MyGroupDetailsActivity.makeIntent(WalkingGroupsActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void joinButton() {
@@ -67,6 +81,9 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         btnJoinGroups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Log.i("sdf", "im alive 0");
+
                 // move to join walking group page
                 Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupActivity.class);
                 startActivity(intent);
@@ -77,6 +94,9 @@ public class WalkingGroupsActivity extends AppCompatActivity {
 
     private void refreshListView() {
         List<String> groupNames = groupsInfo.getNames();
+
+        // create fake group
+
 
         // build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(

@@ -29,7 +29,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private SharedData sharedData;
     private WGServerProxy proxy;
@@ -39,7 +39,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapRe
 
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
     private String groupName;
-    private List<Double> groupCoordinates;
 
     private static final String TAG = "ServerTest";
 
@@ -64,27 +63,23 @@ public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapRe
         getIntentData();
         updateListView();
 
-        // setup map
-        getGroupLocationCoordinates();
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_myGroupDetails);
-        mapFragment.getMapAsync(this);
+        mapButton();
 
         // leave walking group
         leaveGroupButton();
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        // setup marker for selected group on map creation
-        map = googleMap;
-        Marker mapMarker = map.addMarker(new MarkerOptions()
-                .position(new LatLng(groupCoordinates.get(0),groupCoordinates.get(1)))
-                .title(groupName));
-    }
+    private void mapButton() {
+        Button btnMap = (Button) findViewById(R.id.button_displayMap);
 
-    private void getGroupLocationCoordinates() {
-        groupCoordinates = groupsInfo.getMeetingPlaceCoordinates(groupName);
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyGroupDetailsActivity.this, MyGroupDetailsMapActivity.class);
+                intent.putExtra("passedGroupName", groupName);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateListView() {

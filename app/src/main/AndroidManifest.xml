@@ -11,6 +11,11 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <permission
+        android:name="com.jade.walkinggroupbus.walkingschoolbus.permission.MyGroupDetailsMapActivity"
+        android:protectionLevel="signature" >
+    </permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -44,13 +49,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".WalkingGroupsActivity">
-            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-        </activity>
-        <activity android:name=".MyGroupDetailsActivity"
-            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".WalkingGroupsActivity" />
+        <activity android:name=".MyGroupDetailsActivity" />
+        <activity android:name=".MyGroupDetailsMapActivity" />
     </application>
 
 </manifest>
