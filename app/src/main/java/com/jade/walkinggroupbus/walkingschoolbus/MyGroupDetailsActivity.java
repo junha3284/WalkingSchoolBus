@@ -27,10 +27,13 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private SharedData sharedData;
     private WGServerProxy proxy;
+    private UserInfo userInfo;
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
     private String groupName;
     private List<Double> groupCoordinates;
@@ -43,6 +46,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_group_details);
 
+        userInfo = UserInfo.userInfo();
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
 
@@ -119,6 +123,21 @@ public class MyGroupDetailsActivity extends AppCompatActivity implements OnMapRe
 
     private void leaveGroup() {
         // TODO: make user leave selected group
+        Button btnLeave = (Button) findViewById(R.id.button_leave_group);
+
+        btnLeave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // call proxy to leave group
+                Long groupID = groupsInfo.getGroupID(groupName);
+                Call<Void> caller = proxy.leaveGroup(groupID ,userInfo.getId());
+                ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
+            }
+        });
+    }
+
+    private void response(Void returnNothing){
+        finish();
     }
 
     public static Intent makeIntent(Context context) {

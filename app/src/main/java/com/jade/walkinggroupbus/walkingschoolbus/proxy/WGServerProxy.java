@@ -51,6 +51,9 @@ public interface WGServerProxy {
     @POST("/groups/{id}/membersUsers")
     Call<List<UserInfo>> addNewMemberOfGroup(@Path("id") Long groupID, @Body Long userID);
 
+    @DELETE("/groups/{groupId}/memberUsers/{userId}")
+    Call<Void> leaveGroup(@Path("groupId") Long groupID, @Path("userID") Long userID);
+
     /**
      * MORE GOES HERE:
      * - Monitoring
