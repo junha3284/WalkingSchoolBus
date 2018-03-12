@@ -62,6 +62,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         //testButton();
     }
 
+    /*
     // debug button for testing map without group creation
     private void testButton() {
         Button gotoNext = (Button) findViewById(R.id.testButton);
@@ -73,7 +74,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
+    }       //*/
 
     private void joinButton() {
         Button btnJoinGroups = (Button) findViewById(R.id.button_join_walking_group);
