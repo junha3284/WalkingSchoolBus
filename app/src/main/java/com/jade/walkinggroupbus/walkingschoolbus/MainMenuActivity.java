@@ -54,11 +54,21 @@ public class MainMenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         Button btnMonitorUsers = (Button) findViewById(R.id.button_monitorGroup);
         btnMonitorUsers.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = MoniterdUsersActivity.makeIntent(MainMenuActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        Button btnWalkingGroups = (Button) findViewById(R.id.button_walkingGroup);
+        btnWalkingGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = WalkingGroupsActivity.makeIntent(MainMenuActivity.this);
                 startActivity(intent);
             }
         });

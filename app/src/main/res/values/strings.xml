@@ -15,6 +15,10 @@
     <string name="join_group_details_meeting_place">Meeting Place</string>
     <string name="join_group_details_join">Join</string>
     <string name="join_group_details_members">Members</string>
+    <string name="walking_groups_title">My Walking Groups</string>
+    <string name="action_JoinWalkingGroup">Join Walking Group</string>
+    <string name="action_LeaveGroup">Leave Walking Group</string>
+    <string name="my_group_details_title">Group Details</string>
     <string name="the_walking_school_bus">The Walking School Bus</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
