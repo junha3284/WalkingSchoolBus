@@ -26,12 +26,12 @@ import retrofit2.Call;
 
 public class WalkingGroupsActivity extends AppCompatActivity {
 
-
     private SharedData sharedData;
     private WGServerProxy proxy;
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
 
     private static final String TAG = "ServerTest";
+    private static final int REQUEST_CODE_MYGROUPDETAILS = 050;
 
     private List<Group> myGroups;
 
@@ -50,7 +50,6 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
-
 
         // when someone clicks a group
         registerClickCallback();
@@ -89,6 +88,8 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         // set up onclick listener with list view
         ListView list = (ListView) findViewById(R.id.listView_my_groups);
 
+        List<String> groupNames = groupsInfo.getNames();
+
         // configure listener to do what i want
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,12 +103,11 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                         + ", which is: " + textView.getText().toString();
                 Toast.makeText(WalkingGroupsActivity.this, message, Toast.LENGTH_LONG).show();;
 
-
-                // MOVE TO CALCULATE SERVING SIZE SCREEN;
-                //ArrayList passedGroup = fakeGroupArray.get(position);
-
+                // MOVE TO MY GROUP DETAILS. PASS GROUP NAME
                 Intent intent = MyGroupDetailsActivity.makeIntent(WalkingGroupsActivity.this);
-                startActivity(intent);
+
+                intent.putExtra("passedGroupName", groupNames.get(position));
+                startActivityForResult(intent, REQUEST_CODE_MYGROUPDETAILS);
             }
         });
     }

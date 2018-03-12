@@ -37,5 +37,6 @@
     <string name="API_KEY">99CC9DDB-3692-475A-A7D7-9E74C6DA048B</string>
     <string name="action_refresh">REFRESH</string>
     <string name="title_activity_maps">Map</string>
+    <string name="my_group_details_members">Group Members</string>
 
 </resources>
