@@ -72,7 +72,6 @@ public class WalkingGroupsActivity extends AppCompatActivity {
     private void refreshListView() {
         List<String> groupNames = groupsInfo.getNames();
 
-
         // build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,                  // context
