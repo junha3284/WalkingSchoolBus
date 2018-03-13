@@ -59,22 +59,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         refreshListView();
 
         joinButton();
-        //testButton();
     }
-
-    /*
-    // debug button for testing map without group creation
-    private void testButton() {
-        Button gotoNext = (Button) findViewById(R.id.testButton);
-
-        gotoNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = MyGroupDetailsActivity.makeIntent(WalkingGroupsActivity.this);
-                startActivity(intent);
-            }
-        });
-    }       //*/
 
     private void joinButton() {
         Button btnJoinGroups = (Button) findViewById(R.id.button_join_walking_group);
@@ -95,9 +80,6 @@ public class WalkingGroupsActivity extends AppCompatActivity {
 
     private void refreshListView() {
         List<String> groupNames = groupsInfo.getNames();
-
-        // create fake group
-
 
         // build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -121,13 +103,6 @@ public class WalkingGroupsActivity extends AppCompatActivity {
             @Override
             // id of what was clicked
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id ) {
-
-                // do stuff when list on item is clicked
-                // DEBUG
-                TextView textView = (TextView) viewClicked;
-                String message = "You clicked on item # " + position + 1
-                        + ", which is: " + textView.getText().toString();
-                Toast.makeText(WalkingGroupsActivity.this, message, Toast.LENGTH_LONG).show();;
 
                 // MOVE TO MY GROUP DETAILS. PASS GROUP NAME
                 Intent intent = MyGroupDetailsActivity.makeIntent(WalkingGroupsActivity.this);

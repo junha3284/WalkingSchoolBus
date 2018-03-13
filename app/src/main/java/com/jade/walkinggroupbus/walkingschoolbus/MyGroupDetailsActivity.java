@@ -33,7 +33,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private SharedData sharedData;
     private WGServerProxy proxy;
-    private GoogleMap map;
 
     private UserInfo userInfo;
 

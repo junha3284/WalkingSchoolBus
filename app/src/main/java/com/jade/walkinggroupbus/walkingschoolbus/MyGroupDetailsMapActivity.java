@@ -16,10 +16,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 
 import java.util.List;
 
-/**
- * Created by brand on 2018-03-11.
- */
-
 public class MyGroupDetailsMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap map;
