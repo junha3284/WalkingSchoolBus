@@ -40,4 +40,6 @@ dependencies {
     // Logging in Retrofit
     compile 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation 'com.google.android.gms:play-services-location:11.8.0'
+    compile 'com.google.android.gms:play-services:11.8.0'
 }

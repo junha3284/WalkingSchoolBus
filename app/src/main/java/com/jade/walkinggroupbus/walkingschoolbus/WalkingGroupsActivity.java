@@ -1,5 +1,6 @@
 package com.jade.walkinggroupbus.walkingschoolbus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,21 +28,20 @@ import retrofit2.Call;
 
 public class WalkingGroupsActivity extends AppCompatActivity {
 
-
     private SharedData sharedData;
     private WGServerProxy proxy;
+
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
-
+    private UserInfo userInfo;
     private static final String TAG = "ServerTest";
-
-    private List<Group> myGroups;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walking_groups);
 
-        // setup shared data
+        // setup shared data.
+        userInfo = UserInfo.userInfo();
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
 
@@ -51,28 +52,34 @@ public class WalkingGroupsActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
-
         // when someone clicks a group
         registerClickCallback();
 
-        getGroupNames();
-
         // display the data to the list view
         refreshListView();
+
+        joinButton();
     }
 
-    private void getGroupNames() {
-        Call<List<Group>> caller = proxy.getGroups();
-        ProxyBuilder.callProxy(WalkingGroupsActivity.this, caller, returnedGroups -> response(returnedGroups));
-    }
+    private void joinButton() {
+        Button btnJoinGroups = (Button) findViewById(R.id.button_join_walking_group);
 
-    private void response(List<Group> returnedGroups) {
-        groupsInfo.setGroups(returnedGroups);
+        btnJoinGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.i("sdf", "im alive 0");
+
+                // move to join walking group page
+                Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void refreshListView() {
         List<String> groupNames = groupsInfo.getNames();
-
 
         // build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -89,24 +96,18 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         // set up onclick listener with list view
         ListView list = (ListView) findViewById(R.id.listView_my_groups);
 
+        List<String> groupNames = groupsInfo.getNames();
+
         // configure listener to do what i want
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             // id of what was clicked
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id ) {
 
-                // do stuff when list on item is clicked
-                // DEBUG
-                TextView textView = (TextView) viewClicked;
-                String message = "You clicked on item # " + position + 1
-                        + ", which is: " + textView.getText().toString();
-                Toast.makeText(WalkingGroupsActivity.this, message, Toast.LENGTH_LONG).show();;
-
-
-                // MOVE TO CALCULATE SERVING SIZE SCREEN;
-                //ArrayList passedGroup = fakeGroupArray.get(position);
-
+                // MOVE TO MY GROUP DETAILS. PASS GROUP NAME
                 Intent intent = MyGroupDetailsActivity.makeIntent(WalkingGroupsActivity.this);
+
+                intent.putExtra("passedGroupName", groupNames.get(position));
                 startActivity(intent);
             }
         });
