@@ -39,5 +39,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="my_group_details_members">Group Members</string>
     <string name="action_SeeGroupLocation">See Location</string>
+    <string name="title_activity_join_group_maps">Map</string>
 
 </resources>

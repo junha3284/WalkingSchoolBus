@@ -1,6 +1,5 @@
 package com.jade.walkinggroupbus.walkingschoolbus;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,20 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
 
 public class WalkingGroupsActivity extends AppCompatActivity {
 
@@ -71,7 +64,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 Log.i("sdf", "im alive 0");
 
                 // move to join walking group page
-                Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupActivity.class);
+                Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupMapActivity.class);
                 startActivity(intent);
                 finish();
             }

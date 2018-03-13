@@ -2,7 +2,7 @@ package com.jade.walkinggroupbus.walkingschoolbus;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -15,7 +15,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
-import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
@@ -23,9 +22,9 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class JoinGroupActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class JoinGroupMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
-    private GoogleMap map;
+    private GoogleMap mMap;
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
 
     private String groupName;
@@ -37,7 +36,7 @@ public class JoinGroupActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join_group);
+        setContentView(R.layout.activity_join_group_map);
 
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
@@ -50,13 +49,15 @@ public class JoinGroupActivity extends AppCompatActivity implements OnMapReadyCa
 
         setUpGroups();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_join_group);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
     private void setUpGroups() {
         Call<List<Group>> caller = proxy.getGroups();
-        ProxyBuilder.callProxy(JoinGroupActivity.this, caller, returnedGroups -> response(returnedGroups));
+        ProxyBuilder.callProxy(JoinGroupMapActivity.this, caller, returnedGroups -> response(returnedGroups));
     }
 
     private void response(List<Group> returnedGroups) {
@@ -65,21 +66,21 @@ public class JoinGroupActivity extends AppCompatActivity implements OnMapReadyCa
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
+        mMap = googleMap;
         List<String> groupNames = groupsInfo.getNames();
 
         for (int i = 0; i < groupNames.size(); i++) {
             List<Double> groupCoordinates = groupsInfo.getMeetingPlaceCoordinates(groupNames.get(i));
-            Marker marker = map.addMarker(new MarkerOptions()
-                            .position(new LatLng(groupCoordinates.get(0),groupCoordinates.get(1)))
-                            .title(groupNames.get(i)));
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(groupCoordinates.get(0),groupCoordinates.get(1)))
+                    .title(groupNames.get(i)));
         }
-        map.setOnInfoWindowClickListener(this);
+        mMap.setOnInfoWindowClickListener(this);
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Intent intent = new Intent(JoinGroupActivity.this, JoinGroupDetailsActivity.class);
+        Intent intent = new Intent(JoinGroupMapActivity.this, JoinGroupDetailsActivity.class);
         intent.putExtra("group name", marker.getTitle());
         startActivityForResult(intent, REQUEST_CODE_JOINGROUPDETAILS);
     }
