@@ -58,17 +58,37 @@ public class WalkingGroupsActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
-        if (childInfo.isActive()){
+        if (childInfo.isActive()) {
+            disableCreateGroupButton();
             getGroupNames(childInfo.getChild());
             refreshListView(childInfo.getChild());
         } else {
             getGroupNames(userInfo);
             refreshListView(userInfo);
+            createGroupButton();
         }
 
         // when someone clicks a group
         registerClickCallback();
         joinButton();
+    }
+
+    private void createGroupButton() {
+        Button btnCreateGroup = (Button) findViewById(R.id.button_create_group);
+
+        btnCreateGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WalkingGroupsActivity.this, CreateGroupActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void disableCreateGroupButton() {
+        Button btnCreateGroup = (Button) findViewById(R.id.button_create_group);
+
+        btnCreateGroup.setVisibility(View.GONE);
     }
 
     private void getGroupNames(UserInfo user) {
