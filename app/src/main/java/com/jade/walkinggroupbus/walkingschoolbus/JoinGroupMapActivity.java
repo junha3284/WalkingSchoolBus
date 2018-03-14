@@ -85,11 +85,6 @@ public class JoinGroupMapActivity extends FragmentActivity
 
     private void response(List<Group> returnedGroups) {
         groupsInfo.setGroups(returnedGroups);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
         List<String> groupNames = groupsInfo.getNames();
 
         for (int i = 0; i < groupNames.size(); i++) {
@@ -98,6 +93,12 @@ public class JoinGroupMapActivity extends FragmentActivity
                     .position(new LatLng(groupCoordinates.get(0),groupCoordinates.get(1)))
                     .title(groupNames.get(i)));
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
         mMap.setOnInfoWindowClickListener(this);
 
         // location every minute
