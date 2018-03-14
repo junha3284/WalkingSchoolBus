@@ -1,17 +1,33 @@
 package com.jade.walkinggroupbus.walkingschoolbus;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
@@ -22,16 +38,21 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class JoinGroupMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class JoinGroupMapActivity extends FragmentActivity
+        implements OnMapReadyCallback,
+        GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.OnMyLocationButtonClickListener {
 
     private GoogleMap mMap;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private LocationRequest mLocationRequest;
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
 
-    private String groupName;
     private WGServerProxy proxy;
     private SharedData sharedData;
     private static final String TAG = "ServerTest";
     private static final int REQUEST_CODE_JOINGROUPDETAILS = 074;
+    private static final int REQUEST_CODE_LOCATIONPERMISSION = 13116;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +67,8 @@ public class JoinGroupMapActivity extends FragmentActivity implements OnMapReady
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         setUpGroups();
 
@@ -76,6 +99,54 @@ public class JoinGroupMapActivity extends FragmentActivity implements OnMapReady
                     .title(groupNames.get(i)));
         }
         mMap.setOnInfoWindowClickListener(this);
+
+        // center map on location
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(60000);
+        mLocationRequest.setFastestInterval(60000);
+
+        // check permissions
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+            mMap.setMyLocationEnabled(true);
+        }
+        else {
+            // Toast for permission
+            Toast.makeText(this,"Allow location permissions to center location",Toast.LENGTH_LONG).show();
+            String[] permissions = {"android.permission.ACCESS_COARSE_LOCATION"};
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_LOCATIONPERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_CODE_LOCATIONPERMISSION:
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+                    mMap.setMyLocationEnabled(true);
+                }
+        }
+    }
+
+    LocationCallback mLocationCallback = new LocationCallback(){
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            super.onLocationResult(locationResult);
+            Location location = locationResult.getLastLocation();
+            LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
+        }
+    };
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // false to move camera
+        return false;
     }
 
     @Override
