@@ -49,7 +49,11 @@
         <activity android:name=".MyGroupDetailsMapActivity" />
         <activity
             android:name=".JoinGroupMapActivity"
-            android:label="@string/title_activity_join_group_maps"></activity>
+            android:label="@string/title_activity_join_group_maps" />
+        <activity android:name=".CreateGroupActivity" />
+        <activity
+            android:name=".CreateGroupMapActivity"
+            android:label="@string/title_activity_create_group_map"></activity>
     </application>
 
 </manifest>
