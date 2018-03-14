@@ -81,7 +81,6 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Long groupID = groupsInfo.getGroupID(groupName);
-                //TODO: add walking group to user or child
                 if (child.isActive()) {
                     // add group to child
                     Call<List<UserInfo>> caller = proxy.addNewMemberOfGroup(groupID, child.getId());
@@ -102,12 +101,24 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
 
     private void response(List<UserInfo> returnedUsers) {
         groupsInfo.setMembers(groupName, returnedUsers);
-        // TODO: update UserInfo or ChildInfo
+        // update user/child
+        Long id;
         if (child.isActive()) {
-
+            id = child.getId();
         }
         else {
+            id = user.getId();
+        }
+        Call<UserInfo> caller = proxy.getUserById(id);
+        ProxyBuilder.callProxy(JoinGroupDetailsActivity.this, caller, returnedUser -> update(returnedUser));
+    }
 
+    private void update(UserInfo returnedUser) {
+        if (child.isActive()) {
+            user = returnedUser;
+        }
+        else {
+            child.setChildInfo(returnedUser);
         }
     }
 

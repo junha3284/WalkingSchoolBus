@@ -85,7 +85,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // move to join walking group page
-                Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupActivity.class);
+                Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupMapActivity.class);
                 startActivity(intent);
                 finish();
             }

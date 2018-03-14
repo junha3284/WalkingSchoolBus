@@ -46,8 +46,6 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
-        // when returning to this page from WalkingGroupActivity, we must deactivate child
-        childInfo.deactivateUser();
 
         // set Texts which present the data about the MonitoredUser
         setTexts();
@@ -88,6 +86,9 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
                 Intent WGAIntent = WalkingGroupsActivity.makeIntent(MonitoredUserDetailActivity.this);
                 startActivity(WGAIntent);
+
+                // when returning to this page from WalkingGroupActivity, we must deactivate child
+                childInfo.deactivateUser();
             }
         });
     }

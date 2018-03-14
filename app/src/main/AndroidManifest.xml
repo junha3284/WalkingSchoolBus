@@ -9,12 +9,8 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <permission
-        android:name="com.jade.walkinggroupbus.walkingschoolbus.permission.MyGroupDetailsMapActivity"
-        android:protectionLevel="signature" >
-    </permission>
 
     <application
         android:allowBackup="true"
@@ -35,7 +31,6 @@
         <activity android:name=".AddMonitoredUserActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainMenuActivity" />
-        <activity android:name=".JoinGroupActivity" />
         <activity android:name=".JoinGroupDetailsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -52,6 +47,9 @@
         <activity android:name=".WalkingGroupsActivity" />
         <activity android:name=".MyGroupDetailsActivity" />
         <activity android:name=".MyGroupDetailsMapActivity" />
+        <activity
+            android:name=".JoinGroupMapActivity"
+            android:label="@string/title_activity_join_group_maps"></activity>
     </application>
 
 </manifest>
