@@ -63,7 +63,7 @@ public class GroupsInfo {
         List<UserInfo> members = new ArrayList<>();
         for (Group group : walkingGroups) {
             if (group.getGroupDescription().equals(groupName)) {
-                members = group.getMembers();
+                members = group.getMemberUsers();
             }
         }
         return members;
@@ -84,7 +84,7 @@ public class GroupsInfo {
     public void setMembers(String groupName, List<UserInfo> users) {
         for (Group group : walkingGroups) {
             if (group.getGroupDescription().equals(groupName)) {
-                group.setMembers(users);
+                group.setMemberUsers(users);
             }
         }
     }

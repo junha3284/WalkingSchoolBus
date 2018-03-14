@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -46,7 +47,7 @@ public class CreateGroupMapActivity extends FragmentActivity
     private static final String MEETING_PLACE_LAT = "meeting place latitude";
     private static final String MEETING_PLACE_LNG = "meeting place longitude";
     private static final String DESTINATION_LAT = "destination latitude";
-    private static final String DESTINATION_LNG = "destination latitude";
+    private static final String DESTINATION_LNG = "destination longitude";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,6 @@ public class CreateGroupMapActivity extends FragmentActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        getIntentData();
     }
 
     private void getIntentData() {
@@ -73,19 +72,8 @@ public class CreateGroupMapActivity extends FragmentActivity
                                                   intent.getFloatExtra(DESTINATION_LNG, 0));
 
             // set markers
-            Marker meetingPlaceMarker = mMap.addMarker(new MarkerOptions()
-                    .position(meetingPlaceLatLng)
-                    .title("Delete Meeting Place")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-            markers[0] = meetingPlaceMarker;
-            numMarked++;
-
-            Marker destinationMarker = mMap.addMarker(new MarkerOptions()
-                    .position(destinationLatLng)
-                    .title("Delete Destination")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            markers[1] = destinationMarker;
-            numMarked++;
+            addMarker(meetingPlaceLatLng);
+            addMarker(destinationLatLng);
         }
     }
 
@@ -117,6 +105,9 @@ public class CreateGroupMapActivity extends FragmentActivity
             String[] permissions = {"android.permission.ACCESS_COARSE_LOCATION"};
             ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_LOCATIONPERMISSION);
         }
+
+        // previously set locations
+        getIntentData();
     }
 
     private void addMarker(LatLng latLng) {
@@ -189,7 +180,6 @@ public class CreateGroupMapActivity extends FragmentActivity
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
         // verify, and get marker data
         // set activity result and intent data
@@ -198,16 +188,18 @@ public class CreateGroupMapActivity extends FragmentActivity
             LatLng meetingPlace = markers[0].getPosition();
             LatLng destination = markers[1].getPosition();
 
-            intent.putExtra(MEETING_PLACE_LAT, meetingPlace.latitude);
-            intent.putExtra(MEETING_PLACE_LNG, meetingPlace.longitude);
-            intent.putExtra(DESTINATION_LAT, destination.latitude);
-            intent.putExtra(DESTINATION_LNG, destination.longitude);
+            intent.putExtra(MEETING_PLACE_LAT, (float) meetingPlace.latitude);
+            intent.putExtra(MEETING_PLACE_LNG, (float) meetingPlace.longitude);
+            intent.putExtra(DESTINATION_LAT, (float) destination.latitude);
+            intent.putExtra(DESTINATION_LNG, (float) destination.longitude);
 
             setResult(Activity.RESULT_OK, intent);
         }
         else {
             setResult(Activity.RESULT_CANCELED);
         }
-        finish();
+        super.onBackPressed();
     }
+
+
 }
