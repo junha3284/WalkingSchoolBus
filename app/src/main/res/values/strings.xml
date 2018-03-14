@@ -47,5 +47,6 @@
     <string name="description">Description</string>
     <string name="instructions">Instructions</string>
     <string name="instructions_detail">Set meeting place and destination locations.\nGreen: Meeting place marker.\nRed: Destination marker.\nSelect marker to remove.</string>
+    <string name="action_createWalkingGroup">Create Walking Group</string>
 
 </resources>
