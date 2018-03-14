@@ -35,7 +35,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private WGServerProxy proxy;
     private SharedData sharedData;
     private static final String TAG = "ServerTest";
-    private static final int REQUEST_CODE_CREATEGROUPMAP = 1952012;
+    private static final int REQUEST_CODE_CREATEGROUPMAP = 02;
 
     private static final String MEETING_PLACE_LAT = "meeting place latitude";
     private static final String MEETING_PLACE_LNG = "meeting place longitude";
