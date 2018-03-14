@@ -1,5 +1,6 @@
 package com.jade.walkinggroupbus.walkingschoolbus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,22 +11,33 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
 
 public class WalkingGroupsActivity extends AppCompatActivity {
 
     private SharedData sharedData;
     private WGServerProxy proxy;
 
+    private List<String> groupNames = new ArrayList<String>();
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
+
     private UserInfo userInfo;
+    private ChildInfo childInfo;
+
     private static final String TAG = "ServerTest";
 
     @Override
@@ -35,6 +47,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
 
         // setup shared data.
         userInfo = UserInfo.userInfo();
+        childInfo = ChildInfo.childInfo();
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
 
@@ -45,13 +58,23 @@ public class WalkingGroupsActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
+        if (childInfo.isActive()){
+            getGroupNames(childInfo.getChild());
+            refreshListView(childInfo.getChild());
+        } else {
+            getGroupNames(userInfo);
+            refreshListView(userInfo);
+        }
+
         // when someone clicks a group
         registerClickCallback();
-
-        // display the data to the list view
-        refreshListView();
-
         joinButton();
+    }
+
+    private void getGroupNames(UserInfo user) {
+        for (Group group : user.getMemberOfGroups()){
+            groupNames.add(group.getGroupDescription());
+        }
     }
 
     private void joinButton() {
@@ -61,8 +84,6 @@ public class WalkingGroupsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Log.i("sdf", "im alive 0");
-
                 // move to join walking group page
                 Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupMapActivity.class);
                 startActivity(intent);
@@ -71,9 +92,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         });
     }
 
-    private void refreshListView() {
-        List<String> groupNames = groupsInfo.getNames();
-
+    private void refreshListView(UserInfo user) {
         // build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,                  // context
@@ -88,8 +107,6 @@ public class WalkingGroupsActivity extends AppCompatActivity {
     private void registerClickCallback() {
         // set up onclick listener with list view
         ListView list = (ListView) findViewById(R.id.listView_my_groups);
-
-        List<String> groupNames = groupsInfo.getNames();
 
         // configure listener to do what i want
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
