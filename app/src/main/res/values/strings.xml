@@ -40,5 +40,12 @@
     <string name="my_group_details_members">Group Members</string>
     <string name="action_SeeGroupLocation">See Location</string>
     <string name="title_activity_join_group_maps">Map</string>
+    <string name="title_activity_create_group_map">Map</string>
+    <string name="create_group">Create Group</string>
+    <string name="set_locations">Set locations</string>
+    <string name="group_description">Group Description</string>
+    <string name="description">Description</string>
+    <string name="instructions">Instructions</string>
+    <string name="instructions_detail">Set meeting place and destination locations.\nGreen: Meeting place marker.\nRed: Destination marker.\nSelect marker to remove.</string>
 
 </resources>

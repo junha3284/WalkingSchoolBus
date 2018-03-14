@@ -100,7 +100,7 @@ public class JoinGroupMapActivity extends FragmentActivity
         }
         mMap.setOnInfoWindowClickListener(this);
 
-        // center map on location
+        // location every minute
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(60000);
         mLocationRequest.setFastestInterval(60000);
