@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
@@ -23,10 +24,11 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
     public static final String RESULT_KEY_MONITORED_USER_ID = "com.jade.walkinggroupbus.walkingschoolbus-monitored_user_id";
     private static final String TAG = "ServerTest";
 
-    UserInfo userInfo;
-    SharedData sharedData;
+    private UserInfo userInfo;
+    private SharedData sharedData;
+    private ChildInfo childInfo;
 
-    WGServerProxy proxy;
+    private WGServerProxy proxy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
         userInfo = UserInfo.userInfo();
         sharedData = SharedData.getSharedData();
+        childInfo = ChildInfo.childInfo();
 
         String token = sharedData.getToken();
         if(token != null)
@@ -42,6 +45,9 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
+
+        // when returning to this page from WalkingGroupActivity, we must deactivate child
+        childInfo.deactivateUser();
 
         // set Texts which present the data about the MonitoredUser
         setTexts();
@@ -71,6 +77,17 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //todo: connect to WalkingGroupsActivity of the user who is the owner of the detailed info
+
+                // update child singleton
+                Intent intent = getIntent();
+                Call<UserInfo> caller = proxy.getUserById(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0));
+                ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
+
+                // activate for use
+                childInfo.activateUser();
+
+                Intent WGAIntent = WalkingGroupsActivity.makeIntent(MonitoredUserDetailActivity.this);
+                startActivity(WGAIntent);
             }
         });
     }
@@ -83,6 +100,10 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         // request to the server for deleting the monitoredUser from the MonitorsUsers
         Call<Void> caller = proxy.deleteMonitoredUser(userInfo.getId(), monitoredUserId);
         ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
+    }
+
+    private void response(UserInfo returnedUser){
+        childInfo.setChildInfo(returnedUser);
     }
 
     private void response(Void returnNothing){

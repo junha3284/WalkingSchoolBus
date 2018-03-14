@@ -45,4 +45,8 @@ public class ChildInfo {
         Long id = child.getId();
         return id;
     }
+
+    public UserInfo getChild(){
+        return child;
+    }
 }

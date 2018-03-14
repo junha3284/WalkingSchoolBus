@@ -18,6 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
@@ -35,6 +36,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
     private WGServerProxy proxy;
 
     private UserInfo userInfo;
+    private ChildInfo childInfo;
 
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
     private String groupName;
@@ -48,6 +50,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
         // instantiate vars
         userInfo = UserInfo.userInfo();
+        childInfo = ChildInfo.childInfo();
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
 
@@ -82,11 +85,10 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
     }
 
     private void updateListView() {
+        // get the names of the group members
         List<UserInfo> groupMembers = groupsInfo.getMembers(groupName);
         List<String> groupMemberNames = new ArrayList<String>();
-
         for (UserInfo groupMember : groupMembers) {
-            // populate array list with member names
             groupMemberNames.add(groupMember.getName());
         }
 
@@ -126,7 +128,15 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // call proxy to leave group
                 Long groupID = groupsInfo.getGroupID(groupName);
-                Call<Void> caller = proxy.leaveGroup(groupID ,userInfo.getId());
+
+                Long userID;
+                if (childInfo.isActive()) {
+                    userID = childInfo.getId();
+                } else {
+                    userID = userInfo.getId();
+                }
+
+                Call<Void> caller = proxy.leaveGroup(groupID ,userID);
                 ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
             }
         });
