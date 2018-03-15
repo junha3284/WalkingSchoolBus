@@ -131,7 +131,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
                 Long groupID = groupsInfo.getGroupID(groupName);
 
                 Long userID;
-                if (childInfo.isActive()) {
+                if (userInfo.managingChild()) {
                     userID = childInfo.getId();
                 } else {
                     userID = userInfo.getId();
@@ -150,7 +150,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private void response(UserInfo returnedUser){
         // update our singleton
-        if (childInfo.isActive()) {
+        if (userInfo.managingChild()) {
             childInfo.setChildInfo(returnedUser);
         } else {
             userInfo.setUserInfo(returnedUser);

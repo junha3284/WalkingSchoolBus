@@ -82,13 +82,13 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
                 ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
 
                 // activate for use
-                childInfo.activateUser();
+                userInfo.startManagingChild();
 
                 Intent WGAIntent = WalkingGroupsActivity.makeIntent(MonitoredUserDetailActivity.this);
                 startActivity(WGAIntent);
 
                 // when returning to this page from WalkingGroupActivity, we must deactivate child
-                childInfo.deactivateUser();
+                userInfo.stopManagingChild();
             }
         });
     }
