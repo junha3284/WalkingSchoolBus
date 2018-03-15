@@ -2,6 +2,7 @@ package com.jade.walkinggroupbus.walkingschoolbus.proxy;
 
 import java.util.List;
 
+import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
@@ -52,7 +53,10 @@ public interface WGServerProxy {
     Call<Group> createGroup(@Body Group newGroup);
 
     @POST("/groups/{id}/memberUsers")
-    Call<List<UserInfo>> addNewMemberOfGroup(@Path("id") Long groupID, @Body Long userID);
+    Call<List<UserInfo>> addNewMemberOfGroup(@Path("id") Long groupID, @Body UserInfo user);
+
+    @POST("/groups/{id}/memberUsers")
+    Call<List<UserInfo>> addNewMemberOfGroup(@Path("id") Long groupID, @Body ChildInfo user);
 
     @DELETE("/groups/{groupId}/memberUsers/{userId}")
     Call<Void> leaveGroup(@Path("groupId") Long groupID, @Path("userID") Long userID);

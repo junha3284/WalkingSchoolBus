@@ -82,12 +82,12 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
                 Long groupID = groupsInfo.getGroupID(groupName);
                 if (user.managingChild()) {
                     // add group to child
-                    Call<List<UserInfo>> caller = proxy.addNewMemberOfGroup(groupID, child.getId());
+                    Call<List<UserInfo>> caller = proxy.addNewMemberOfGroup(groupID, child);
                     ProxyBuilder.callProxy(JoinGroupDetailsActivity.this, caller, returnedUsers -> response(returnedUsers));
                 }
                 else {
                     // add group to user
-                    Call<List<UserInfo>> caller = proxy.addNewMemberOfGroup(groupID, user.getId());
+                    Call<List<UserInfo>> caller = proxy.addNewMemberOfGroup(groupID, user);
                     ProxyBuilder.callProxy(JoinGroupDetailsActivity.this, caller, returnedUsers -> response(returnedUsers));
                 }
 

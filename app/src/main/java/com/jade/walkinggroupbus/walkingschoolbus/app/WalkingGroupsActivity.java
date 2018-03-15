@@ -114,7 +114,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 this,                  // context
                 R.layout.item_groups,        // layout to use (create)
                 groupNames);             // items to be displayed
-
+        Log.i("breakdown","HERE");
         // configure list view
         ListView list = (ListView) findViewById(R.id.listView_my_groups);
         list.setAdapter(adapter);
