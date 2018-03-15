@@ -26,7 +26,15 @@ public class ChildInfo {
     }
 
     public void setChildInfo(UserInfo user) {
-        child = user;
+        child.setEmail(user.getEmail());
+        child.setHref(user.getHref());
+        child.setId(user.getId());
+        child.setLeadsGroups(user.getLeadsGroups());
+        child.setMemberOfGroups(user.getMemberOfGroups());
+        child.setMonitoredByUsers(user.getMonitoredByUsers());
+        child.setMonitorsUsers(user.getMonitorsUsers());
+        child.setName(user.getName());
+        child.setPassword(user.getPassword());
     }
 
     public boolean isActive() {

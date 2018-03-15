@@ -151,13 +151,15 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
     private void updateUser(UserInfo returnedUser) {
-        user.setId(returnedUser.getId());
-        user.setName(returnedUser.getName());
+        user.setEmail(returnedUser.getEmail());
         user.setHref(returnedUser.getHref());
+        user.setId(returnedUser.getId());
         user.setLeadsGroups(returnedUser.getLeadsGroups());
         user.setMemberOfGroups(returnedUser.getMemberOfGroups());
         user.setMonitoredByUsers(returnedUser.getMonitoredByUsers());
         user.setMonitorsUsers(returnedUser.getMonitorsUsers());
+        user.setName(returnedUser.getName());
+        user.setPassword(returnedUser.getPassword());
     }
 
     private void onReceiveToken(String token) {

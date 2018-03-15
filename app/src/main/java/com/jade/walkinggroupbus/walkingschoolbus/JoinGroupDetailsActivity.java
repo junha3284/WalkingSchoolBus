@@ -115,7 +115,15 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
 
     private void update(UserInfo returnedUser) {
         if (child.isActive()) {
-            user = returnedUser;
+            user.setEmail(returnedUser.getEmail());
+            user.setHref(returnedUser.getHref());
+            user.setId(returnedUser.getId());
+            user.setLeadsGroups(returnedUser.getLeadsGroups());
+            user.setMemberOfGroups(returnedUser.getMemberOfGroups());
+            user.setMonitoredByUsers(returnedUser.getMonitoredByUsers());
+            user.setMonitorsUsers(returnedUser.getMonitorsUsers());
+            user.setName(returnedUser.getName());
+            user.setPassword(returnedUser.getPassword());
         }
         else {
             child.setChildInfo(returnedUser);
