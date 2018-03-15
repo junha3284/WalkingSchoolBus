@@ -100,17 +100,23 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
     }
 
     private void response(List<UserInfo> returnedUsers) {
+
         groupsInfo.setMembers(groupName, returnedUsers);
+
         // update user/child
         Long id;
+
         if (child.isActive()) {
             id = child.getId();
         }
         else {
+
             id = user.getId();
         }
+
         Call<UserInfo> caller = proxy.getUserById(id);
         ProxyBuilder.callProxy(JoinGroupDetailsActivity.this, caller, returnedUser -> update(returnedUser));
+
     }
 
     private void update(UserInfo returnedUser) {
