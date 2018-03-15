@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
@@ -16,6 +17,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 
@@ -27,6 +29,8 @@ public class AddMonitoredUserActivity extends AppCompatActivity {
     private SharedData sharedData;
     private WGServerProxy proxy;
 
+    private String string_name;
+    private String string_email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +56,9 @@ public class AddMonitoredUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText edit_name = (EditText) findViewById(R.id.edit_name);
                 EditText edit_email = (EditText) findViewById(R.id.edit_email);
-                String string_name = edit_name.getText().toString();
-                String string_email = edit_email.getText().toString();
-                //TODO: use string_email and string_use to validate user and add this person to this user's MonitorsUsers.
+                string_name = edit_name.getText().toString();
+                string_email = edit_email.getText().toString();
+
                 // request the server to add the user
                 addMonitoredUser(string_email);
             }
@@ -65,17 +69,22 @@ public class AddMonitoredUserActivity extends AppCompatActivity {
         // request the server to get the id of the email owner
         Call<UserInfo> caller = proxy.getUserByEmail(email);
         ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
+        finish();
     }
 
     private void response(UserInfo returnedUser) {
         // request the server to add MonitoredUser
-        Call<List<UserInfo>> caller = proxy.addMonitoredUser(userInfo.getId(),returnedUser);
-        ProxyBuilder.callProxy(caller,returnedList -> response(returnedList));
+        if(returnedUser.getName().equals(string_name)) {
+            Call<List<UserInfo>> caller = proxy.addMonitoredUser(userInfo.getId(), returnedUser);
+            ProxyBuilder.callProxy(caller,returnedList -> response(returnedList));
+        }
+        else {
+            Toast.makeText(AddMonitoredUserActivity.this,"Name is not matched with the email",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void response(List<UserInfo> returnedList){
         userInfo.setMonitorsUsers(returnedList);
-        finish();
     }
 
     private void onReceiveToken(String token) {
