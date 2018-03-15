@@ -1,5 +1,8 @@
 package com.jade.walkinggroupbus.walkingschoolbus;
 
+// Help for centering map on location:
+// https://stackoverflow.com/questions/44992014/how-to-get-current-location-in-googlemap-using-fusedlocationproviderclient
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
