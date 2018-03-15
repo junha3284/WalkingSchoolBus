@@ -86,9 +86,6 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
                 Intent WGAIntent = WalkingGroupsActivity.makeIntent(MonitoredUserDetailActivity.this);
                 startActivity(WGAIntent);
-
-                // when returning to this page from WalkingGroupActivity, we must deactivate child
-                userInfo.stopManagingChild();
             }
         });
     }
@@ -117,6 +114,13 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(userInfo.managingChild())
+            userInfo.stopManagingChild();
     }
 
     public static Intent makeIntent(Context context, String name, String email, Long id) {
