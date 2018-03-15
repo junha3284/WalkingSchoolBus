@@ -51,7 +51,7 @@ public interface WGServerProxy {
     @POST("/groups")
     Call<Group> createGroup(@Body String groupDescription, @Body double[] routeLatArray, @Body double[] routeLngArray, @Body Long leader);
 
-    @POST("/groups/{id}/membersUsers")
+    @POST("/groups/{id}/memberUsers")
     Call<List<UserInfo>> addNewMemberOfGroup(@Path("id") Long groupID, @Body Long userID);
 
     @DELETE("/groups/{groupId}/memberUsers/{userId}")
