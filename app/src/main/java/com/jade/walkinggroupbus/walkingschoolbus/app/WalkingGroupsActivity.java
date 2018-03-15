@@ -23,6 +23,8 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 public class WalkingGroupsActivity extends AppCompatActivity {
 
     private SharedData sharedData;
@@ -56,14 +58,24 @@ public class WalkingGroupsActivity extends AppCompatActivity {
 
         if (userInfo.managingChild()) {
             disableCreateGroupButton();
+        } else {
+            createGroupButton();
+        }
+
+        Call<List<Group>> caller = proxy.getGroups();
+        ProxyBuilder.callProxy(WalkingGroupsActivity.this, caller, returnedGroups -> setUpActivity(returnedGroups));
+    }
+
+    private void setUpActivity(List<Group> returnedGroups) {
+        groupsInfo.setGroups(returnedGroups);
+
+        if (userInfo.managingChild()) {
             getGroupNames(childInfo.getMemberOfGroups());
             refreshListView();
         } else {
             getGroupNames(userInfo.getMemberOfGroups());
             refreshListView();
-            createGroupButton();
         }
-
         // when someone clicks a group
         registerClickCallback();
         joinButton();
@@ -89,7 +101,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
 
     private void getGroupNames(List<Group> memberOfGroups) {
         for (Group group : memberOfGroups){
-            groupNames.add(group.getGroupDescription());
+            groupNames.add(groupsInfo.getNameByID(group.getId()));
         }
     }
 
@@ -114,7 +126,6 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 this,                  // context
                 R.layout.item_groups,        // layout to use (create)
                 groupNames);             // items to be displayed
-
         // configure list view
         ListView list = (ListView) findViewById(R.id.listView_my_groups);
         list.setAdapter(adapter);
