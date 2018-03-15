@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jade.walkinggroupbus.walkingschoolbus.LoginActivity"
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.LoginActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <LinearLayout
