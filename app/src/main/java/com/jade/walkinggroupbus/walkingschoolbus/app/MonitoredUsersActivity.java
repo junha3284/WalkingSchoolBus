@@ -21,7 +21,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class MoniterdUsersActivity extends AppCompatActivity {
+public class MonitoredUsersActivity extends AppCompatActivity {
 
     private UserInfo userInfo;
     private SharedData sharedData;
@@ -80,7 +80,7 @@ public class MoniterdUsersActivity extends AppCompatActivity {
                 String name = clickedUser.getName();
                 String email = clickedUser.getEmail();
                 Long ID = clickedUser.getId();
-                Intent intent = MonitoredUserDetailActivity.makeIntent(MoniterdUsersActivity.this, name, email, ID);
+                Intent intent = MonitoredUserDetailActivity.makeIntent(MonitoredUsersActivity.this, name, email, ID);
                 startActivity(intent);
             }
         });
@@ -91,7 +91,7 @@ public class MoniterdUsersActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = AddMonitoredUserActivity.makeIntent(MoniterdUsersActivity.this);
+                Intent intent = AddMonitoredUserActivity.makeIntent(MonitoredUsersActivity.this);
                 startActivity(intent);
             }
         });
@@ -123,7 +123,7 @@ public class MoniterdUsersActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context,  MoniterdUsersActivity.class);
+        Intent intent = new Intent(context,  MonitoredUsersActivity.class);
         return intent;
     }
 }

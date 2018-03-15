@@ -59,7 +59,7 @@ public class MainMenuActivity extends AppCompatActivity {
         btnMonitorUsers.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = MoniterdUsersActivity.makeIntent(MainMenuActivity.this);
+                Intent intent = MonitoredUsersActivity.makeIntent(MainMenuActivity.this);
                 startActivity(intent);
             }
         });
