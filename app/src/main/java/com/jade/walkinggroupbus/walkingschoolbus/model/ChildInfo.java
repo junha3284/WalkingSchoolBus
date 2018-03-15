@@ -1,13 +1,26 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ChildInfo {
 
-    private UserInfo child;
-    private boolean manageChild = false;
+    private Long id;
+    private String email;
+
+    private String password;
+    private String name;
+
+    private List<UserInfo> monitoredByUsers = new ArrayList<>();
+    private List<UserInfo> monitorsUsers = new ArrayList<>();
+    private List<Group> memberOfGroups = new ArrayList<>();
+    private List<Group> leadsGroups = new ArrayList<>();
+
+    private String href;
 
 
     // Singleton Implementation
@@ -26,35 +39,86 @@ public class ChildInfo {
     }
 
     public void setChildInfo(UserInfo user) {
-        child.setEmail(user.getEmail());
-        child.setHref(user.getHref());
-        child.setId(user.getId());
-        child.setLeadsGroups(user.getLeadsGroups());
-        child.setMemberOfGroups(user.getMemberOfGroups());
-        child.setMonitoredByUsers(user.getMonitoredByUsers());
-        child.setMonitorsUsers(user.getMonitorsUsers());
-        child.setName(user.getName());
-        child.setPassword(user.getPassword());
+        setEmail(user.getEmail());
+        setPassword(user.getPassword());
+        setName(user.getName());
+        setId(user.getId());
+        setMonitoredByUsers(user.getMonitoredByUsers());
+        setMonitorsUsers(user.getMonitorsUsers());
+        setMemberOfGroups(user.getMemberOfGroups());
+        setLeadsGroups(user.getLeadsGroups());
+        setHref(user.getHref());
     }
 
-    public boolean isActive() {
-        return manageChild;
+    public String getEmail() {
+        return email;
     }
 
-    public void activateUser() {
-        manageChild = true;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void deactivateUser() {
-        manageChild = false;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
-        Long id = child.getId();
         return id;
     }
 
-    public UserInfo getChild(){
-        return child;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<UserInfo> getMonitoredByUsers() {
+        return monitoredByUsers;
+    }
+
+    public void setMonitoredByUsers(List<UserInfo> monitoredByUsers) {
+        this.monitoredByUsers = monitoredByUsers;
+    }
+
+    public List<UserInfo> getMonitorsUsers() {
+        return monitorsUsers;
+    }
+
+    public void setMonitorsUsers(List<UserInfo> monitorsUsers) {
+        this.monitorsUsers = monitorsUsers;
+    }
+
+    public List<Group> getMemberOfGroups() {
+        return memberOfGroups;
+    }
+
+    public void setMemberOfGroups(List<Group> memberOfGroups) {
+        this.memberOfGroups = memberOfGroups;
+    }
+
+    public List<Group> getLeadsGroups() {
+        return leadsGroups;
+    }
+
+    public void setLeadsGroups(List<Group> leadsGroups) {
+        this.leadsGroups = leadsGroups;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
     }
 }

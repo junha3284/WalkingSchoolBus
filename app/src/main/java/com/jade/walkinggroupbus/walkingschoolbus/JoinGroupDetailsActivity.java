@@ -81,7 +81,7 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Long groupID = groupsInfo.getGroupID(groupName);
-                if (child.isActive()) {
+                if (user.managingChild()) {
                     // add group to child
                     Call<List<UserInfo>> caller = proxy.addNewMemberOfGroup(groupID, child.getId());
                     ProxyBuilder.callProxy(JoinGroupDetailsActivity.this, caller, returnedUsers -> response(returnedUsers));
@@ -103,7 +103,7 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
         groupsInfo.setMembers(groupName, returnedUsers);
         // update user/child
         Long id;
-        if (child.isActive()) {
+        if (user.managingChild()) {
             id = child.getId();
         }
         else {
@@ -114,19 +114,11 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
     }
 
     private void update(UserInfo returnedUser) {
-        if (child.isActive()) {
-            user.setEmail(returnedUser.getEmail());
-            user.setHref(returnedUser.getHref());
-            user.setId(returnedUser.getId());
-            user.setLeadsGroups(returnedUser.getLeadsGroups());
-            user.setMemberOfGroups(returnedUser.getMemberOfGroups());
-            user.setMonitoredByUsers(returnedUser.getMonitoredByUsers());
-            user.setMonitorsUsers(returnedUser.getMonitorsUsers());
-            user.setName(returnedUser.getName());
-            user.setPassword(returnedUser.getPassword());
+        if (user.managingChild()) {
+            child.setChildInfo(returnedUser);
         }
         else {
-            child.setChildInfo(returnedUser);
+            user.setUserInfo(returnedUser);
         }
     }
 

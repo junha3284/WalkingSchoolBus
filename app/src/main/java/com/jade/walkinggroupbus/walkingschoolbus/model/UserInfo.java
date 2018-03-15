@@ -18,11 +18,15 @@ public class UserInfo {
 
     private String href;
 
+    // for child
+    private boolean manageChild;
+
     // Singleton Implementation
     private static UserInfo instance;
 
     private UserInfo() {
         // private to prevent public instantiation
+        manageChild = false;
     }
 
     // Checks to see if an instance of UserInfo already exists
@@ -33,6 +37,18 @@ public class UserInfo {
         }
         else
             return instance;
+    }
+
+    public boolean managingChild() {
+        return manageChild;
+    }
+
+    public void startManagingChild() {
+        manageChild = true;
+    }
+
+    public void stopManagingChild() {
+        manageChild = false;
     }
 
     public String getEmail() {

@@ -58,13 +58,13 @@ public class WalkingGroupsActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
-        if (childInfo.isActive()) {
+        if (userInfo.managingChild()) {
             disableCreateGroupButton();
-            getGroupNames(childInfo.getChild());
-            refreshListView(childInfo.getChild());
+            getGroupNames(childInfo.getMemberOfGroups());
+            refreshListView();
         } else {
-            getGroupNames(userInfo);
-            refreshListView(userInfo);
+            getGroupNames(userInfo.getMemberOfGroups());
+            refreshListView();
             createGroupButton();
         }
 
@@ -91,8 +91,8 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         btnCreateGroup.setVisibility(View.GONE);
     }
 
-    private void getGroupNames(UserInfo user) {
-        for (Group group : user.getMemberOfGroups()){
+    private void getGroupNames(List<Group> memberOfGroups) {
+        for (Group group : memberOfGroups){
             groupNames.add(group.getGroupDescription());
         }
     }
@@ -112,7 +112,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         });
     }
 
-    private void refreshListView(UserInfo user) {
+    private void refreshListView() {
         // build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,                  // context
