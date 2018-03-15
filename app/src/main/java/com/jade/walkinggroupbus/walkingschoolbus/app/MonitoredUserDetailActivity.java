@@ -75,7 +75,6 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         walkingGroupBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo: connect to WalkingGroupsActivity of the user who is the owner of the detailed info
 
                 // update child singleton
                 Intent intent = getIntent();
@@ -102,6 +101,7 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         // request to the server for deleting the monitoredUser from the MonitorsUsers
         Call<Void> caller = proxy.deleteMonitoredUser(userInfo.getId(), monitoredUserId);
         ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
+        finish();
     }
 
     private void response(UserInfo returnedUser){

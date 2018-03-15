@@ -26,7 +26,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
-            android:text="@string/the_walking_school_bus"
+            android:text="@string/app_name"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="74dp" />
@@ -86,14 +86,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/login" />
+                android:text="@string/action_login" />
 
             <Button
                 android:id="@+id/button_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/register" />
+                android:text="@string/action_register" />
         </LinearLayout>
 
         <TextView
