@@ -14,8 +14,8 @@ public class Group {
     private Double[] routeLatArray;
     private Double[] routeLngArray;
 
-    private List<UserInfo> leaders = new ArrayList<>();
-    private List<UserInfo> members = new ArrayList<>();
+    private UserInfo leader;
+    private List<UserInfo> memberUsers = new ArrayList<>();
 
     private String href;
 
@@ -32,15 +32,15 @@ public class Group {
     }
 
     public Double[] getRouteLngArray(){
-        return routeLatArray;
+        return routeLngArray;
     }
 
-    public List<UserInfo> getLeaders(){
-        return leaders;
+    public UserInfo getLeader(){
+        return leader;
     }
 
-    public List<UserInfo> getMembers(){
-        return members;
+    public List<UserInfo> getMemberUsers(){
+        return memberUsers;
     }
 
     public String getHref(){
@@ -64,12 +64,12 @@ public class Group {
         this.routeLngArray = routeLngArray;
     }
 
-    public void setLeaders(List<UserInfo> leaders) {
-        this.leaders = leaders;
+    public void setLeader(UserInfo leader) {
+        this.leader = leader;
     }
 
-    public void setMembers(List<UserInfo> members) {
-        this.members = members;
+    public void setMemberUsers(List<UserInfo> members) {
+        this.memberUsers = members;
     }
 
     public void setHref(String href) {

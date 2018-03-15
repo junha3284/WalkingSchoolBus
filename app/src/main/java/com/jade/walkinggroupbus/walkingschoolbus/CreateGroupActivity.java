@@ -17,6 +17,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,7 +41,7 @@ public class CreateGroupActivity extends AppCompatActivity {
     private static final String MEETING_PLACE_LAT = "meeting place latitude";
     private static final String MEETING_PLACE_LNG = "meeting place longitude";
     private static final String DESTINATION_LAT = "destination latitude";
-    private static final String DESTINATION_LNG = "destination latitude";
+    private static final String DESTINATION_LNG = "destination longitude";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +106,19 @@ public class CreateGroupActivity extends AppCompatActivity {
                     destinationLat != null && destinationLng != null &&
                     !(groupDescription.equals(""))) {
                     // create group
-                    double[] latArray = {meetingPlaceLat.doubleValue(), destinationLat.doubleValue()};
-                    double[] lngArray = {meetingPlaceLng.doubleValue(), destinationLng.doubleValue()};
+                    Double[] latArray = {meetingPlaceLat.doubleValue(), destinationLat.doubleValue()};
+                    Double[] lngArray = {meetingPlaceLng.doubleValue(), destinationLng.doubleValue()};
 
-                    Call<Group> caller = proxy.createGroup(groupDescription, latArray, lngArray, user.getId());
+                    Group newGroup = new Group();
+                    newGroup.setGroupDescription(groupDescription);
+                    newGroup.setRouteLatArray(latArray);
+                    newGroup.setRouteLngArray(lngArray);
+                    newGroup.setLeader(user);
+
+                    // due to 500 error -- fix later
+                    newGroup.setId(new Long(-1));
+
+                    Call<Group> caller = proxy.createGroup(newGroup);
                     ProxyBuilder.callProxy(CreateGroupActivity.this, caller, returnedGroup -> update(returnedGroup));
 
                     finish();
