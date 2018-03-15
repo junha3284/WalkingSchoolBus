@@ -25,6 +25,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,8 +139,22 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
                 Call<Void> caller = proxy.leaveGroup(groupID ,userID);
                 ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
+
+                // update our singleton
+                Call<UserInfo> userInfoCall = proxy.getUserById(userID);
+                ProxyBuilder.callProxy(userInfoCall, returnedUser -> response(returnedUser));
+
             }
         });
+    }
+
+    private void response(UserInfo returnedUser){
+        // update our singleton
+        if (childInfo.isActive()) {
+            childInfo.setChildInfo(returnedUser);
+        } else {
+            userInfo.setUserInfo(returnedUser);
+        }
     }
 
     // call successful if nothing returned

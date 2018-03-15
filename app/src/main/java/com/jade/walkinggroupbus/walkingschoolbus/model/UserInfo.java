@@ -107,6 +107,18 @@ public class UserInfo {
         this.href = href;
     }
 
+    public void setUserInfo(UserInfo user) {
+        setEmail(user.getEmail());
+        setHref(user.getHref());
+        setId(user.getId());
+        setLeadsGroups(user.getLeadsGroups());
+        setMemberOfGroups(user.getMemberOfGroups());
+        setMonitoredByUsers(user.getMonitoredByUsers());
+        setMonitorsUsers(user.getMonitorsUsers());
+        setName(user.getName());
+        setPassword(user.getPassword());
+    }
+
     // UI for Logcat messages.
     @Override
     public String toString() {
