@@ -25,6 +25,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,7 +131,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
                 Long groupID = groupsInfo.getGroupID(groupName);
 
                 Long userID;
-                if (childInfo.isActive()) {
+                if (userInfo.managingChild()) {
                     userID = childInfo.getId();
                 } else {
                     userID = userInfo.getId();
@@ -138,8 +139,22 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
                 Call<Void> caller = proxy.leaveGroup(groupID ,userID);
                 ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
+
+                // update our singleton
+                Call<UserInfo> userInfoCall = proxy.getUserById(userID);
+                ProxyBuilder.callProxy(userInfoCall, returnedUser -> response(returnedUser));
+
             }
         });
+    }
+
+    private void response(UserInfo returnedUser){
+        // update our singleton
+        if (userInfo.managingChild()) {
+            childInfo.setChildInfo(returnedUser);
+        } else {
+            userInfo.setUserInfo(returnedUser);
+        }
     }
 
     // call successful if nothing returned
