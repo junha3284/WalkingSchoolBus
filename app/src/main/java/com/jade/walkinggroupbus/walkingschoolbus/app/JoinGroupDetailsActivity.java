@@ -29,6 +29,7 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
     private ChildInfo child = ChildInfo.childInfo();
 
     private String groupName;
+
     private WGServerProxy proxy;
     private SharedData sharedData;
     private static final String TAG = "ServerTest";
@@ -60,17 +61,27 @@ public class JoinGroupDetailsActivity extends AppCompatActivity {
     }
 
     private void setGroupText() {
-        List<UserInfo> members = groupsInfo.getMembers(groupName);
-        List<String> membersNames = new ArrayList<>();
+        Long groupID = groupsInfo.getGroupID(groupName);
+            // add group to child
+        Call<List<UserInfo>> caller = proxy.getMembersOfGroup(groupID);
+        ProxyBuilder.callProxy(JoinGroupDetailsActivity.this, caller, returnedUsers -> responseMemberOfGroup(returnedUsers));
 
-        for (UserInfo user : members) {
-            membersNames.add(user.getName());
-        }
+    }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_members, membersNames);
+    private void responseMemberOfGroup(List<UserInfo> members){
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_members, getMonitoredUserDescriptions(members));
 
         ListView list = findViewById(R.id.list_members);
         list.setAdapter(adapter);
+    }
+
+    private String[] getMonitoredUserDescriptions(List<UserInfo> members){
+        int size = members.size();
+        String[] description = new String[size];
+        for(int i =0; i < size; i++)
+            description[i] = members.get(i).toStringForList();
+        return description;
     }
 
 

@@ -78,7 +78,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         }
         // when someone clicks a group
         registerClickCallback();
-        joinButton();
+        setButtons();
     }
 
     private void createGroupButton() {
@@ -100,12 +100,13 @@ public class WalkingGroupsActivity extends AppCompatActivity {
     }
 
     private void getGroupNames(List<Group> memberOfGroups) {
+        groupNames.clear();
         for (Group group : memberOfGroups){
             groupNames.add(groupsInfo.getNameByID(group.getId()));
         }
     }
 
-    private void joinButton() {
+    private void setButtons() {
         Button btnJoinGroups = (Button) findViewById(R.id.button_join_walking_group);
 
         btnJoinGroups.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +117,19 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 Intent intent = new Intent(WalkingGroupsActivity.this , JoinGroupMapActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        Button btnRefresh = (Button) findViewById(R.id.button_refresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (userInfo.managingChild()) {
+                    getGroupNames(childInfo.getMemberOfGroups());
+                    refreshListView();
+                } else {
+                    getGroupNames(userInfo.getMemberOfGroups());
+                    refreshListView();
+                }
             }
         });
     }
