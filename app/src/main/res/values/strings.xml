@@ -48,5 +48,6 @@
     <string name="childs_email_address">child\'s email address</string>
     <string name="msg_please_input_name">Please input name</string>
     <string name="message">MESSAGE</string>
+    <string name="dash_board">DASH BOARD</string>
 
 </resources>
