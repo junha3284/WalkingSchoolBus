@@ -1,6 +1,10 @@
-package com.jade.walkinggroupbus.walkingschoolbus;
+package com.jade.walkinggroupbus.walkingschoolbus.app;
+
+// Help for centering map on location:
+// https://stackoverflow.com/questions/44992014/how-to-get-current-location-in-googlemap-using-fusedlocationproviderclient
 
 import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,6 +32,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.jade.walkinggroupbus.walkingschoolbus.*;
+import com.jade.walkinggroupbus.walkingschoolbus.R;
 
 public class CreateGroupMapActivity extends FragmentActivity
         implements OnMapReadyCallback,
@@ -52,7 +58,7 @@ public class CreateGroupMapActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_group_map);
+        setContentView(com.jade.walkinggroupbus.walkingschoolbus.R.layout.activity_create_group_map);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 

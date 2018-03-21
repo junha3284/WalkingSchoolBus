@@ -1,6 +1,5 @@
-package com.jade.walkinggroupbus.walkingschoolbus;
+package com.jade.walkinggroupbus.walkingschoolbus.app;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
@@ -58,19 +56,29 @@ public class WalkingGroupsActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
-        if (childInfo.isActive()) {
+        if (userInfo.managingChild()) {
             disableCreateGroupButton();
-            getGroupNames(childInfo.getChild());
-            refreshListView(childInfo.getChild());
         } else {
-            getGroupNames(userInfo);
-            refreshListView(userInfo);
             createGroupButton();
         }
 
+        Call<List<Group>> caller = proxy.getGroups();
+        ProxyBuilder.callProxy(WalkingGroupsActivity.this, caller, returnedGroups -> setUpActivity(returnedGroups));
+    }
+
+    private void setUpActivity(List<Group> returnedGroups) {
+        groupsInfo.setGroups(returnedGroups);
+
+        if (userInfo.managingChild()) {
+            getGroupNames(childInfo.getMemberOfGroups());
+            refreshListView();
+        } else {
+            getGroupNames(userInfo.getMemberOfGroups());
+            refreshListView();
+        }
         // when someone clicks a group
         registerClickCallback();
-        joinButton();
+        setButtons();
     }
 
     private void createGroupButton() {
@@ -91,13 +99,14 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         btnCreateGroup.setVisibility(View.GONE);
     }
 
-    private void getGroupNames(UserInfo user) {
-        for (Group group : user.getMemberOfGroups()){
-            groupNames.add(group.getGroupDescription());
+    private void getGroupNames(List<Group> memberOfGroups) {
+        groupNames.clear();
+        for (Group group : memberOfGroups){
+            groupNames.add(groupsInfo.getNameByID(group.getId()));
         }
     }
 
-    private void joinButton() {
+    private void setButtons() {
         Button btnJoinGroups = (Button) findViewById(R.id.button_join_walking_group);
 
         btnJoinGroups.setOnClickListener(new View.OnClickListener() {
@@ -110,15 +119,27 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 finish();
             }
         });
+        Button btnRefresh = (Button) findViewById(R.id.button_refresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (userInfo.managingChild()) {
+                    getGroupNames(childInfo.getMemberOfGroups());
+                    refreshListView();
+                } else {
+                    getGroupNames(userInfo.getMemberOfGroups());
+                    refreshListView();
+                }
+            }
+        });
     }
 
-    private void refreshListView(UserInfo user) {
+    private void refreshListView() {
         // build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,                  // context
                 R.layout.item_groups,        // layout to use (create)
                 groupNames);             // items to be displayed
-
         // configure list view
         ListView list = (ListView) findViewById(R.id.listView_my_groups);
         list.setAdapter(adapter);

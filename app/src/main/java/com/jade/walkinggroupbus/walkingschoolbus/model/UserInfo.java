@@ -1,9 +1,12 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo {
     private Long id;
     private String email;
@@ -18,11 +21,15 @@ public class UserInfo {
 
     private String href;
 
+    // for child
+    private boolean manageChild;
+
     // Singleton Implementation
     private static UserInfo instance;
 
     private UserInfo() {
         // private to prevent public instantiation
+        manageChild = false;
     }
 
     // Checks to see if an instance of UserInfo already exists
@@ -33,6 +40,18 @@ public class UserInfo {
         }
         else
             return instance;
+    }
+
+    public boolean managingChild() {
+        return manageChild;
+    }
+
+    public void startManagingChild() {
+        manageChild = true;
+    }
+
+    public void stopManagingChild() {
+        manageChild = false;
     }
 
     public String getEmail() {
@@ -105,6 +124,18 @@ public class UserInfo {
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+    public void setUserInfo(UserInfo user) {
+        setEmail(user.getEmail());
+        setHref(user.getHref());
+        setId(user.getId());
+        setLeadsGroups(user.getLeadsGroups());
+        setMemberOfGroups(user.getMemberOfGroups());
+        setMonitoredByUsers(user.getMonitoredByUsers());
+        setMonitorsUsers(user.getMonitorsUsers());
+        setName(user.getName());
+        setPassword(user.getPassword());
     }
 
     // UI for Logcat messages.

@@ -1,9 +1,8 @@
-package com.jade.walkinggroupbus.walkingschoolbus;
+package com.jade.walkinggroupbus.walkingschoolbus.app;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,13 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
@@ -85,22 +78,26 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
     }
 
     private void updateListView() {
-        // get the names of the group members
-        List<UserInfo> groupMembers = groupsInfo.getMembers(groupName);
-        List<String> groupMemberNames = new ArrayList<String>();
-        for (UserInfo groupMember : groupMembers) {
-            groupMemberNames.add(groupMember.getName());
-        }
+        Long groupID = groupsInfo.getGroupID(groupName);
+        // add group to child
+        Call<List<UserInfo>> caller = proxy.getMembersOfGroup(groupID);
+        ProxyBuilder.callProxy(MyGroupDetailsActivity.this, caller, returnedUsers -> responseMemberOfGroup(returnedUsers));
+    }
 
-        // build adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,                  // context
-                R.layout.item_groups,        // layout to use (create)
-                groupMemberNames);             // items to be displayed
+    private void responseMemberOfGroup(List<UserInfo> members){
 
-        // configure list view
-        ListView list = (ListView) findViewById(R.id.listView_groupMemebers);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_members, getMonitoredUserDescriptions(members));
+
+        ListView list = findViewById(R.id.listView_groupMemebers);
         list.setAdapter(adapter);
+    }
+
+    private String[] getMonitoredUserDescriptions(List<UserInfo> members){
+        int size = members.size();
+        String[] description = new String[size];
+        for(int i =0; i < size; i++)
+            description[i] = members.get(i).toStringForList();
+        return description;
     }
 
     private void getIntentData() {
@@ -121,29 +118,32 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
     }
 
     private void leaveGroup() {
-        Button btnLeave = (Button) findViewById(R.id.button_leave_group);
+        Long groupID = groupsInfo.getGroupID(groupName);
 
-        btnLeave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // call proxy to leave group
-                Long groupID = groupsInfo.getGroupID(groupName);
-
-                Long userID;
-                if (childInfo.isActive()) {
-                    userID = childInfo.getId();
-                } else {
-                    userID = userInfo.getId();
-                }
-
-                Call<Void> caller = proxy.leaveGroup(groupID ,userID);
-                ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
-            }
-        });
-    }
+        Long userID;
+        if (userInfo.managingChild()) {
+            userID = childInfo.getId();
+        } else {
+            userID = userInfo.getId();
+        }
+        Call<Void> caller = proxy.leaveGroup(groupID ,userID);
+        ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing, userID));
+     }
 
     // call successful if nothing returned
-    private void response(Void returnNothing){
+    private void response(Void returnNothing, Long userId){
+        // update our singleton
+        Call<UserInfo> userInfoCall = proxy.getUserById(userId);
+        ProxyBuilder.callProxy(userInfoCall, returnedUser -> response(returnedUser));
+    }
+
+    private void response(UserInfo returnedUser){
+        // update our singleton
+        if (userInfo.managingChild()) {
+            childInfo.setChildInfo(returnedUser);
+        } else {
+            userInfo.setUserInfo(returnedUser);
+        }
         finish();
     }
 

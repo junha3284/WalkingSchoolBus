@@ -1,4 +1,4 @@
-package com.jade.walkinggroupbus.walkingschoolbus;
+package com.jade.walkinggroupbus.walkingschoolbus.app;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
@@ -74,7 +75,6 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         walkingGroupBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo: connect to WalkingGroupsActivity of the user who is the owner of the detailed info
 
                 // update child singleton
                 Intent intent = getIntent();
@@ -82,13 +82,10 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
                 ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
 
                 // activate for use
-                childInfo.activateUser();
+                userInfo.startManagingChild();
 
                 Intent WGAIntent = WalkingGroupsActivity.makeIntent(MonitoredUserDetailActivity.this);
                 startActivity(WGAIntent);
-
-                // when returning to this page from WalkingGroupActivity, we must deactivate child
-                childInfo.deactivateUser();
             }
         });
     }
@@ -101,6 +98,7 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         // request to the server for deleting the monitoredUser from the MonitorsUsers
         Call<Void> caller = proxy.deleteMonitoredUser(userInfo.getId(), monitoredUserId);
         ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing));
+        finish();
     }
 
     private void response(UserInfo returnedUser){
@@ -116,6 +114,13 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(userInfo.managingChild())
+            userInfo.stopManagingChild();
     }
 
     public static Intent makeIntent(Context context, String name, String email, Long id) {

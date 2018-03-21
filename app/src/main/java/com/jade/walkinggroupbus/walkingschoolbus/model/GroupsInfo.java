@@ -92,4 +92,15 @@ public class GroupsInfo {
     public void setGroups(List<Group> groups) {
         walkingGroups = groups;
     }
+
+    // pre-condition: id in walkingGroups
+    public String getNameByID(Long id) {
+        String name = "";
+        for (Group group : walkingGroups) {
+            if (group.getId().equals(id)) {
+                name = group.getGroupDescription();
+            }
+        }
+        return name;
+    }
 }

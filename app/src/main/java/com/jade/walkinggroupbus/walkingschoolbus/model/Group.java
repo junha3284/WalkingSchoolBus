@@ -1,5 +1,7 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +9,10 @@ import java.util.List;
  * Created by choijun-ha on 2018-03-10.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Group {
     private Long id;
-    private String GroupDescription;
+    private String groupDescription;
 
     private Double[] routeLatArray;
     private Double[] routeLngArray;
@@ -24,7 +27,7 @@ public class Group {
     }
 
     public String getGroupDescription(){
-        return GroupDescription;
+        return groupDescription;
     }
 
     public Double[] getRouteLatArray(){
@@ -52,8 +55,8 @@ public class Group {
         this.id = id;
     }
 
-    public void setGroupDescription(String groupDescription) {
-        GroupDescription = groupDescription;
+    public void setGroupDescription(String description) {
+        groupDescription = description;
     }
 
     public void setRouteLatArray(Double[] routeLatArray) {

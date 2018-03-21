@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jade.walkinggroupbus.walkingschoolbus.MonitoredUserDetailActivity">
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.MonitoredUserDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -57,7 +57,7 @@
             android:layout_marginTop="98dp"
             android:layout_toLeftOf="@+id/text_name"
             android:layout_toStartOf="@+id/text_name"
-            android:text="@string/msg_name"
+            android:text="@string/name"
             android:textSize="20sp" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:layout_alignStart="@+id/textView3"
             android:layout_below="@+id/textView3"
             android:layout_marginTop="51dp"
-            android:text="@string/msg_email"
+            android:text="@string/email"
             android:textSize="20sp" />
 
         <TextView
@@ -79,7 +79,7 @@
             android:layout_alignBottom="@+id/textView3"
             android:layout_toEndOf="@+id/title_title"
             android:layout_toRightOf="@+id/title_title"
-            android:text="@string/msg_unknown"
+            android:text="@string/unknown"
             android:textSize="20sp" />
 
         <TextView
@@ -90,7 +90,7 @@
             android:layout_alignBottom="@+id/textView4"
             android:layout_alignLeft="@+id/text_name"
             android:layout_alignStart="@+id/text_name"
-            android:text="@string/msg_unknown"
+            android:text="@string/unknown"
             android:textSize="20sp" />
 
     </RelativeLayout>

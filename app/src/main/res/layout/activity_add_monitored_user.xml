@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jade.walkinggroupbus.walkingschoolbus.AddMonitoredUserActivity">
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.AddMonitoredUserActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
-                    android:text="@string/msg_name"
+                    android:text="@string/name"
                     android:textSize="20sp" />
 
                 <EditText
@@ -39,7 +39,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:hint="Please input name"
+                    android:hint="@string/msg_please_input_name"
                     android:inputType="textPersonName" />
 
             </TableRow>
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
-                    android:text="@string/msg_email"
+                    android:text="@string/email"
                     android:textSize="20sp" />
 
                 <EditText
@@ -68,7 +68,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:hint="@string/msg_example_email"
+                    android:hint="@string/childs_email_address"
                     android:inputType="textEmailAddress" />
 
             </TableRow>

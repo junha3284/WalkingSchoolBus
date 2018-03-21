@@ -1,4 +1,4 @@
-package com.jade.walkinggroupbus.walkingschoolbus;
+package com.jade.walkinggroupbus.walkingschoolbus.app;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,18 +11,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
-import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 
-public class MoniterdUsersActivity extends AppCompatActivity {
+public class MonitoredUsersActivity extends AppCompatActivity {
 
     private UserInfo userInfo;
     private SharedData sharedData;
@@ -81,7 +80,7 @@ public class MoniterdUsersActivity extends AppCompatActivity {
                 String name = clickedUser.getName();
                 String email = clickedUser.getEmail();
                 Long ID = clickedUser.getId();
-                Intent intent = MonitoredUserDetailActivity.makeIntent(MoniterdUsersActivity.this, name, email, ID);
+                Intent intent = MonitoredUserDetailActivity.makeIntent(MonitoredUsersActivity.this, name, email, ID);
                 startActivity(intent);
             }
         });
@@ -92,7 +91,7 @@ public class MoniterdUsersActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = AddMonitoredUserActivity.makeIntent(MoniterdUsersActivity.this);
+                Intent intent = AddMonitoredUserActivity.makeIntent(MonitoredUsersActivity.this);
                 startActivity(intent);
             }
         });
@@ -124,7 +123,7 @@ public class MoniterdUsersActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        Intent intent = new Intent(context,  MoniterdUsersActivity.class);
+        Intent intent = new Intent(context,  MonitoredUsersActivity.class);
         return intent;
     }
 }

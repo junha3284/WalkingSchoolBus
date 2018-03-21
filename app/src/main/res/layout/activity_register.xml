@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jade.walkinggroupbus.walkingschoolbus.RegisterActivity">
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -119,14 +119,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/confirm" />
+                android:text="@string/action_confirm" />
 
             <Button
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cancel" />
+                android:text="@string/action_cancel" />
 
         </LinearLayout>
 
