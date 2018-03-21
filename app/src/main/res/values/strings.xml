@@ -47,5 +47,7 @@
     <string name="action_createWalkingGroup">Create Walking Group</string>
     <string name="childs_email_address">child\'s email address</string>
     <string name="msg_please_input_name">Please input name</string>
+    <string name="message">MESSAGING</string>
+    <string name="dash_board">DASHBOARD</string>
 
 </resources>
