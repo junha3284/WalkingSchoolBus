@@ -30,6 +30,7 @@
         <activity android:name=".app.MonitoredUserDetailActivity" />
         <activity android:name=".app.AddMonitoredUserActivity" />
         <activity android:name=".app.RegisterActivity" />
+        <activity android:name=".app.RegisterAdditionalActivity" />
         <activity android:name=".app.MainMenuActivity" />
         <activity android:name=".app.JoinGroupDetailsActivity" />
         <!--
