@@ -45,7 +45,6 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
     private void setButtons() {
-
         Button btnMsg = (Button) findViewById(R.id.button_Message);
         btnMsg.setOnClickListener(new View.OnClickListener(){
             @Override
