@@ -1,6 +1,7 @@
 package com.jade.walkinggroupbus.walkingschoolbus.app;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Looper;
@@ -24,9 +25,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jade.walkinggroupbus.walkingschoolbus.R;
+import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
+
+import java.security.acl.Group;
 
 public class OnWalkMapActivity extends FragmentActivity
         implements OnMapReadyCallback,
@@ -35,11 +39,15 @@ public class OnWalkMapActivity extends FragmentActivity
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest mLocationRequest;
+    private GroupsInfo groupsInfo = GroupsInfo.getInstance();
 
     private WGServerProxy proxy;
     private SharedData sharedData;
     private static final String TAG = "ServerTest";
+    private static final String GROUP_ID = "group ID";
     private static final int REQUEST_CODE_LOCATIONPERMISSION = 13116;
+
+    private float onWalkGroupID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,8 @@ public class OnWalkMapActivity extends FragmentActivity
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
+        getIntentData();
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -68,6 +78,11 @@ public class OnWalkMapActivity extends FragmentActivity
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
+    }
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        onWalkGroupID = intent.getFloatExtra(GROUP_ID,0);
     }
 
 
@@ -124,5 +139,11 @@ public class OnWalkMapActivity extends FragmentActivity
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // false to move camera
         return false;
+    }
+
+    public static Intent makeIntent(Long groupID) {
+        Intent intent = new Intent();
+        intent.putExtra(GROUP_ID, groupID.longValue());
+        return intent;
     }
 }
