@@ -49,5 +49,7 @@
     <string name="msg_please_input_name">Please input name</string>
     <string name="message">MESSAGING</string>
     <string name="dash_board">DASHBOARD</string>
+    <string name="title_activity_group_members_parents">GroupMembersParentsActivity</string>
+    <string name="group_members_parents_title">Parents of heheXD</string>
 
 </resources>
