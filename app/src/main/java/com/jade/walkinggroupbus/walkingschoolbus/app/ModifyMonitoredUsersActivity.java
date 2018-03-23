@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
@@ -37,6 +38,7 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
     public String emergency_contact;
 
     private ChildInfo childInfo;
+    private SharedData sharedData;
 
     private WGServerProxy proxy;
 
@@ -46,11 +48,17 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modify_monitored_users);
 
         childInfo = ChildInfo.childInfo();
+        sharedData = SharedData.getSharedData();
 
         Intent intent = getIntent();
         Long id = intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0);
 
-        Log.w("ID", "" + id);
+        String token = sharedData.getToken();
+        if(token != null)
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
+        else {
+            ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
+        }
 
         Button saveBtn = (Button) findViewById(R.id.button_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,12 +68,6 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
                 getEditTextFields();
 
                 confirmFields();
-
-                Intent intent = getIntent();
-
-                // Make call to server to store data
-                Call<UserInfo> caller = proxy.editUser(id, childInfo);
-                ProxyBuilder.callProxy(ModifyMonitoredUsersActivity.this, caller, returnedUser -> response(returnedUser));
             }
         });
     }
@@ -141,6 +143,9 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
         if (emergency_contact.length() != 0){
             childInfo.setEmergencyContactInfo(emergency_contact);
         }
+
+        Call<UserInfo> editUser = proxy.editUser(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0), childInfo);
+        ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
     }
 
 
@@ -153,10 +158,17 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
     }
 
     private void response(UserInfo returnedUser) {
-        Log.w(TAG, "Edit Successful");
+        Log.w(TAG, "    User: " + returnedUser);
     }
 
     private void getChild(UserInfo returnedUser){
         childInfo.setChildInfo(returnedUser);
+    }
+
+    private void onReceiveToken(String token) {
+        // Replace the current proxy with one that uses the token!
+        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
+        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
+        sharedData.setToken(token);
     }
 }
