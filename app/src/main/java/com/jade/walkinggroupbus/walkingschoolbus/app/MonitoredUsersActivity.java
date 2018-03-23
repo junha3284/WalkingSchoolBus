@@ -115,6 +115,15 @@ public class MonitoredUsersActivity extends AppCompatActivity {
                 getMonitoredUsers();
             }
         });
+
+        Button myInfoBtn = (Button) findViewById(R.id.button_my_info);
+        myInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( MonitoredUsersActivity.this, MonitoredUserDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     // Convert List<UserInfo> into string which is usable for ListView Adapter

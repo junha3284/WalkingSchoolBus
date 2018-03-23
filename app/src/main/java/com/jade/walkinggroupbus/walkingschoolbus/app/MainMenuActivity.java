@@ -72,15 +72,6 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Button btnChildInfo = (Button) findViewById(R.id.button_walking_group);
-        btnChildInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = MonitoredUsersActivity.makeIntent(MainMenuActivity.this);
-                startActivity(intent);
-            }
-        });
     }
 
     private void storeEmail_sharedPreferences(){

@@ -34,8 +34,6 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "ChildInfo";
 
-    public Long identify;
-
     private UserInfo userInfo;
     private SharedData sharedData;
     private ChildInfo childInfo;

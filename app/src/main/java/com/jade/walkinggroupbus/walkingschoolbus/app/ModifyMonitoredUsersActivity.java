@@ -39,6 +39,7 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
 
     private ChildInfo childInfo;
     private SharedData sharedData;
+    private UserInfo userInfo;
 
     private WGServerProxy proxy;
 
@@ -49,6 +50,7 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
 
         childInfo = ChildInfo.childInfo();
         sharedData = SharedData.getSharedData();
+        userInfo = UserInfo.userInfo();
 
         Intent intent = getIntent();
         Long id = intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0);
@@ -68,6 +70,8 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
                 getEditTextFields();
 
                 confirmFields();
+
+                finish();
             }
         });
     }
@@ -104,48 +108,88 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
     }
 
     private void confirmFields() {
-        // Get the child you want to monitor
-        Intent intent = getIntent();
-        Call<UserInfo> caller = proxy.getUserById(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0));
-        ProxyBuilder.callProxy(caller, returnedUser -> getChild(returnedUser));
 
-        // Edit their information
-        if (email.length() != 0){
-            childInfo.setEmail(email);
-        }
-        if (name.length() != 0){
-            childInfo.setName(name);
-        }
-        if (password1.length() != 0 && password1.equals(password2)){
-            childInfo.setPassword(password1);
-        }
-        if (birth_month.length() != 0){
-            childInfo.setBirthMonth(birth_month);
-        }
-        if (birth_year.length() != 0){
-            childInfo.setBirthYear(birth_year);
-        }
-        if (address.length() != 0){
-            childInfo.setAddress(address);
-        }
-        if (cell_phone.length() != 0){
-            childInfo.setCellPhone(cell_phone);
-        }
-        if (home_phone.length() != 0){
-            childInfo.setHomePhone(home_phone);
-        }
-        if (grade.length() != 0){
-            childInfo.setGrade(grade);
-        }
-        if (teacher_name.length() != 0){
-            childInfo.setTeacherName(teacher_name);
-        }
-        if (emergency_contact.length() != 0){
-            childInfo.setEmergencyContactInfo(emergency_contact);
-        }
+        if (userInfo.managingChild()) {
+            // Get the child you want to monitor
+            Intent intent = getIntent();
+            Call<UserInfo> caller = proxy.getUserById(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0));
+            ProxyBuilder.callProxy(caller, returnedUser -> getChild(returnedUser));
 
-        Call<UserInfo> editUser = proxy.editUser(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0), childInfo);
-        ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
+            // Edit their information
+            if (email.length() != 0) {
+                childInfo.setEmail(email);
+            }
+            if (name.length() != 0) {
+                childInfo.setName(name);
+            }
+            if (password1.length() != 0 && password1.equals(password2)) {
+                childInfo.setPassword(password1);
+            }
+            if (birth_month.length() != 0) {
+                childInfo.setBirthMonth(birth_month);
+            }
+            if (birth_year.length() != 0) {
+                childInfo.setBirthYear(birth_year);
+            }
+            if (address.length() != 0) {
+                childInfo.setAddress(address);
+            }
+            if (cell_phone.length() != 0) {
+                childInfo.setCellPhone(cell_phone);
+            }
+            if (home_phone.length() != 0) {
+                childInfo.setHomePhone(home_phone);
+            }
+            if (grade.length() != 0) {
+                childInfo.setGrade(grade);
+            }
+            if (teacher_name.length() != 0) {
+                childInfo.setTeacherName(teacher_name);
+            }
+            if (emergency_contact.length() != 0) {
+                childInfo.setEmergencyContactInfo(emergency_contact);
+            }
+            Call<UserInfo> editUser = proxy.editUser(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0), childInfo);
+            ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
+        }
+        else{
+            // Edit their information
+            if (email.length() != 0) {
+                userInfo.setEmail(email);
+            }
+            if (name.length() != 0) {
+                userInfo.setName(name);
+            }
+            if (password1.length() != 0 && password1.equals(password2)) {
+                userInfo.setPassword(password1);
+            }
+            if (birth_month.length() != 0) {
+                userInfo.setBirthMonth(birth_month);
+            }
+            if (birth_year.length() != 0) {
+                userInfo.setBirthYear(birth_year);
+            }
+            if (address.length() != 0) {
+                userInfo.setAddress(address);
+            }
+            if (cell_phone.length() != 0) {
+                userInfo.setCellPhone(cell_phone);
+            }
+            if (home_phone.length() != 0) {
+                userInfo.setHomePhone(home_phone);
+            }
+            if (grade.length() != 0) {
+                userInfo.setGrade(grade);
+            }
+            if (teacher_name.length() != 0) {
+                userInfo.setTeacherName(teacher_name);
+            }
+            if (emergency_contact.length() != 0) {
+                userInfo.setEmergencyContactInfo(emergency_contact);
+            }
+            Call<UserInfo> editUser = proxy.editUser(userInfo.getId(), childInfo);
+            ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
+        }
     }
 
 

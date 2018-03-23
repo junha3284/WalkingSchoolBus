@@ -188,6 +188,15 @@ public class LoginActivity extends AppCompatActivity {
         Log.w(TAG, "Set userInfo basic fields:");
         userInfo.setId(returnedUser.getId());
         userInfo.setName(returnedUser.getName());
+        userInfo.setEmail(returnedUser.getEmail());
+        userInfo.setBirthYear(returnedUser.getBirthYear());
+        userInfo.setBirthMonth(returnedUser.getBirthMonth());
+        userInfo.setAddress(returnedUser.getAddress());
+        userInfo.setCellPhone(returnedUser.getCellPhone());
+        userInfo.setHomePhone(returnedUser.getHomePhone());
+        userInfo.setGrade(returnedUser.getGrade());
+        userInfo.setTeacherName(returnedUser.getTeacherName());
+        userInfo.setEmergencyContactInfo(returnedUser.getEmergencyContactInfo());
         userInfo.setHref(returnedUser.getHref());
         userInfo.setLeadsGroups(returnedUser.getLeadsGroups());
         userInfo.setMemberOfGroups(returnedUser.getMemberOfGroups());
