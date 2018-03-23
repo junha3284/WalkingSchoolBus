@@ -50,6 +50,10 @@
     <string name="message">MESSAGING</string>
     <string name="dash_board">DASHBOARD</string>
     <string name="title_activity_group_members_parents">GroupMembersParentsActivity</string>
-    <string name="group_members_parents_title">Parents of heheXD</string>
+    <string name="group_members_parents_title">Parents of </string>
+    <string name="text_parent_info">Name:</string>
+    <string name="text_parent_info_email">Email:</string>
+    <string name="text_parent_info_cell">Cell Number:</string>
+    <string name="text_parent_info_Home">Home Number:</string>
 
 </resources>

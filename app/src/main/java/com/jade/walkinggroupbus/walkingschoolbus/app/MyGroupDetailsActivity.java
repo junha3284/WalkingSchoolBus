@@ -70,6 +70,11 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         listViewOnClick();
     }
 
+    private void getIntentData() {
+        Intent intent = getIntent();
+        groupName = intent.getStringExtra("passedGroupName");
+    }
+
     private void mapButton() {
         Button btnMap = (Button) findViewById(R.id.button_displayMap);
 
@@ -104,11 +109,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         for(int i =0; i < size; i++)
             description[i] = members.get(i).toStringForList();
         return description;
-    }
-
-    private void getIntentData() {
-        Intent intent = getIntent();
-        groupName = intent.getStringExtra("passedGroupName");
     }
 
     private void leaveGroupButton() {
