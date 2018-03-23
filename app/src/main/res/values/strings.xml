@@ -59,5 +59,8 @@
     <string name="modify">Modify</string>
     <string name="modify_empty_fields_ignored">Modify (empty fields ignored)</string>
     <string name="save">Save</string>
+    <string name="dash_board">Dash Board</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="message">Message</string>
 
 </resources>
