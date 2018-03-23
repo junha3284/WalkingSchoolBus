@@ -53,6 +53,8 @@ public class UserInfo {
             return instance;
     }
 
+
+
     public boolean managingChild() {
         return manageChild;
     }

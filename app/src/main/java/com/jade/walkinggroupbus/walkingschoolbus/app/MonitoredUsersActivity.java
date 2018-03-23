@@ -80,7 +80,19 @@ public class MonitoredUsersActivity extends AppCompatActivity {
                 String name = clickedUser.getName();
                 String email = clickedUser.getEmail();
                 Long ID = clickedUser.getId();
-                Intent intent = MonitoredUserDetailActivity.makeIntent(MonitoredUsersActivity.this, name, email, ID);
+                String birthYear = clickedUser.getBirthYear();
+                String birthMonth = clickedUser.getBirthMonth();
+                String address = clickedUser.getAddress();
+                String cellPhone = clickedUser.getCellPhone();
+                String homePhone = clickedUser.getHomePhone();
+                String grade = clickedUser.getGrade();
+                String teacherName = clickedUser.getTeacherName();
+                String emergencyContact = clickedUser.getEmergencyContactInfo();
+
+                userInfo.startManagingChild();
+
+                Intent intent = MonitoredUserDetailActivity.makeIntent(MonitoredUsersActivity.this,
+                        name, email, ID, birthYear, birthMonth, address, cellPhone, homePhone, grade, teacherName, emergencyContact);
                 startActivity(intent);
             }
         });

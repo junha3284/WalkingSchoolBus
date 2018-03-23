@@ -56,5 +56,8 @@
     <string name="grade">Grade:</string>
     <string name="teacher_s_name">Teacher\'s Name:</string>
     <string name="emergency_contact">Emergency Contact:</string>
+    <string name="modify">Modify</string>
+    <string name="modify_empty_fields_ignored">Modify (empty fields ignored)</string>
+    <string name="save">Save</string>
 
 </resources>
