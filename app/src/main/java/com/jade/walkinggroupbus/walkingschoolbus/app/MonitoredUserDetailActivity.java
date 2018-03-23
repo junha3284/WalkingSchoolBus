@@ -65,7 +65,6 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
         setBtns();
 
-        Log.w("ChildInfo", "    User: " + childInfo.toString());
     }
 
 
@@ -147,27 +146,12 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // update child singleton
                 Intent intent = getIntent();
-                Call<UserInfo> caller = proxy.getUserById(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0));
-                ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
 
-                String name = intent.getStringExtra(RESULT_KEY_USER_NAME);
-                String email = intent.getStringExtra(RESULT_KEY_USER_EMAIL);
                 Long ID = intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0);
-                String birthYear = intent.getStringExtra(RESULT_KEY_USER_BIRTH_YEAR);
-                String birthMonth = intent.getStringExtra(RESULT_KEY_USER_BIRTH_MONTH);
-                String address = intent.getStringExtra(RESULT_KEY_USER_ADDRESS);
-                String cellPhone = intent.getStringExtra(RESULT_KEY_USER_CELL_PHONE);
-                String homePhone = intent.getStringExtra(RESULT_KEY_USER_HOME_PHONE);
-                String grade = intent.getStringExtra(RESULT_KEY_USER_GRADE);
-                String teacherName = intent.getStringExtra(RESULT_KEY_USER_TEACHER_NAME);
-                String emergencyContact = intent.getStringExtra(RESULT_KEY_USER_EMERGENCY_CONTACT_INFORMATION);
+                Log.w("ID", "" + ID);
 
-                userInfo.startManagingChild();
-
-                Intent modifyActivity = ModifyMonitoredUsersActivity.makeIntent(MonitoredUserDetailActivity.this,
-                        name, email, ID, birthYear, birthMonth, address, cellPhone, homePhone, grade, teacherName, emergencyContact);
+                Intent modifyActivity = ModifyMonitoredUsersActivity.makeIntent(MonitoredUserDetailActivity.this, ID);
                startActivity(modifyActivity);
             }
         });
@@ -186,6 +170,7 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
     private void response(UserInfo returnedUser){
         childInfo.setChildInfo(returnedUser);
+        Log.w("ChildInfo", "    User: " + childInfo.toString());
     }
 
     private void response(Void returnNothing){

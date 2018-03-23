@@ -19,17 +19,7 @@ import retrofit2.Call;
 
 public class ModifyMonitoredUsersActivity extends AppCompatActivity {
 
-    public static final String RESULT_KEY_USER_NAME = "com.jade.walkinggroupbus.walkingschoolbus-name";
-    public static final String RESULT_KEY_USER_EMAIL = "com.jade.walkinggroupbus.walkingschoolbus-email";
     public static final String RESULT_KEY_MONITORED_USER_ID = "com.jade.walkinggroupbus.walkingschoolbus-monitored_user_id";
-    public static final String RESULT_KEY_USER_BIRTH_YEAR = "com.jade.walkinggroupbus.walkingschoolbus-birth_year";
-    public static final String RESULT_KEY_USER_BIRTH_MONTH = "com.jade.walkinggroupbus.walkingschoolbus-birth_month";
-    public static final String RESULT_KEY_USER_ADDRESS = "com.jade.walkinggroupbus.walkingschoolbus-address";
-    public static final String RESULT_KEY_USER_CELL_PHONE = "com.jade.walkinggroupbus.walkingschoolbus-cell_phone";
-    public static final String RESULT_KEY_USER_HOME_PHONE = "com.jade.walkinggroupbus.walkingschoolbus-home_phone";
-    public static final String RESULT_KEY_USER_GRADE = "com.jade.walkinggroupbus.walkingschoolbus-grade";
-    public static final String RESULT_KEY_USER_TEACHER_NAME = "com.jade.walkinggroupbus.walkingschoolbus-teacher_name";
-    public static final String RESULT_KEY_USER_EMERGENCY_CONTACT_INFORMATION = "com.jade.walkinggroupbus.walkingschoolbus-emeregency_contact_information";
 
     private static final String TAG = "ServerTest";
 
@@ -47,9 +37,6 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
     public String emergency_contact;
 
     private ChildInfo childInfo;
-    private UserInfo userInfo;
-
-    private Long id;
 
     private WGServerProxy proxy;
 
@@ -59,20 +46,25 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modify_monitored_users);
 
         childInfo = ChildInfo.childInfo();
-        userInfo = UserInfo.userInfo();
+
+        Intent intent = getIntent();
+        Long id = intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0);
+
+        Log.w("ID", "" + id);
 
         Button saveBtn = (Button) findViewById(R.id.button_save);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 getEditTextFields();
+
+                confirmFields();
 
                 Intent intent = getIntent();
 
-                Log.w("modified", "    User: " + childInfo.toString());
-
                 // Make call to server to store data
-                Call<UserInfo> caller = proxy.editUser(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0), childInfo);
+                Call<UserInfo> caller = proxy.editUser(id, childInfo);
                 ProxyBuilder.callProxy(ModifyMonitoredUsersActivity.this, caller, returnedUser -> response(returnedUser));
             }
         });
@@ -107,101 +99,64 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
         grade = edit_grade.getText().toString();
         teacher_name = edit_teacher_name.getText().toString();
         emergency_contact = edit_emergency_contact.getText().toString();
-
-        confirmFields();
     }
 
     private void confirmFields() {
+        // Get the child you want to monitor
         Intent intent = getIntent();
-        if (email.length() == 0){
-            email = intent.getStringExtra(RESULT_KEY_USER_EMAIL);
-        }
-        else{
+        Call<UserInfo> caller = proxy.getUserById(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0));
+        ProxyBuilder.callProxy(caller, returnedUser -> getChild(returnedUser));
+
+        // Edit their information
+        if (email.length() != 0){
             childInfo.setEmail(email);
         }
-        if (name.length() == 0){
-            name = intent.getStringExtra(RESULT_KEY_USER_NAME);
-        }
-        else{
+        if (name.length() != 0){
             childInfo.setName(name);
         }
         if (password1.length() != 0 && password1.equals(password2)){
             childInfo.setPassword(password1);
         }
-
-        if (birth_month.length() == 0){
-            birth_month = intent.getStringExtra(RESULT_KEY_USER_BIRTH_MONTH);
-        }
-        else{
+        if (birth_month.length() != 0){
             childInfo.setBirthMonth(birth_month);
         }
-        if (birth_year.length() == 0){
-            birth_year = intent.getStringExtra(RESULT_KEY_USER_BIRTH_YEAR);
-        }
-        else{
+        if (birth_year.length() != 0){
             childInfo.setBirthYear(birth_year);
         }
-        if (address.length() == 0){
-            address = intent.getStringExtra(RESULT_KEY_USER_ADDRESS);
-        }
-        else{
+        if (address.length() != 0){
             childInfo.setAddress(address);
         }
-        if (cell_phone.length() == 0){
-            cell_phone = intent.getStringExtra(RESULT_KEY_USER_CELL_PHONE);
-        }
-        else{
+        if (cell_phone.length() != 0){
             childInfo.setCellPhone(cell_phone);
         }
-        if (home_phone.length() == 0){
-            home_phone = intent.getStringExtra(RESULT_KEY_USER_HOME_PHONE);
-        }
-        else{
+        if (home_phone.length() != 0){
             childInfo.setHomePhone(home_phone);
         }
-
-        if (grade.length() == 0){
-            grade = intent.getStringExtra(RESULT_KEY_USER_GRADE);
-        }
-        else{
+        if (grade.length() != 0){
             childInfo.setGrade(grade);
         }
-        if (teacher_name.length() == 0){
-            teacher_name = intent.getStringExtra(RESULT_KEY_USER_TEACHER_NAME);
-        }
-        else{
+        if (teacher_name.length() != 0){
             childInfo.setTeacherName(teacher_name);
         }
-        if (emergency_contact.length() == 0){
-            emergency_contact = intent.getStringExtra(RESULT_KEY_USER_EMERGENCY_CONTACT_INFORMATION);
-        }
-        else{
+        if (emergency_contact.length() != 0){
             childInfo.setEmergencyContactInfo(emergency_contact);
         }
     }
 
 
-    public static Intent makeIntent(Context context, String name, String email, Long id,
-                                    String birthYear, String birthMonth, String address, String cellPhone,
-                                    String homePhone, String grade, String teacherName, String emergencyContact) {
+    public static Intent makeIntent(Context context, Long id) {
 
         Intent temp = new Intent(context, ModifyMonitoredUsersActivity.class);
-        temp.putExtra(RESULT_KEY_USER_NAME, name);
-        temp.putExtra(RESULT_KEY_USER_EMAIL, email);
         temp.putExtra(RESULT_KEY_MONITORED_USER_ID, id);
-        temp.putExtra(RESULT_KEY_USER_BIRTH_YEAR, birthYear);
-        temp.putExtra(RESULT_KEY_USER_BIRTH_MONTH, birthMonth);
-        temp.putExtra(RESULT_KEY_USER_ADDRESS, address);
-        temp.putExtra(RESULT_KEY_USER_CELL_PHONE, cellPhone);
-        temp.putExtra(RESULT_KEY_USER_HOME_PHONE, homePhone);
-        temp.putExtra(RESULT_KEY_USER_GRADE, grade);
-        temp.putExtra(RESULT_KEY_USER_TEACHER_NAME, teacherName);
-        temp.putExtra(RESULT_KEY_USER_EMERGENCY_CONTACT_INFORMATION, emergencyContact);
 
         return temp;
     }
 
     private void response(UserInfo returnedUser) {
         Log.w(TAG, "Edit Successful");
+    }
+
+    private void getChild(UserInfo returnedUser){
+        childInfo.setChildInfo(returnedUser);
     }
 }

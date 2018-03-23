@@ -52,6 +52,15 @@ public class ChildInfo {
         setPassword(user.getPassword());
         setName(user.getName());
         setId(user.getId());
+        setBirthMonth(user.getBirthMonth());
+        setBirthYear(user.getBirthYear());
+        setAddress(user.getAddress());
+        setHomePhone(user.getHomePhone());
+        setCellPhone(user.getCellPhone());
+        setGrade(user.getGrade());
+        setTeacherName(user.getTeacherName());
+        setEmergencyContactInfo(user.getEmergencyContactInfo());
+
         setMonitoredByUsers(user.getMonitoredByUsers());
         setMonitorsUsers(user.getMonitorsUsers());
         setMemberOfGroups(user.getMemberOfGroups());
