@@ -30,6 +30,7 @@
         <activity android:name=".app.MonitoredUserDetailActivity" />
         <activity android:name=".app.AddMonitoredUserActivity" />
         <activity android:name=".app.RegisterActivity" />
+        <activity android:name=".app.RegisterAdditionalActivity" />
         <activity android:name=".app.MainMenuActivity" />
         <activity android:name=".app.JoinGroupDetailsActivity" />
         <!--
@@ -56,6 +57,7 @@
             android:label="@string/title_activity_create_group_map" />
         <activity android:name=".app.DashBoardActivity" />
         <activity android:name=".app.MessageActivity"></activity>
+        <activity android:name=".app.ModifyMonitoredUsersActivity"></activity>
     </application>
 
 </manifest>
