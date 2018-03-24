@@ -2,6 +2,7 @@ package com.jade.walkinggroupbus.walkingschoolbus.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +50,8 @@ public class DashBoardActivity extends AppCompatActivity {
         btnMsg.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //TODO: connect with message activity
+                Intent intent = MessageActivity.makeIntent(DashBoardActivity.this);
+                startActivity(intent);
             }
         });
 

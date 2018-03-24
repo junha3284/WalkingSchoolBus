@@ -55,6 +55,8 @@
         <activity
             android:name=".app.CreateGroupMapActivity"
             android:label="@string/title_activity_create_group_map" />
+        <activity android:name=".app.DashBoardActivity" />
+        <activity android:name=".app.MessageActivity"></activity>
         <activity android:name=".app.ModifyMonitoredUsersActivity"></activity>
     </application>
 
