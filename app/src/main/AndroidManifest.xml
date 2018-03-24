@@ -54,7 +54,8 @@
         <activity
             android:name=".app.CreateGroupMapActivity"
             android:label="@string/title_activity_create_group_map" />
-        <activity android:name=".app.DashBoardActivity"></activity>
+        <activity android:name=".app.DashBoardActivity" />
+        <activity android:name=".app.MessageActivity"></activity>
     </application>
 
 </manifest>
