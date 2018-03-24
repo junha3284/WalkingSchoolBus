@@ -191,7 +191,10 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
             ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
         }
     }
-
+    
+     private void getChild(UserInfo returnedUser){
+        childInfo.setChildInfo(returnedUser);
+    }
 
     public static Intent makeIntent(Context context, Long id) {
 
@@ -203,10 +206,6 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
 
     private void response(UserInfo returnedUser) {
         Log.w(TAG, "    User: " + returnedUser);
-    }
-
-    private void getChild(UserInfo returnedUser){
-        childInfo.setChildInfo(returnedUser);
     }
 
     private void onReceiveToken(String token) {
