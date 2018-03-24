@@ -49,5 +49,8 @@
     <string name="msg_please_input_name">Please input name</string>
     <string name="message">MESSAGING</string>
     <string name="dash_board">DASHBOARD</string>
+    <string name="unread_messages">Unread Messages</string>
+    <string name="read_messages">Read Messages</string>
+    <string name="action_newMessage">NEW MESSAGE</string>
 
 </resources>
