@@ -23,7 +23,7 @@
                 android:id="@+id/text_subtitleUnreadMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Unread Messages"
+                android:text="@string/unread_messages"
                 android:textSize="24sp" />
 
             <ListView
@@ -49,7 +49,7 @@
                 android:id="@+id/text_subtitleReadMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Read Messages"
+                android:text="@string/read_messages"
                 android:textSize="24sp" />
 
             <ListView
@@ -71,7 +71,7 @@
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="17dp"
-            android:text="NEW MESSAGE" />
+            android:text="@string/action_newMessage" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
