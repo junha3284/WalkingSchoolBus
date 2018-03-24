@@ -1,12 +1,13 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
 
+import java.util.Date;
 
 public class GPSLocation {
 
     Double lat;
     Double lng;
-    String timestamp;
+    Date timestamp;
 
     public GPSLocation() {
         lat = null;
@@ -42,11 +43,11 @@ public class GPSLocation {
         lng = newLng;
     }
 
-    public String getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String newTimestamp) {
+    public void setTimestamp(Date newTimestamp) {
         timestamp = newTimestamp;
     }
 }

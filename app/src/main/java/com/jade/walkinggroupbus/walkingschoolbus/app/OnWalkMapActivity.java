@@ -25,12 +25,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jade.walkinggroupbus.walkingschoolbus.R;
+import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
+import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import java.security.acl.Group;
+import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
 
 public class OnWalkMapActivity extends FragmentActivity
         implements OnMapReadyCallback,
@@ -39,6 +45,8 @@ public class OnWalkMapActivity extends FragmentActivity
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest mLocationRequest;
+
+    private UserInfo userInfo = UserInfo.userInfo();
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
 
     private WGServerProxy proxy;
@@ -47,7 +55,8 @@ public class OnWalkMapActivity extends FragmentActivity
     private static final String GROUP_ID = "group ID";
     private static final int REQUEST_CODE_LOCATIONPERMISSION = 13116;
 
-    private float onWalkGroupID;
+    private Long onWalkGroupID;
+    GPSLocation gpsLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +91,7 @@ public class OnWalkMapActivity extends FragmentActivity
 
     private void getIntentData() {
         Intent intent = getIntent();
-        onWalkGroupID = intent.getFloatExtra(GROUP_ID,0);
+        onWalkGroupID = intent.getLongExtra(GROUP_ID,0);
     }
 
 
@@ -129,10 +138,34 @@ public class OnWalkMapActivity extends FragmentActivity
 
             // TODO:: send location info
             Location location = locationResult.getLastLocation();
-            LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+
+            Double[] newGPScoordinates = {location.getLatitude(),location.getLongitude()};
+            gpsLocation.setLocation(newGPScoordinates);
+            gpsLocation.setTimestamp(new Date());
+
+            Call<GPSLocation> gpsLocationCaller = proxy.setNewGPSLocation(userInfo.getId(), gpsLocation);
+            ProxyBuilder.callProxy(OnWalkMapActivity.this, gpsLocationCaller, returnedGPSLocation -> updateUser(returnedGPSLocation));
+
+            Call<List<UserInfo>> groupUsersCaller = proxy.getMembersOfGroup(onWalkGroupID);
+            ProxyBuilder.callProxy(OnWalkMapActivity.this, groupUsersCaller, returnedGroupMembers -> updateMarkers(returnedGroupMembers));
+
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
         }
     };
+
+    private void updateUser(GPSLocation returnedGPSLocation) {
+        userInfo.setLastGpsLocation(returnedGPSLocation);
+    }
+
+    private void updateMarkers(List<UserInfo> returnedGroupMembers) {
+        // clear previous markers
+        mMap.clear();
+
+        // TODO:: set markers for members
+        // if does not equal userInfo.getId()
+        // if member is leader, colour green
+    }
 
     @Override
     public boolean onMyLocationButtonClick() {
