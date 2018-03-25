@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.MyGroupDetailsActivity">
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.GroupMembersParentsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="430dp"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout6">
 
         <TextView
             android:id="@+id/text_title"
@@ -19,37 +20,23 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:text="@string/my_group_details_title"
+            android:text="@string/group_members_parents_title"
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button_displayMap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/action_SeeGroupLocation" />
-
-        <TextView
-            android:id="@+id/text_members"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/my_group_details_members"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
         <ListView
-            android:id="@+id/listView_groupMemebers"
+            android:id="@+id/listView_parents"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_leave_group"
+        android:id="@+id/button_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
-        android:text="@string/action_LeaveGroup" />
+        android:layout_marginBottom="10dp"
+        android:text="@string/action_refresh" />
 </RelativeLayout>
