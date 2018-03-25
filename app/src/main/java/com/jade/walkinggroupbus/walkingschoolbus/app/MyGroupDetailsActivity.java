@@ -19,7 +19,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -90,6 +89,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private void updateListView() {
         Long groupID = groupsInfo.getGroupID(groupName);
+        Log.i("gg", "groupID: " + groupsInfo.getGroupID(groupName));
         // add group to child
         Call<List<UserInfo>> caller = proxy.getMembersOfGroup(groupID);
         ProxyBuilder.callProxy(MyGroupDetailsActivity.this, caller, returnedUsers -> responseMemberOfGroup(returnedUsers));
@@ -97,13 +97,13 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private void responseMemberOfGroup(List<UserInfo> members){
         groupMembers = members;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_members, getMonitoredUserDescriptions(members));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_members, getGroupMemberDescriptions(members));
 
         ListView list = findViewById(R.id.listView_groupMemebers);
         list.setAdapter(adapter);
     }
 
-    private String[] getMonitoredUserDescriptions(List<UserInfo> members){
+    private String[] getGroupMemberDescriptions(List<UserInfo> members){
         int size = members.size();
         String[] description = new String[size];
         for(int i =0; i < size; i++)

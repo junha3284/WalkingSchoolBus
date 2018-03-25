@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,9 +15,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
-import java.io.StringBufferInputStream;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,7 +44,7 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
-
+        Log.i("gggg", "god fucking damn it 1");
         getIntentData();
         updateListViewWithParentInfo();
     }
@@ -72,17 +66,34 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
 
         // change title text
         TextView tvTitle = (TextView) findViewById(R.id.text_title);
-        tvTitle.append(returnedUser.getName());
+        tvTitle.append(" " + returnedUser.getName());
 
+        /*
         // instantiate custom adapter + link to list view
         ListView lvParentInfo = (ListView) findViewById(R.id.listView_parents);
         CustomAdapter customAdapter = new CustomAdapter();
         lvParentInfo.setAdapter(customAdapter);
+        */
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.list_template_members,
+                getParentsDescriptions(groupMemberParents));
+
+        ListView list = findViewById(R.id.listView_parents);
+        list.setAdapter(adapter);
+    }
+
+    private String[] getParentsDescriptions(List<UserInfo> parents){
+        int size = parents.size();
+        String[] description = new String[size];
+        for(int i =0; i < size; i++)
+            description[i] = parents.get(i).toStringContactInfo();
+        return description;
     }
 
     // general functions
     public static Intent makeIntent(Context context) {
-        Intent intent = new Intent(context, MyGroupDetailsActivity.class);
+        Intent intent = new Intent(context, GroupMembersParentsActivity.class);
         return intent;
     }
 
@@ -93,6 +104,8 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
         sharedData.setToken(token);
     }
 
+
+    /*
     // creating custom adapter to show parent info
     class CustomAdapter extends BaseAdapter{
 
@@ -128,10 +141,14 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
             //String parentCell = groupMemberParents.get(position)
             //String parentHome = groupMemberParents.get(position)
 
-            tvParentName.append(parentName);
-            tvParentEmail.append(parentEmail);
-
+            if (parentName.length() > 0) {
+                tvParentName.append(parentName);
+            }
+            if (parentEmail.length() > 0) {
+                tvParentEmail.append(parentEmail);
+            }
             return convertView;
         }
     }
+    */
 }
