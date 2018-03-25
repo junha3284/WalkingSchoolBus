@@ -89,7 +89,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private void updateListView() {
         Long groupID = groupsInfo.getGroupID(groupName);
-        Log.i("gg", "groupID: " + groupsInfo.getGroupID(groupName));
+
         // add group to child
         Call<List<UserInfo>> caller = proxy.getMembersOfGroup(groupID);
         ProxyBuilder.callProxy(MyGroupDetailsActivity.this, caller, returnedUsers -> responseMemberOfGroup(returnedUsers));

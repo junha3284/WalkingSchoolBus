@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,7 +31,8 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
     private static final String TAG = "ServerTest";
 
     private Long groupMemberID;
-    private List<UserInfo> groupMemberParents;
+    private List<UserInfo> groupMemberParentIDs;
+    private List<UserInfo> groupMemberParents = new ArrayList<UserInfo>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +48,12 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
-        Log.i("gggg", "god fucking damn it 1");
+
         getIntentData();
         updateListViewWithParentInfo();
+        refreshListView();
+
+        setRefreshButton();
     }
 
     private void getIntentData() {
@@ -62,26 +69,68 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
     }
 
     private void response(UserInfo returnedUser){
-        groupMemberParents = returnedUser.getMonitoredByUsers();
+        groupMemberParentIDs = returnedUser.getMonitoredByUsers();
+
+        Log.i("test", "PARENT ID: " + returnedUser.getMonitoredByUsers().get(0).getId());
 
         // change title text
         TextView tvTitle = (TextView) findViewById(R.id.text_title);
         tvTitle.append(" " + returnedUser.getName());
 
+        // get group members parents from ID
+        getGroupMembersParentsData(groupMemberParentIDs);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.list_template_members,
-                getParentsDescriptions(groupMemberParents));
+                getParentsDescriptions());
 
         ListView list = findViewById(R.id.listView_parents);
         list.setAdapter(adapter);
     }
 
-    private String[] getParentsDescriptions(List<UserInfo> parents){
-        int size = parents.size();
+    private void getGroupMembersParentsData(List<UserInfo> groupMemberParentIDs) {
+        // SERVER CALL FOR MONITOREDBYUSERS ONLY RETURNS THEIR ID! SO CALL SERVER FOR THEIR INFO EACH TIME
+        int size = groupMemberParentIDs.size();
+        for(int i = 0; i < size; i++) {
+            // server call for parent info
+            Call<UserInfo> caller = proxy.getUserById(groupMemberParentIDs.get(i).getId());
+            ProxyBuilder.callProxy(GroupMembersParentsActivity.this,
+                    caller,
+                    returnedUser -> responseParent(returnedUser));
+        }
+    }
+
+    private void responseParent(UserInfo returnedUser) {
+        groupMemberParents.add(returnedUser);
+    }
+
+    private String[] getParentsDescriptions(){
+        int size = groupMemberParents.size();
         String[] description = new String[size];
-        for(int i =0; i < size; i++)
-            description[i] = parents.get(i).toStringContactInfo();
+        for(int i = 0; i < size; i++) {
+            description[i] = groupMemberParents.get(i).toStringContactInfo();
+        }
+            
         return description;
+    }
+
+    private void refreshListView() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.list_template_members,
+                getParentsDescriptions());
+
+        ListView list = findViewById(R.id.listView_parents);
+        list.setAdapter(adapter);
+    }
+
+    private void setRefreshButton() {
+        Button btnRefresh = (Button) findViewById(R.id.button_refresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshListView();
+            }
+        });
     }
 
     // general functions
