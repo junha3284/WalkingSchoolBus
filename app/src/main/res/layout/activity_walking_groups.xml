@@ -34,7 +34,7 @@
             android:weightSum="2">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/text_joinedGroups"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
@@ -44,7 +44,7 @@
                 android:text="@string/WG_joinedGroups" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/test_LeadGroups"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 

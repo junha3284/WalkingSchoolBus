@@ -33,6 +33,9 @@ public class WalkingGroupsActivity extends AppCompatActivity {
     private List<String> groupNames = new ArrayList<String>();
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
 
+    // iteration 2:
+    private List<String> groupLeadNames = new ArrayList<String>();
+
     private UserInfo userInfo;
     private ChildInfo childInfo;
 
@@ -66,35 +69,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         ProxyBuilder.callProxy(WalkingGroupsActivity.this,
                 caller,
                 returnedGroups -> setUpActivity(returnedGroups));
-
-
-
-        // iteration 2:
-
-        if (userInfo.managingChild()) {
-            // check child to see if child leads any groups
-
-
-        } else {
-            // check user to see if user leads any groups
-
-
-        }
     }
-
-    /*
-        iteration 2:
-        groups i lead is also visible - same functionality as iteration 1
-    */
-
-    // look into user and see what groups he leads
-    // if he leads a group, then pull the info from the server
-
-
-
-
-
-
 
 
     /*
@@ -126,9 +101,14 @@ public class WalkingGroupsActivity extends AppCompatActivity {
 
         if (userInfo.managingChild()) {
             getGroupNames(childInfo.getMemberOfGroups());
+            getGroupLeadNames(childInfo.getLeadsGroups());
+
             refreshListView();
+
         } else {
             getGroupNames(userInfo.getMemberOfGroups());
+            getGroupLeadNames(userInfo.getLeadsGroups());
+
             refreshListView();
         }
 
@@ -145,23 +125,32 @@ public class WalkingGroupsActivity extends AppCompatActivity {
     }
 
     private void refreshListView() {
-        // build adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        // build adapter for joined Groups
+        ArrayAdapter<String> adapterJoinedGroups = new ArrayAdapter<String>(
                 this,
                 R.layout.list_template_members,
                 groupNames);
 
         // configure list view
-        ListView list = (ListView) findViewById(R.id.listView_my_groups);
-        list.setAdapter(adapter);
+        ListView listJoinedGroups = (ListView) findViewById(R.id.listView_my_groups);
+        listJoinedGroups.setAdapter(adapterJoinedGroups);
+
+        // build adapter for lead Groups
+        ArrayAdapter<String> adapterLeadGroups = new ArrayAdapter<String>(
+                this,
+                R.layout.list_template_members,
+                groupLeadNames);
+
+        // configure list view
+        ListView listLeadGroups = (ListView) findViewById(R.id.listView_leaderGroups);
+        listLeadGroups.setAdapter(adapterLeadGroups);
     }
 
     private void registerClickCallback() {
-        // set up onclick listener with list view
-        ListView list = (ListView) findViewById(R.id.listView_my_groups);
+        // set up onclick listener with Joined Groups List View
+        ListView listJoinedGroups = (ListView) findViewById(R.id.listView_my_groups);
 
-        // configure listener to do what i want
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listJoinedGroups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             // id of what was clicked
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id ) {
@@ -170,6 +159,23 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 Intent intent = MyGroupDetailsActivity.makeIntent(WalkingGroupsActivity.this);
 
                 intent.putExtra("passedGroupName", groupNames.get(position));
+                startActivity(intent);
+            }
+        });
+
+
+        // set up onclick listener with Lead Groups List View
+        ListView listLeadGroups = (ListView) findViewById(R.id.listView_leaderGroups);
+
+        listLeadGroups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            // id of what was clicked
+            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id ) {
+
+                // MOVE TO MY GROUP DETAILS. PASS GROUP NAME
+                Intent intent = MyGroupDetailsActivity.makeIntent(WalkingGroupsActivity.this);
+
+                intent.putExtra("passedGroupName", groupLeadNames.get(position));
                 startActivity(intent);
             }
         });
@@ -188,21 +194,38 @@ public class WalkingGroupsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         Button btnRefresh = (Button) findViewById(R.id.button_refresh);
         btnRefresh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 if (userInfo.managingChild()) {
                     getGroupNames(childInfo.getMemberOfGroups());
+                    getGroupLeadNames(childInfo.getLeadsGroups());
                     refreshListView();
                 } else {
                     getGroupNames(userInfo.getMemberOfGroups());
+                    getGroupLeadNames(userInfo.getLeadsGroups());
                     refreshListView();
                 }
             }
         });
     }
 
+    /*
+        iteration 2:
+        groups i lead is also visible - same functionality as iteration 1
+    */
+
+    // look into user and see what groups he leads
+    // if he leads a group, then pull the info from the server
+
+    private void getGroupLeadNames(List<Group> leadsGroups) {
+        groupLeadNames.clear();
+        for (Group group : leadsGroups){
+            groupLeadNames.add(groupsInfo.getNameByID(group.getId()));
+        }
+    }
 
 
     // general functions
