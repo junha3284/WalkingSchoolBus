@@ -71,8 +71,6 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
     private void response(UserInfo returnedUser){
         groupMemberParentIDs = returnedUser.getMonitoredByUsers();
 
-        Log.i("test", "PARENT ID: " + returnedUser.getMonitoredByUsers().get(0).getId());
-
         // change title text
         TextView tvTitle = (TextView) findViewById(R.id.text_title);
         tvTitle.append(" " + returnedUser.getName());
