@@ -68,13 +68,6 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
         TextView tvTitle = (TextView) findViewById(R.id.text_title);
         tvTitle.append(" " + returnedUser.getName());
 
-        /*
-        // instantiate custom adapter + link to list view
-        ListView lvParentInfo = (ListView) findViewById(R.id.listView_parents);
-        CustomAdapter customAdapter = new CustomAdapter();
-        lvParentInfo.setAdapter(customAdapter);
-        */
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.list_template_members,
                 getParentsDescriptions(groupMemberParents));
@@ -103,52 +96,4 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
     }
-
-
-    /*
-    // creating custom adapter to show parent info
-    class CustomAdapter extends BaseAdapter{
-
-        @Override
-        public int getCount() {
-            return groupMemberParents.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.list_group_members_parents, null);
-
-            // link variables to text views in custom layout
-            TextView tvParentName = (TextView) convertView.findViewById(R.id.text_parentName);
-            TextView tvParentEmail = (TextView) convertView.findViewById(R.id.text_parentEmail);
-            TextView tvParentCell = (TextView) convertView.findViewById(R.id.text_ParentCell);
-            TextView tvParentHome = (TextView) convertView.findViewById(R.id.text_ParentHome);
-
-            // add data to text views
-            String parentName = groupMemberParents.get(position).getName();
-            String parentEmail = groupMemberParents.get(position).getEmail();
-            // TODO: update once additional info from Richard is done
-            //String parentCell = groupMemberParents.get(position)
-            //String parentHome = groupMemberParents.get(position)
-
-            if (parentName.length() > 0) {
-                tvParentName.append(parentName);
-            }
-            if (parentEmail.length() > 0) {
-                tvParentEmail.append(parentEmail);
-            }
-            return convertView;
-        }
-    }
-    */
 }
