@@ -11,7 +11,8 @@
         android:layout_height="@dimen/WGDLinearLayout"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout7">
 
         <TextView
             android:id="@+id/text_title"
@@ -20,11 +21,9 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:gravity="center"
             android:text="@string/my_group_details_title"
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
-
             android:textStyle="bold" />
 
         <Button
@@ -44,7 +43,7 @@
         <ListView
             android:id="@+id/listView_groupMembers"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/cast_libraries_material_featurehighlight_text_max_width" />
+            android:layout_height="@dimen/WGD_listViewMembers" />
 
         <TextView
             android:id="@+id/text_leader"
@@ -67,6 +66,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/action_LeaveGroup" />
+
+    <Button
+        android:id="@+id/button_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_leave_group"
+        android:layout_margin="5dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/action_refresh" />
 </RelativeLayout>

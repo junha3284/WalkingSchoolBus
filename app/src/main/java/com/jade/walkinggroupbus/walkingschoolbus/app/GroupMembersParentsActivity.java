@@ -65,7 +65,6 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
         // call server for user info using ID
         Call<UserInfo> caller = proxy.getUserById(groupMemberID);
         ProxyBuilder.callProxy(GroupMembersParentsActivity.this, caller, returnedUser -> response(returnedUser));
-
     }
 
     private void response(UserInfo returnedUser){
@@ -100,6 +99,7 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
 
     private void responseParent(UserInfo returnedUser) {
         groupMemberParents.add(returnedUser);
+        refreshListView();
     }
 
     private String[] getParentsDescriptions(){

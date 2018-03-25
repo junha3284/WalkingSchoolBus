@@ -11,6 +11,7 @@
         android:layout_height="430dp"
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
+        android:gravity="center"
         android:id="@+id/linearLayout6">
 
         <TextView
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:text="@string/group_members_parents_title"
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
