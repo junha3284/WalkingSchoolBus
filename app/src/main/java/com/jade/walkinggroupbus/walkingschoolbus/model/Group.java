@@ -16,6 +16,8 @@ public class Group {
     private UserInfo leader;
     private List<UserInfo> memberUsers = new ArrayList<>();
 
+    private List<Message> messages = new ArrayList<>();
+
     private String href;
 
     public Long getId(){
@@ -40,6 +42,10 @@ public class Group {
 
     public List<UserInfo> getMemberUsers(){
         return memberUsers;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
     }
 
     public String getHref(){
@@ -69,6 +75,10 @@ public class Group {
 
     public void setMemberUsers(List<UserInfo> members) {
         this.memberUsers = members;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public void setHref(String href) {
