@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="@dimen/WGLinearLayout"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="vertical">
@@ -41,7 +41,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
 
-                android:text="@string/WG_joinedGroups" />
+                android:text="@string/WG_joinedGroups"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/test_LeadGroups"
@@ -51,7 +52,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
 
-                android:text="@string/WG_leadGroups" />
+                android:text="@string/WG_leadGroups"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout

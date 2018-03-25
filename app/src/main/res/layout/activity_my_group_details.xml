@@ -8,8 +8,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="@dimen/WGDLinearLayout"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -18,10 +19,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
             android:text="@string/my_group_details_title"
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
+
             android:textStyle="bold" />
 
         <Button
@@ -36,12 +39,26 @@
             android:layout_height="wrap_content"
             android:text="@string/my_group_details_members"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:gravity="center" />
 
         <ListView
-            android:id="@+id/listView_groupMemebers"
+            android:id="@+id/listView_groupMembers"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="@dimen/cast_libraries_material_featurehighlight_text_max_width" />
+
+        <TextView
+            android:id="@+id/text_leader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/MGD_leaderTitle"
+            android:textSize="18sp"
+            android:gravity="center" />
+
+        <ListView
+            android:id="@+id/listView_groupLeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cast_mini_controller_icon_height" />
+
     </LinearLayout>
 
     <Button

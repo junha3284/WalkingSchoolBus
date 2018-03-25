@@ -99,7 +99,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         groupMembers = members;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_members, getGroupMemberDescriptions(members));
 
-        ListView list = findViewById(R.id.listView_groupMemebers);
+        ListView list = findViewById(R.id.listView_groupMembers);
         list.setAdapter(adapter);
     }
 
@@ -166,7 +166,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
     }
 
     private void listViewOnClick() {
-        ListView listViewMembers = (ListView) findViewById(R.id.listView_groupMemebers);
+        ListView listViewMembers = (ListView) findViewById(R.id.listView_groupMembers);
 
         listViewMembers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

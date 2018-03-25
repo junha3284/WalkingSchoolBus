@@ -1,3 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="WGLinearLayout">450dp</dimen>
+    <dimen name="WGDLinearLayout">500dp</dimen>
 </resources>
