@@ -6,92 +6,275 @@
     android:layout_height="match_parent"
     tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.MonitoredUserDetailActivity">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="41dp"
-            android:layout_marginStart="41dp"
-            android:layout_marginTop="32dp"
             android:text="@string/title_info"
             android:textSize="28sp" />
 
-        <Button
-            android:id="@+id/button_remove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="51dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_toLeftOf="@+id/button_create_WalkingGroupActivity"
-            android:layout_toStartOf="@+id/button_create_WalkingGroupActivity"
-            android:text="@string/action_remove" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_create_WalkingGroupActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button_remove"
-            android:layout_alignBottom="@+id/button_remove"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="27dp"
-            android:layout_marginRight="27dp"
-            android:text="@string/title_walking_group" />
+            <TextView
+                android:id="@+id/text_name_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/name"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title_title"
-            android:layout_marginEnd="31dp"
-            android:layout_marginRight="31dp"
-            android:layout_marginTop="98dp"
-            android:layout_toLeftOf="@+id/text_name"
-            android:layout_toStartOf="@+id/text_name"
-            android:text="@string/name"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_alignStart="@+id/textView3"
-            android:layout_below="@+id/textView3"
-            android:layout_marginTop="51dp"
-            android:text="@string/email"
-            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/text_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView3"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_toEndOf="@+id/title_title"
-            android:layout_toRightOf="@+id/title_title"
-            android:text="@string/unknown"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/text_email_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/email"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/text_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView4"
-            android:layout_alignBottom="@+id/textView4"
-            android:layout_alignLeft="@+id/text_name"
-            android:layout_alignStart="@+id/text_name"
-            android:text="@string/unknown"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/text_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_birth_month_field"
+                android:layout_width="3dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/birth_year"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_birth_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_birth_year_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/birth_month"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_birth_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_cell_phone_field"
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cell_phone"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_cell_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_home_phone_field"
+                android:layout_width="4dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/home_phone"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_home_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_address_field"
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/address"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_grade_field"
+                android:layout_width="11dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/grade"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_grade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_teacher_name_field"
+                android:layout_width="7dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/teacher_s_name"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_teacher_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_emergency_contact_field"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/emergency_contact"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_emergency_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/unknown"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteY="38dp">
+
+            <Button
+                android:id="@+id/button_remove"
+                android:layout_width="173dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/action_remove" />
+
+            <Button
+                android:id="@+id/button_create_WalkingGroupActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_walking_group" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_modify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/modify"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="1.0" />
+
 </android.support.constraint.ConstraintLayout>
