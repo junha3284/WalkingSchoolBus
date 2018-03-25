@@ -72,5 +72,7 @@
     <string name="text_parent_info_email">Email:</string>
     <string name="text_parent_info_cell">Cell Number:</string>
     <string name="text_parent_info_Home">Home Number:</string>
+    <string name="WG_leadGroups">Groups I Lead</string>
+    <string name="WG_joinedGroups">Joined Groups</string>
 
 </resources>
