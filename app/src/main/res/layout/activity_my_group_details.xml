@@ -7,7 +7,7 @@
     tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.MyGroupDetailsActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="430dp"
         android:layout_centerHorizontal="true"
         android:orientation="vertical">

@@ -55,12 +55,24 @@ public class ProxyBuilder {
      * @return proxy object to call the server.
      */
     public static WGServerProxy getProxy(String apiKey, String token) {
+        return getProxy(apiKey, token, null);
+    }
+
+    /**
+     * Return the proxy that client code can use to call server.
+     * @param apiKey   Your group's API key to communicate with the server.
+     * @param token    The token you have been issued
+     * @param depth    the depth you want return-value to be in
+     * @return proxy object to call the server.
+     */
+
+    public static WGServerProxy getProxy(String apiKey, String token, String depth) {
         // Enable Logging
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .addInterceptor(new AddHeaderInterceptor(apiKey, token))
+                .addInterceptor(new AddHeaderInterceptor(apiKey, token, depth))
                 .build();
 
         // Build Retrofit proxy object for server
@@ -166,10 +178,12 @@ public class ProxyBuilder {
     private static class AddHeaderInterceptor implements Interceptor {
         private String apiKey;
         private String token;
+        private String depth;
 
-        public AddHeaderInterceptor(String apiKey, String token) {
+        public AddHeaderInterceptor(String apiKey, String token, String depth) {
             this.apiKey = apiKey;
             this.token = token;
+            this.depth = depth;
         }
 
         @Override
@@ -185,6 +199,11 @@ public class ProxyBuilder {
             if (token != null) {
                 builder.header("Authorization", token);
             }
+
+            if (depth != null) {
+                builder.header("JSON-DEPTH", depth);
+            }
+
             Request modifiedRequest = builder.build();
 
             return chain.proceed(modifiedRequest);

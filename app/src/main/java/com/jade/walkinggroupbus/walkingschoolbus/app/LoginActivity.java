@@ -186,8 +186,9 @@ public class LoginActivity extends AppCompatActivity {
     private void response(UserInfo returnedUser) {
         // store data about the user from the server in userInfo
         Log.w(TAG, "Set userInfo basic fields:");
+        
         userInfo.setUserInfo(returnedUser);
-
+        
         // and create MainMenuActivity;
         action_mainMenu();
     }
