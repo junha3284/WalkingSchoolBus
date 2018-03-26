@@ -103,4 +103,15 @@ public class GroupsInfo {
         }
         return name;
     }
+
+    // pre-condition: id in walkingGroups
+    public Long getLeaderByID(Long id) {
+        Long leader = null;
+        for (Group group : walkingGroups) {
+            if (group.getId().equals(id)) {
+                leader = group.getLeader().getId();
+            }
+        }
+        return leader;
+    }
 }

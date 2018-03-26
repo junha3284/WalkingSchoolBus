@@ -72,7 +72,7 @@ public interface WGServerProxy {
     Call<Void> leaveGroup(@Path("groupId") Long groupID, @Path("userID") Long userID);
 
     @POST("/users/{id}/lastGpsLocation")
-    Call<GPSLocation> setNewGPSLocation(@Path("id") Long userID, GPSLocation newGpsLocation);
+    Call<GPSLocation> setNewGPSLocation(@Path("id") Long userID, @Body GPSLocation newGpsLocation);
 
     @GET("/users/{id}/lastGpsLocation")
     Call<GPSLocation> getLastGPSLocation(@Path("id") Long userID);

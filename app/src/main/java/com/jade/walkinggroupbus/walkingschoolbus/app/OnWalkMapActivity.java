@@ -1,6 +1,7 @@
 package com.jade.walkinggroupbus.walkingschoolbus.app;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -22,7 +23,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
@@ -56,7 +59,7 @@ public class OnWalkMapActivity extends FragmentActivity
     private static final int REQUEST_CODE_LOCATIONPERMISSION = 13116;
 
     private Long onWalkGroupID;
-    GPSLocation gpsLocation;
+    GPSLocation gpsLocation = new GPSLocation();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,16 +139,19 @@ public class OnWalkMapActivity extends FragmentActivity
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
 
-            // TODO:: send location info
             Location location = locationResult.getLastLocation();
 
-            Double[] newGPScoordinates = {location.getLatitude(),location.getLongitude()};
-            gpsLocation.setLocation(newGPScoordinates);
+            // get location and time info
+            Double[] newGPSCoordinates = {location.getLatitude(),location.getLongitude()};
+            gpsLocation.setLocation(newGPSCoordinates);
             gpsLocation.setTimestamp(new Date());
 
+            // send location info
             Call<GPSLocation> gpsLocationCaller = proxy.setNewGPSLocation(userInfo.getId(), gpsLocation);
             ProxyBuilder.callProxy(OnWalkMapActivity.this, gpsLocationCaller, returnedGPSLocation -> updateUser(returnedGPSLocation));
 
+            // retrieve group info
+            // update markers with locations
             Call<List<UserInfo>> groupUsersCaller = proxy.getMembersOfGroup(onWalkGroupID);
             ProxyBuilder.callProxy(OnWalkMapActivity.this, groupUsersCaller, returnedGroupMembers -> updateMarkers(returnedGroupMembers));
 
@@ -162,9 +168,70 @@ public class OnWalkMapActivity extends FragmentActivity
         // clear previous markers
         mMap.clear();
 
-        // TODO:: set markers for members
-        // if does not equal userInfo.getId()
-        // if member is leader, colour green
+        // set/reset route markers
+        // and check if destination is reached
+        Call<com.jade.walkinggroupbus.walkingschoolbus.model.Group> groupCaller = proxy.getGroupByID(onWalkGroupID);
+        ProxyBuilder.callProxy(OnWalkMapActivity.this, groupCaller, returnedGroup -> setRouteMarkers(returnedGroup));
+
+        Long groupLeader = groupsInfo.getLeaderByID(onWalkGroupID);
+
+        for (UserInfo user : returnedGroupMembers) {
+            // if user is not leader, get id
+            // and mark yellow
+            Long id = user.getId();
+            String name = user.getName();
+            if (!id.equals(groupLeader) && !id.equals(userInfo.getId())) {
+                Call<GPSLocation> caller = proxy.getLastGPSLocation(id);
+                ProxyBuilder.callProxy(OnWalkMapActivity.this, caller, returnedLocation -> markUser(name, returnedLocation));
+            }
+            else if (id.equals(groupLeader)) {
+                // if member is leader, colour marker green
+                Call<GPSLocation> leaderCaller = proxy.getLastGPSLocation(id);
+                ProxyBuilder.callProxy(OnWalkMapActivity.this, leaderCaller, returnedLocation -> markLeader(name, returnedLocation));
+            }
+        }
+    }
+
+    private void setRouteMarkers(com.jade.walkinggroupbus.walkingschoolbus.model.Group returnedGroup) {
+        Double[] lat = returnedGroup.getRouteLatArray();
+        Double[] lng = returnedGroup.getRouteLngArray();
+
+        // meeting place
+        Marker meetingPlace = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(lat[0], lng[0]))
+                .title("Meeting Place")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        // destination
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(lat[1], lng[1]))
+                .title("Destination")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+        // TODO:: if destination reached
+        if (gpsLocation.getLat().equals(lat[1]) && gpsLocation.getLng().equals(lng[1])) {
+
+        }
+    }
+
+    private void markUser(String name, GPSLocation returnedLocation) {
+        Double[] location = returnedLocation.getLocation();
+        if (location[0] != null && location[1] != null) {
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location[0], location[1]))
+                    .title(name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        }
+    }
+
+    private void markLeader(String name, GPSLocation returnedLocation) {
+        Double[] location = returnedLocation.getLocation();
+        if (location[0] != null && location[1] != null) {
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location[0], location[1]))
+                    .title(name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        }
     }
 
     @Override
@@ -174,8 +241,8 @@ public class OnWalkMapActivity extends FragmentActivity
         return false;
     }
 
-    public static Intent makeIntent(Long groupID) {
-        Intent intent = new Intent();
+    public static Intent makeIntent(Context context, Long groupID) {
+        Intent intent = new Intent(context, OnWalkMapActivity.class);
         intent.putExtra(GROUP_ID, groupID.longValue());
         return intent;
     }
