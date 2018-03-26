@@ -61,15 +61,34 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         }
 
         getIntentData();
-        mapButton();
-        leaveGroupButton();
+
+        // list views
         updateListViewMembers();
         updateListViewLeader();
-
         ListViewsOnClick();
+
+        // setup buttons
+        leaveGroupButton();
+        mapButton();
         refreshButton();
+        startWalkButton();
     }
 
+
+    private void startWalkButton() {
+        Button btnStartWalk = findViewById(R.id.button_startWalk);
+
+        btnStartWalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Long groupID = groupsInfo.getGroupID(groupName);
+                Intent intent = OnWalkMapActivity.makeIntent(groupID);
+
+                // start OnWalkMapActivity
+                startActivity(intent);
+            }
+        });
+    }
 
     private void mapButton() {
         Button btnMap = (Button) findViewById(R.id.button_displayMap);
