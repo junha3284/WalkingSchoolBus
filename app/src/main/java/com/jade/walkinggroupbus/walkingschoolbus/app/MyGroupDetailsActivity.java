@@ -74,37 +74,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         startWalkButton();
     }
 
-
-    private void startWalkButton() {
-        Button btnStartWalk = findViewById(R.id.button_startWalk);
-
-        btnStartWalk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Long groupID = groupsInfo.getGroupID(groupName);
-                Intent intent = OnWalkMapActivity.makeIntent(groupID);
-
-                // start OnWalkMapActivity
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void mapButton() {
-        Button btnMap = (Button) findViewById(R.id.button_displayMap);
-
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyGroupDetailsActivity.this, MyGroupDetailsMapActivity.class);
-                intent.putExtra("passedGroupName", groupName);
-                startActivity(intent);
-            }
-        });
-    }
-
-
-
     private void updateListViewMembers() {
         Long groupID = groupsInfo.getGroupID(groupName);
 
@@ -132,51 +101,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
             description[i] = members.get(i).toStringForList();
         return description;
     }
-
-
-
-    private void leaveGroupButton() {
-        Button btnLeaveGroup = (Button) findViewById(R.id.button_leave_group);
-
-        btnLeaveGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                leaveGroup();
-                finish();
-            }
-        });
-    }
-
-    private void leaveGroup() {
-        Long groupID = groupsInfo.getGroupID(groupName);
-
-        Long userID;
-        if (userInfo.managingChild()) {
-            userID = childInfo.getId();
-        } else {
-            userID = userInfo.getId();
-        }
-        Call<Void> caller = proxy.leaveGroup(groupID ,userID);
-        ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing, userID));
-     }
-
-    private void response(Void returnNothing, Long userId){
-        // update our singleton
-        Call<UserInfo> userInfoCall = proxy.getUserById(userId);
-        ProxyBuilder.callProxy(userInfoCall, returnedUser -> response(returnedUser));
-    }
-
-    private void response(UserInfo returnedUser){
-        // update our singleton
-        if (userInfo.managingChild()) {
-            childInfo.setChildInfo(returnedUser);
-        } else {
-            userInfo.setUserInfo(returnedUser);
-        }
-        finish();
-    }
-
-
 
     private void updateListViewLeader() {
         getGroupLeaderID();
@@ -206,8 +130,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         leaderDescription[0] = groupLeader.toStringForList();
         return leaderDescription;
     }
-
-
 
     private void ListViewsOnClick() {
         ListView listViewMembers = (ListView) findViewById(R.id.listView_groupMembers);
@@ -244,6 +166,61 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
     }
 
 
+
+    private void leaveGroupButton() {
+        Button btnLeaveGroup = (Button) findViewById(R.id.button_leave_group);
+
+        btnLeaveGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                leaveGroup();
+                finish();
+            }
+        });
+    }
+
+    private void leaveGroup() {
+        Long groupID = groupsInfo.getGroupID(groupName);
+
+        Long userID;
+        if (userInfo.managingChild()) {
+            userID = childInfo.getId();
+        } else {
+            userID = userInfo.getId();
+        }
+        Call<Void> caller = proxy.leaveGroup(groupID ,userID);
+        ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing, userID));
+    }
+
+    private void response(Void returnNothing, Long userId){
+        // update our singleton
+        Call<UserInfo> userInfoCall = proxy.getUserById(userId);
+        ProxyBuilder.callProxy(userInfoCall, returnedUser -> response(returnedUser));
+    }
+
+    private void response(UserInfo returnedUser){
+        // update our singleton
+        if (userInfo.managingChild()) {
+            childInfo.setChildInfo(returnedUser);
+        } else {
+            userInfo.setUserInfo(returnedUser);
+        }
+        finish();
+    }
+
+    private void mapButton() {
+        Button btnMap = (Button) findViewById(R.id.button_displayMap);
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyGroupDetailsActivity.this, MyGroupDetailsMapActivity.class);
+                intent.putExtra("passedGroupName", groupName);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void refreshButton() {
         Button btnRefresh = (Button) findViewById(R.id.button_refresh);
 
@@ -256,6 +233,20 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         });
     }
 
+    private void startWalkButton() {
+        Button btnStartWalk = findViewById(R.id.button_startWalk);
+
+        btnStartWalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Long groupID = groupsInfo.getGroupID(groupName);
+                Intent intent = OnWalkMapActivity.makeIntent(groupID);
+
+                // start OnWalkMapActivity
+                startActivity(intent);
+            }
+        });
+    }
 
 
 
