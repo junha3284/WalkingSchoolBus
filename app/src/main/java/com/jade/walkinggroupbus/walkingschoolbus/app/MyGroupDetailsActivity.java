@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -61,30 +64,18 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         }
 
         getIntentData();
-        mapButton();
-        leaveGroupButton();
+
+        // list views
         updateListViewMembers();
         updateListViewLeader();
-
         ListViewsOnClick();
+
+        // setup buttons
+        leaveGroupButton();
+        mapButton();
         refreshButton();
+        startWalkButton();
     }
-
-
-    private void mapButton() {
-        Button btnMap = (Button) findViewById(R.id.button_displayMap);
-
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyGroupDetailsActivity.this, MyGroupDetailsMapActivity.class);
-                intent.putExtra("passedGroupName", groupName);
-                startActivity(intent);
-            }
-        });
-    }
-
-
 
     private void updateListViewMembers() {
         Long groupID = groupsInfo.getGroupID(groupName);
@@ -114,51 +105,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         return description;
     }
 
-
-
-    private void leaveGroupButton() {
-        Button btnLeaveGroup = (Button) findViewById(R.id.button_leave_group);
-
-        btnLeaveGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                leaveGroup();
-                finish();
-            }
-        });
-    }
-
-    private void leaveGroup() {
-        Long groupID = groupsInfo.getGroupID(groupName);
-
-        Long userID;
-        if (userInfo.managingChild()) {
-            userID = childInfo.getId();
-        } else {
-            userID = userInfo.getId();
-        }
-        Call<Void> caller = proxy.leaveGroup(groupID ,userID);
-        ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing, userID));
-     }
-
-    private void response(Void returnNothing, Long userId){
-        // update our singleton
-        Call<UserInfo> userInfoCall = proxy.getUserById(userId);
-        ProxyBuilder.callProxy(userInfoCall, returnedUser -> response(returnedUser));
-    }
-
-    private void response(UserInfo returnedUser){
-        // update our singleton
-        if (userInfo.managingChild()) {
-            childInfo.setChildInfo(returnedUser);
-        } else {
-            userInfo.setUserInfo(returnedUser);
-        }
-        finish();
-    }
-
-
-
     private void updateListViewLeader() {
         getGroupLeaderID();
         Call<UserInfo> caller = proxy.getUserById(groupLeader.getId());
@@ -187,8 +133,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         leaderDescription[0] = groupLeader.toStringForList();
         return leaderDescription;
     }
-
-
 
     private void ListViewsOnClick() {
         ListView listViewMembers = (ListView) findViewById(R.id.listView_groupMembers);
@@ -225,6 +169,61 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
     }
 
 
+
+    private void leaveGroupButton() {
+        Button btnLeaveGroup = (Button) findViewById(R.id.button_leave_group);
+
+        btnLeaveGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                leaveGroup();
+                finish();
+            }
+        });
+    }
+
+    private void leaveGroup() {
+        Long groupID = groupsInfo.getGroupID(groupName);
+
+        Long userID;
+        if (userInfo.managingChild()) {
+            userID = childInfo.getId();
+        } else {
+            userID = userInfo.getId();
+        }
+        Call<Void> caller = proxy.leaveGroup(groupID ,userID);
+        ProxyBuilder.callProxy(caller,returnNothing -> response(returnNothing, userID));
+    }
+
+    private void response(Void returnNothing, Long userId){
+        // update our singleton
+        Call<UserInfo> userInfoCall = proxy.getUserById(userId);
+        ProxyBuilder.callProxy(userInfoCall, returnedUser -> response(returnedUser));
+    }
+
+    private void response(UserInfo returnedUser){
+        // update our singleton
+        if (userInfo.managingChild()) {
+            childInfo.setChildInfo(returnedUser);
+        } else {
+            userInfo.setUserInfo(returnedUser);
+        }
+        finish();
+    }
+
+    private void mapButton() {
+        Button btnMap = (Button) findViewById(R.id.button_displayMap);
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyGroupDetailsActivity.this, MyGroupDetailsMapActivity.class);
+                intent.putExtra("passedGroupName", groupName);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void refreshButton() {
         Button btnRefresh = (Button) findViewById(R.id.button_refresh);
 
@@ -237,6 +236,20 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         });
     }
 
+    private void startWalkButton() {
+        Button btnStartWalk = findViewById(R.id.button_startWalk);
+
+        btnStartWalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Long groupID = groupsInfo.getGroupID(groupName);
+                Intent intent = OnWalkMapActivity.makeIntent(groupID);
+
+                // start OnWalkMapActivity
+                startActivity(intent);
+            }
+        });
+    }
 
 
 
@@ -256,5 +269,24 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.OWA_panic_button:
+                android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+                OnWalkMapPanicPrompt dialog = new OnWalkMapPanicPrompt();
+                dialog.show(manager, "MessageDialog");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
