@@ -12,10 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
+import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
+
+import retrofit2.Call;
 
 /**
  * Created by Richard Wong on 2018-03-26.
@@ -55,7 +58,12 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
                 EditText edit_panicMessage = (EditText) v.findViewById(R.id.OWA_edit_optional_message);
                 panicMessage = edit_panicMessage.getText().toString();
 
-                Call<Message> caller = proxy.newMessageToParents(userInfo.getId(), panicMessage);
+                message.setText(panicMessage);
+                message.setEmergency(true);
+
+                // Call to Server. Emergency Message
+                Call<Message> caller = proxy.newMessageToParents(userInfo.getId(), message);
+                ProxyBuilder.callProxy(OnWalkMapPanicPrompt.this, caller, returnedNothing -> response(returnedNothing));
 
                 getActivity().finish();
             }
@@ -89,5 +97,9 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
+    }
+
+    private void response(Void nothing){
+
     }
 }
