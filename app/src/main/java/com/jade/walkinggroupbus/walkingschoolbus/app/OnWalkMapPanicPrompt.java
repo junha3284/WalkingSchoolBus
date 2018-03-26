@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
@@ -31,8 +32,6 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
     private static final String TAG = "ServerTest";
 
     private UserInfo userInfo;
-    private Message message;
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -58,12 +57,14 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
                 EditText edit_panicMessage = (EditText) v.findViewById(R.id.OWA_edit_optional_message);
                 panicMessage = edit_panicMessage.getText().toString();
 
-                message.setText(panicMessage);
-                message.setEmergency(true);
+                Message message = new Message(panicMessage, true);
 
-                // Call to Server. Emergency Message
-                Call<Message> caller = proxy.newMessageToParents(userInfo.getId(), message);
-                ProxyBuilder.callProxy(OnWalkMapPanicPrompt.this, caller, returnedNothing -> response(returnedNothing));
+                for(UserInfo userInfo: userInfo.getMonitoredByUsers()){
+                    Long id = userInfo.getId();
+                    // Call to Server. Emergency Message
+                    Call<Message> caller = proxy.newMessageToParents(id, message);
+                    ProxyBuilder.callProxy(caller, returnedNothing -> response(returnedNothing));
+                }
 
                 getActivity().finish();
             }
@@ -99,7 +100,7 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
         sharedData.setToken(token);
     }
 
-    private void response(Void nothing){
+    private void response(Message message){
 
     }
 }
