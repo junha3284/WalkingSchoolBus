@@ -72,5 +72,7 @@
     <string name="text_parent_info_email">Email:</string>
     <string name="text_parent_info_cell">Cell Number:</string>
     <string name="text_parent_info_Home">Home Number:</string>
+    <string name="title_activity_on_walk_map">Map</string>
+    <string name="start_walk">Start Walk</string>
 
 </resources>

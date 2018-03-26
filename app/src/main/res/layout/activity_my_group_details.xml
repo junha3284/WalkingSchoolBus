@@ -25,6 +25,12 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/button_startWalk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start_walk" />
+
+        <Button
             android:id="@+id/button_displayMap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

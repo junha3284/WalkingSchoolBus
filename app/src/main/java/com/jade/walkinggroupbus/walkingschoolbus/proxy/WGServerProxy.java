@@ -3,6 +3,7 @@ package com.jade.walkinggroupbus.walkingschoolbus.proxy;
 import java.util.List;
 
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
@@ -73,9 +74,9 @@ public interface WGServerProxy {
     @DELETE("/groups/{groupId}/memberUsers/{userID}")
     Call<Void> leaveGroup(@Path("groupId") Long groupID, @Path("userID") Long userID);
 
-    /**
-     * MORE GOES HERE:
-     * - Monitoring
-     * - Groups
-     */
+    @POST("/users/{id}/lastGpsLocation")
+    Call<GPSLocation> setNewGPSLocation(@Path("id") Long userID, GPSLocation newGpsLocation);
+
+    @GET("/users/{id}/lastGpsLocation")
+    Call<GPSLocation> getLastGPSLocation(@Path("id") Long userID);
 }

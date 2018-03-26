@@ -29,6 +29,7 @@ public class UserInfo {
     private List<Group> memberOfGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
     private List<Group> leadsGroups = new ArrayList<>();
 
+    private GPSLocation lastGpsLocation;
 
     private String href;
 
@@ -65,7 +66,6 @@ public class UserInfo {
         manageChild = false;
     }
 
-    // User info
     public String getEmail() {
         return email;
     }
@@ -193,6 +193,14 @@ public class UserInfo {
 
     public void setLeadsGroups(List<Group> leadsGroups) {
         this.leadsGroups = leadsGroups;
+    }
+
+    public GPSLocation getLastGpsLocation() {
+        return lastGpsLocation;
+    }
+
+    public void setLastGpsLocation(GPSLocation lastGpsLocation) {
+        this.lastGpsLocation = lastGpsLocation;
     }
 
     public String getHref() {
