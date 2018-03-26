@@ -73,11 +73,6 @@
     <string name="text_parent_info_email">Email:</string>
     <string name="text_parent_info_cell">Cell Number:</string>
     <string name="text_parent_info_Home">Home Number:</string>
-    <string name="WG_leadGroups">Groups I Lead</string>
-    <string name="WG_joinedGroups">Joined Groups</string>
-    <string name="MGD_leaderTitle">Group Leader</string>
-    <string name="title_activity_on_walk_map">Map</string>
-    <string name="start_walk">Start Walk</string>
     <string name="OWA_panic_button">Panic Button</string>
     <string name="OWA_text_panic_disclaimer">This is for EMERGENCIES only.
         An emergency message will notify all Parents and Leaders of danger.</string>
@@ -87,5 +82,10 @@
     <string name="action_send">SEND</string>
     <string name="hint_input_message">input message</string>
     <string name="recipient">Recipient:</string>
+    <string name="WG_leadGroups">Groups I Lead</string>
+    <string name="WG_joinedGroups">Joined Groups</string>
+    <string name="MGD_leaderTitle">Group Leader</string>
+    <string name="title_activity_on_walk_map">Map</string>
+    <string name="start_walk">Start Walk</string>
 
 </resources>
