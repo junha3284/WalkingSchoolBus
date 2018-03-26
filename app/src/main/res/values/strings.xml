@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">The Walking School Bus</string>
-    <string name="title_monitored_children">your children</string>
-    <string name="action_add">add</string>
+    <string name="title_monitored_children">Monitored Users</string>
+    <string name="action_add">Add User</string>
     <string name="action_remove">Remove</string>
     <string name="title_info">Information</string>
     <string name="title_walking_group">Walking Group</string>
@@ -24,7 +24,6 @@
     <string name="new_user">New User</string>
     <string name="email_address">Email Address:</string>
     <string name="name">Name:</string>
-    <string name="action_confirm">Confirm</string>
     <string name="action_cancel">Cancel</string>
     <string name="walking_group">Walking Group</string>
     <string name="monitor_groups">Monitor Groups</string>
@@ -47,8 +46,32 @@
     <string name="action_createWalkingGroup">Create Walking Group</string>
     <string name="childs_email_address">child\'s email address</string>
     <string name="msg_please_input_name">Please input name</string>
+    <string name="action_next">Next</string>
+    <string name="birth_year">Birth Year:</string>
+    <string name="birth_month">Birth Month:</string>
+    <string name="address">Address:</string>
+    <string name="cell_phone">Cell Phone:</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="home_phone">Home Phone:</string>
+    <string name="grade">Grade:</string>
+    <string name="teacher_s_name">Teacher\'s Name:</string>
+    <string name="emergency_contact">Emergency Contact:</string>
+    <string name="modify">Modify</string>
+    <string name="modify_empty_fields_ignored">Modify (empty fields ignored)</string>
+    <string name="save">Save</string>
+    <string name="action_confirm">Confirm</string>
     <string name="message">MESSAGING</string>
+    <string name="my_information">My Information</string>
     <string name="dash_board">DASHBOARD</string>
+    <string name="unread_messages">Unread Messages</string>
+    <string name="read_messages">Read Messages</string>
+    <string name="action_newMessage">NEW MESSAGE</string>
+    <string name="title_activity_group_members_parents">GroupMembersParentsActivity</string>
+    <string name="group_members_parents_title">Parents of </string>
+    <string name="text_parent_info">Name:</string>
+    <string name="text_parent_info_email">Email:</string>
+    <string name="text_parent_info_cell">Cell Number:</string>
+    <string name="text_parent_info_Home">Home Number:</string>
     <string name="title_activity_on_walk_map">Map</string>
     <string name="start_walk">Start Walk</string>
 

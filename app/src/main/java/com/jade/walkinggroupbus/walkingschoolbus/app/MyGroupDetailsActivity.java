@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -18,7 +19,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,6 +33,8 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
     private String groupName;
+
+    private List<UserInfo> groupMembers;
 
     private static final String TAG = "ServerTest";
 
@@ -65,6 +67,14 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
         // leave walking group
         leaveGroupButton();
+
+        // iteration 2: view parents of child selected in list view
+        listViewOnClick();
+    }
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        groupName = intent.getStringExtra("passedGroupName");
     }
 
     private void startWalkButton() {
@@ -97,30 +107,26 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private void updateListView() {
         Long groupID = groupsInfo.getGroupID(groupName);
+
         // add group to child
         Call<List<UserInfo>> caller = proxy.getMembersOfGroup(groupID);
         ProxyBuilder.callProxy(MyGroupDetailsActivity.this, caller, returnedUsers -> responseMemberOfGroup(returnedUsers));
     }
 
     private void responseMemberOfGroup(List<UserInfo> members){
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_members, getMonitoredUserDescriptions(members));
+        groupMembers = members;
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_members, getGroupMemberDescriptions(members));
 
         ListView list = findViewById(R.id.listView_groupMemebers);
         list.setAdapter(adapter);
     }
 
-    private String[] getMonitoredUserDescriptions(List<UserInfo> members){
+    private String[] getGroupMemberDescriptions(List<UserInfo> members){
         int size = members.size();
         String[] description = new String[size];
         for(int i =0; i < size; i++)
             description[i] = members.get(i).toStringForList();
         return description;
-    }
-
-    private void getIntentData() {
-        Intent intent = getIntent();
-        groupName = intent.getStringExtra("passedGroupName");
     }
 
     private void leaveGroupButton() {
@@ -167,7 +173,6 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, MyGroupDetailsActivity.class);
-
         return intent;
     }
 
@@ -176,5 +181,23 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
+    }
+
+    private void listViewOnClick() {
+        ListView listViewMembers = (ListView) findViewById(R.id.listView_groupMemebers);
+
+        listViewMembers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // move to parents info activity
+                Intent intent = GroupMembersParentsActivity.makeIntent(MyGroupDetailsActivity.this);
+
+                // pass group member name
+                intent.putExtra("PassedGroupMemberID", groupMembers.get(position).getId());
+
+                startActivity(intent);
+            }
+        });
     }
 }

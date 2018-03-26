@@ -58,6 +58,9 @@
         <activity
             android:name=".app.OnWalkMapActivity"
             android:label="@string/title_activity_on_walk_map" />
+        <activity android:name=".app.GroupMembersParentsActivity" />
+        <activity android:name=".app.MessageActivity" />
+        <activity android:name=".app.ModifyMonitoredUsersActivity" />
     </application>
 
 </manifest>

@@ -138,7 +138,7 @@ public class WalkingGroupsActivity extends AppCompatActivity {
         // build adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,                  // context
-                R.layout.item_groups,        // layout to use (create)
+                R.layout.list_template_members,        // layout to use (create)
                 groupNames);             // items to be displayed
         // configure list view
         ListView list = (ListView) findViewById(R.id.listView_my_groups);

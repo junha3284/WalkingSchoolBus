@@ -186,14 +186,9 @@ public class LoginActivity extends AppCompatActivity {
     private void response(UserInfo returnedUser) {
         // store data about the user from the server in userInfo
         Log.w(TAG, "Set userInfo basic fields:");
-        userInfo.setId(returnedUser.getId());
-        userInfo.setName(returnedUser.getName());
-        userInfo.setHref(returnedUser.getHref());
-        userInfo.setLeadsGroups(returnedUser.getLeadsGroups());
-        userInfo.setMemberOfGroups(returnedUser.getMemberOfGroups());
-        userInfo.setMonitoredByUsers(returnedUser.getMonitoredByUsers());
-        userInfo.setMonitorsUsers(returnedUser.getMonitorsUsers());
-
+        
+        userInfo.setUserInfo(returnedUser);
+        
         // and create MainMenuActivity;
         action_mainMenu();
     }

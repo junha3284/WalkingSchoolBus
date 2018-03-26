@@ -67,7 +67,7 @@ public class MonitoredUsersActivity extends AppCompatActivity {
 
     private void updateListView(){
         ListView listMonitoredUsers = (ListView) findViewById(R.id.list_monitored_users);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_moniotred_user, getMonitoredUserDescriptions());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_monitored_user, getMonitoredUserDescriptions());
         listMonitoredUsers.setAdapter(adapter);
     }
 
@@ -80,7 +80,19 @@ public class MonitoredUsersActivity extends AppCompatActivity {
                 String name = clickedUser.getName();
                 String email = clickedUser.getEmail();
                 Long ID = clickedUser.getId();
-                Intent intent = MonitoredUserDetailActivity.makeIntent(MonitoredUsersActivity.this, name, email, ID);
+                String birthYear = clickedUser.getBirthYear();
+                String birthMonth = clickedUser.getBirthMonth();
+                String address = clickedUser.getAddress();
+                String cellPhone = clickedUser.getCellPhone();
+                String homePhone = clickedUser.getHomePhone();
+                String grade = clickedUser.getGrade();
+                String teacherName = clickedUser.getTeacherName();
+                String emergencyContact = clickedUser.getEmergencyContactInfo();
+
+                userInfo.startManagingChild();
+
+                Intent intent = MonitoredUserDetailActivity.makeIntent(MonitoredUsersActivity.this,
+                        name, email, ID, birthYear, birthMonth, address, cellPhone, homePhone, grade, teacherName, emergencyContact);
                 startActivity(intent);
             }
         });
@@ -101,6 +113,15 @@ public class MonitoredUsersActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // get data about monitored Users from the server and populate the ListView with that
                 getMonitoredUsers();
+            }
+        });
+
+        Button myInfoBtn = (Button) findViewById(R.id.button_my_info);
+        myInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( MonitoredUsersActivity.this, MonitoredUserDetailActivity.class);
+                startActivity(intent);
             }
         });
     }

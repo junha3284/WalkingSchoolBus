@@ -9,10 +9,20 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo {
     private Long id;
-    private String email;
 
+    private String email;
     private String password;
     private String name;
+
+    private String birthYear;
+    private String birthMonth;
+    private String address;
+    private String cellPhone;
+    private String homePhone;
+    private String grade;
+    private String teacherName;
+    private String emergencyContactInfo;
+
 
     private List<UserInfo> monitoredByUsers = new ArrayList<>();
     private List<UserInfo> monitorsUsers = new ArrayList<>();
@@ -80,6 +90,71 @@ public class UserInfo {
         this.name = name;
     }
 
+    public String getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
+    }
+
+    public String getBirthMonth() {
+        return birthMonth;
+    }
+
+    public void setBirthMonth(String birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCellPhone() {
+        return cellPhone;
+    }
+
+    public void setCellPhone(String cellPhone) {
+        this.cellPhone = cellPhone;
+    }
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public void setHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public String getEmergencyContactInfo() {
+        return emergencyContactInfo;
+    }
+
+    public void setEmergencyContactInfo(String emergencyContactInfo) {
+        this.emergencyContactInfo = emergencyContactInfo;
+    }
+
+    // Manage User functions
     public Long getId() {
         return id;
     }
@@ -146,6 +221,14 @@ public class UserInfo {
         setMonitorsUsers(user.getMonitorsUsers());
         setName(user.getName());
         setPassword(user.getPassword());
+        setBirthYear(user.getBirthYear());
+        setBirthMonth(user.getBirthMonth());
+        setAddress(user.getAddress());
+        setCellPhone(user.getCellPhone());
+        setHomePhone(user.getHomePhone());
+        setGrade(user.getGrade());
+        setTeacherName(user.getTeacherName());
+        setEmergencyContactInfo(user.getEmergencyContactInfo());
     }
 
     // UI for Logcat messages.
@@ -155,17 +238,39 @@ public class UserInfo {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", monitoredByUsers=" + monitoredByUsers +
-                ", monitorsUsers=" + monitorsUsers +
-                ", walkingGroups=" + memberOfGroups +
+                ", birthYear=" + birthYear + '\'' +
+                ", birthMonth=" + birthMonth + '\'' +
+                ", address=" + address + '\'' +
+                ", cellPhone=" + cellPhone + '\'' +
+                ", homePhone=" + homePhone + '\'' +
+                ", grade=" + grade + '\'' +
+                ", teacherName=" + teacherName + '\'' +
+                ", emergencyContactInfo=" + emergencyContactInfo + '\'' +
+                ", monitoredByUsers=" + monitoredByUsers + '\'' +
+                ", monitorsUsers=" + monitorsUsers + '\'' +
+                ", membersOfGroups" + memberOfGroups + '\'' +
+                ", leadsGroups=" + leadsGroups + '\'' +
                 '}';
     }
 
 
     public String toStringForList() {
-        return "name='" + name + '\'' +
-                ", email='" + email;
+        return "Name: '" + name + '\'' + "\n" +
+                "Email: '" + email;
+    }
+
+    public String toStringContactInfo() {
+        String contactInfo = "Name: " + name;
+        if (email != null) {
+            contactInfo = contactInfo + "\nEmail: " + email;
+        }
+        if (cellPhone != null) {
+            contactInfo = contactInfo + "\nCell Phone: " + cellPhone;
+        }
+        if (homePhone != null) {
+            contactInfo = contactInfo + "\nHome Phone: " + homePhone;
+        }
+        return contactInfo;
     }
 }
 
