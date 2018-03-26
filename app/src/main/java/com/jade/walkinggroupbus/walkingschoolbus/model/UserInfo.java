@@ -240,6 +240,8 @@ public class UserInfo {
         setGrade(user.getGrade());
         setTeacherName(user.getTeacherName());
         setEmergencyContactInfo(user.getEmergencyContactInfo());
+        setUnreadMessages(user.getUnreadMessages());
+        setReadMessages(user.getReadMessages());
     }
 
     // UI for Logcat messages.

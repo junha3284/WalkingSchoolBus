@@ -17,6 +17,13 @@ public class Message {
     private Boolean emergency;
     private String href;
 
+    public Message(){
+    }
+
+    public Message(String text, Boolean emergency) {
+        this.text = text;
+        this.emergency = emergency;
+    }
 
     // getters and setters
     public Long getId() {
@@ -75,5 +82,8 @@ public class Message {
         this.href = href;
     }
 
-
+    @Override
+    public String toString() {
+        return text;
+    }
 }

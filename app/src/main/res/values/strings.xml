@@ -60,11 +60,15 @@
     <string name="modify_empty_fields_ignored">Modify (empty fields ignored)</string>
     <string name="save">Save</string>
     <string name="action_confirm">Confirm</string>
-    <string name="message">MESSAGING</string>
+    <string name="messaging">MESSAGING</string>
+    <string name="message">Message:</string>
     <string name="my_information">My Information</string>
     <string name="dash_board">DASHBOARD</string>
     <string name="unread_messages">Unread Messages</string>
     <string name="read_messages">Read Messages</string>
     <string name="action_newMessage">NEW MESSAGE</string>
+    <string name="action_send">SEND</string>
+    <string name="hint_input_message">input message</string>
+    <string name="recipient">Recipient:</string>
 
 </resources>

@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
@@ -49,6 +52,7 @@ public class MessageActivity extends AppCompatActivity {
         }
 
         getMessagesFromServer();
+        setBtn();
     }
 
     @Override
@@ -106,6 +110,17 @@ public class MessageActivity extends AppCompatActivity {
         for(int i=0; i < size; i++)
             description[i] = messageList.get(i).toString();
         return description;
+    }
+
+    private void setBtn(){
+        Button newMessageButton = (Button) findViewById(R.id.button_sendMessage);
+        newMessageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = ComposeMessageActivity.makeIntent(MessageActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void onReceiveToken(String token) {
