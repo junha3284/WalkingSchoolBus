@@ -71,7 +71,7 @@ public class MonitoredUsersActivity extends AppCompatActivity {
         userInfo.setMonitorsUsers(returnedList);
 
         ListView listMonitoredUsers = (ListView) findViewById(R.id.list_monitored_users);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_moniotred_user, getMonitoredUserDescriptions());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_monitored_user, getMonitoredUserDescriptions());
         listMonitoredUsers.setAdapter(adapter);
     }
 

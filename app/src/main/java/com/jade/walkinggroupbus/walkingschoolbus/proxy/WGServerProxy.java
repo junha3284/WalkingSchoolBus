@@ -39,7 +39,10 @@ public interface WGServerProxy {
     Call<UserInfo> getUserByEmail(@Query("email") String email);
 
     @POST("/users/{id}")
-    Call<UserInfo> editUser(@Path("id") Long userID, @Body ChildInfo user);
+    Call<UserInfo> editChildUser(@Path("id") Long userID, @Body ChildInfo user);
+
+    @POST("/users/{id}")
+    Call<UserInfo> editUser(@Path("id") Long userID, @Body UserInfo user);
 
     @GET("/users/{id}/monitorsUsers")
     Call<List<UserInfo>> getMonitoredUsers(@Path("id") Long userId);

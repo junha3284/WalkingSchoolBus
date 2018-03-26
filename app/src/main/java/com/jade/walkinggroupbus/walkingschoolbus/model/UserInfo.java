@@ -268,9 +268,22 @@ public class UserInfo {
 
 
     public String toStringForList() {
-        return "name='" + name + '\'' +
-                ", email='" + email;
+        return "Name: '" + name + '\'' + "\n" +
+                "Email: '" + email;
     }
 
+    public String toStringContactInfo() {
+        String contactInfo = "Name: " + name;
+        if (email != null) {
+            contactInfo = contactInfo + "\nEmail: " + email;
+        }
+        if (cellPhone != null) {
+            contactInfo = contactInfo + "\nCell Phone: " + cellPhone;
+        }
+        if (homePhone != null) {
+            contactInfo = contactInfo + "\nHome Phone: " + homePhone;
+        }
+        return contactInfo;
+    }
 }
 

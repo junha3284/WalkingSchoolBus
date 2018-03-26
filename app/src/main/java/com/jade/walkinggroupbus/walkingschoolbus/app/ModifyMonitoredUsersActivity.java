@@ -149,7 +149,7 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
             if (emergency_contact.length() != 0) {
                 childInfo.setEmergencyContactInfo(emergency_contact);
             }
-            Call<UserInfo> editUser = proxy.editUser(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0), childInfo);
+            Call<UserInfo> editUser = proxy.editChildUser(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0), childInfo);
             ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
         }
         else{
@@ -187,7 +187,7 @@ public class ModifyMonitoredUsersActivity extends AppCompatActivity {
             if (emergency_contact.length() != 0) {
                 userInfo.setEmergencyContactInfo(emergency_contact);
             }
-            Call<UserInfo> editUser = proxy.editUser(userInfo.getId(), childInfo);
+            Call<UserInfo> editUser = proxy.editUser(userInfo.getId(), userInfo);
             ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
         }
     }

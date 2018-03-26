@@ -67,6 +67,12 @@
     <string name="unread_messages">Unread Messages</string>
     <string name="read_messages">Read Messages</string>
     <string name="action_newMessage">NEW MESSAGE</string>
+    <string name="title_activity_group_members_parents">GroupMembersParentsActivity</string>
+    <string name="group_members_parents_title">Parents of </string>
+    <string name="text_parent_info">Name:</string>
+    <string name="text_parent_info_email">Email:</string>
+    <string name="text_parent_info_cell">Cell Number:</string>
+    <string name="text_parent_info_Home">Home Number:</string>
     <string name="action_send">SEND</string>
     <string name="hint_input_message">input message</string>
     <string name="recipient">Recipient:</string>
