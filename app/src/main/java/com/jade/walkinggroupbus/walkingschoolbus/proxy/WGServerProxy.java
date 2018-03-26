@@ -5,6 +5,7 @@ import java.util.List;
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
+import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
 import retrofit2.Call;
@@ -79,4 +80,10 @@ public interface WGServerProxy {
 
     @GET("/users/{id}/lastGpsLocation")
     Call<GPSLocation> getLastGPSLocation(@Path("id") Long userID);
+
+    @POST("/messages/togroup/{groupId}")
+    Call<Message> newMessageToGroup(@Path("groupId") Long groupID, @Body Message msg);
+
+    @POST("/messages/toparentsof/{userId}")
+    Call<Message> newMessageToParents(@Path("userId") Long userID, @Body Message msg);
 }
