@@ -65,13 +65,10 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
         // call server for user info using ID
         Call<UserInfo> caller = proxy.getUserById(groupMemberID);
         ProxyBuilder.callProxy(GroupMembersParentsActivity.this, caller, returnedUser -> response(returnedUser));
-
     }
 
     private void response(UserInfo returnedUser){
         groupMemberParentIDs = returnedUser.getMonitoredByUsers();
-
-        Log.i("test", "PARENT ID: " + returnedUser.getMonitoredByUsers().get(0).getId());
 
         // change title text
         TextView tvTitle = (TextView) findViewById(R.id.text_title);
@@ -102,6 +99,7 @@ public class GroupMembersParentsActivity extends AppCompatActivity {
 
     private void responseParent(UserInfo returnedUser) {
         groupMemberParents.add(returnedUser);
+        refreshListView();
     }
 
     private String[] getParentsDescriptions(){

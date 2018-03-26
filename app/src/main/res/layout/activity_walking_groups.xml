@@ -7,11 +7,12 @@
     tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.WalkingGroupsActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/WGLinearLayout"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout3">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_title"
@@ -25,10 +26,55 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <ListView
-            android:id="@+id/listView_my_groups"
+        <LinearLayout
+            android:id="@+id/layout_tvTitles"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/text_joinedGroups"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:gravity="center"
+
+                android:text="@string/WG_joinedGroups"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/test_LeadGroups"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:gravity="center"
+
+                android:text="@string/WG_leadGroups"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_listViews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/listView_my_groups"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+
+            <ListView
+                android:id="@+id/listView_leaderGroups"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
