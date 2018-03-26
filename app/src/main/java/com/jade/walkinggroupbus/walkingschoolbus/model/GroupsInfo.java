@@ -103,4 +103,15 @@ public class GroupsInfo {
         }
         return name;
     }
+
+    // only to be used in MGD therefore, the group will always exist when function is called
+    public Group getGroupByID(Long id) {
+        Group retGroup = new Group();
+        for (Group group : walkingGroups) {
+            if (group.getId().equals(id)) {
+                retGroup = group;
+            }
+        }
+        return retGroup;
+    }
 }
