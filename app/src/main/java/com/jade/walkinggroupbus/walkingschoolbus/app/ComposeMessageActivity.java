@@ -34,7 +34,7 @@ public class ComposeMessageActivity extends AppCompatActivity {
 
     private Long idForSending;
 
-    private List<Group> memberOfGroups;
+    private List<Group> leadingGroups;
     private boolean sendingToParent = true;
 
     @Override
@@ -54,7 +54,7 @@ public class ComposeMessageActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
-        memberOfGroups = userInfo.getMemberOfGroups();
+        leadingGroups = userInfo.getLeadsGroups();
 
         setSpinner();
         setBtn();
@@ -62,12 +62,12 @@ public class ComposeMessageActivity extends AppCompatActivity {
 
     private void setSpinner() {
         //create adapter for spinner
-        int size = memberOfGroups.size();
+        int size = leadingGroups.size();
         String[] items = new String[size + 1];
 
         items[0] = "parent";
         for(int i=0; i < size; i++){
-            items[i+1] = memberOfGroups.get(i).getGroupDescription();
+            items[i+1] = leadingGroups.get(i).getGroupDescription();
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_spinner_item, items);
 
@@ -84,7 +84,7 @@ public class ComposeMessageActivity extends AppCompatActivity {
                     sendingToParent = true;
                     return;
                 }
-                idForSending = memberOfGroups.get(position-1).getId();
+                idForSending = leadingGroups.get(position-1).getId();
                 sendingToParent = false;
             }
 
