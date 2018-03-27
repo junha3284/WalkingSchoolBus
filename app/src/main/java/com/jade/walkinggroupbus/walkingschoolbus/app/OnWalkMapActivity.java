@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -224,8 +225,14 @@ public class OnWalkMapActivity extends FragmentActivity
         if (!atDestination && currentLocation.distanceTo(destinationLocation) < 75) {
             atDestination = true;
 
-            // TODO :: Alert to end activity
-            
+            Toast.makeText(OnWalkMapActivity.this,
+                    "You have arrived at the destination",
+                    Toast.LENGTH_SHORT);
+
+            // Alert to end activity
+            FragmentManager manager = getSupportFragmentManager();
+            ExitWalkDialogFragment dialog = new ExitWalkDialogFragment();
+            dialog.show(manager, "ExitWalkDialog");
 
             // set 10 minute timer on arriving at location
             new CountDownTimer(600000, 60000) {
@@ -272,6 +279,14 @@ public class OnWalkMapActivity extends FragmentActivity
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // false to move camera
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        // alert to end activity
+        FragmentManager manager = getSupportFragmentManager();
+        ExitWalkDialogFragment dialog = new ExitWalkDialogFragment();
+        dialog.show(manager, "ExitWalkDialog");
     }
 
     public static Intent makeIntent(Context context, Long groupID) {
