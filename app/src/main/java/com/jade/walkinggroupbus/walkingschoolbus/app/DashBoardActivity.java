@@ -55,6 +55,8 @@ public class DashBoardActivity extends AppCompatActivity {
             }
         });
 
+        btnMsg.setText(getString(R.string.message) + userInfo.getUnreadMessages().size());
+
         Button btnMonitorGroup = (Button) findViewById(R.id.button_monitorGroup);
         btnMonitorGroup.setOnClickListener(new View.OnClickListener() {
             @Override
