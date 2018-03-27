@@ -23,6 +23,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
     private static final String TAG = "ServerTest";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,13 @@ public class DashBoardActivity extends AppCompatActivity {
         setButtons();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setButtons();
+    }
+
     private void setButtons() {
         Button btnMsg = (Button) findViewById(R.id.button_Message);
         btnMsg.setOnClickListener(new View.OnClickListener(){
@@ -55,7 +63,7 @@ public class DashBoardActivity extends AppCompatActivity {
             }
         });
 
-        btnMsg.setText(getString(R.string.message) + userInfo.getUnreadMessages().size());
+        btnMsg.setText(getString(R.string.message) + " " + userInfo.getUnreadMessages().size());
 
         Button btnMonitorGroup = (Button) findViewById(R.id.button_monitorGroup);
         btnMonitorGroup.setOnClickListener(new View.OnClickListener() {
