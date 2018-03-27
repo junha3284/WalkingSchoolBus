@@ -29,6 +29,9 @@ public class UserInfo {
     private List<Group> memberOfGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
     private List<Group> leadsGroups = new ArrayList<>();
 
+    private List<Message> unreadMessages = new ArrayList<>();
+    private List<Message> readMessages = new ArrayList<>();
+    private GPSLocation lastGpsLocation;
 
     private String href;
 
@@ -65,7 +68,6 @@ public class UserInfo {
         manageChild = false;
     }
 
-    // User info
     public String getEmail() {
         return email;
     }
@@ -195,12 +197,37 @@ public class UserInfo {
         this.leadsGroups = leadsGroups;
     }
 
+    public GPSLocation getLastGpsLocation() {
+        return lastGpsLocation;
+    }
+
+    public void setLastGpsLocation(GPSLocation lastGpsLocation) {
+        this.lastGpsLocation = lastGpsLocation;
+    }
+
     public String getHref() {
         return href;
     }
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+
+    public List<Message> getUnreadMessages() {
+        return unreadMessages;
+    }
+
+    public void setUnreadMessages(List<Message> unreadMessages) {
+        this.unreadMessages = unreadMessages;
+    }
+
+    public List<Message> getReadMessages() {
+        return readMessages;
+    }
+
+    public void setReadMessages(List<Message> readMessages) {
+        this.readMessages = readMessages;
     }
 
     public void setUserInfo(UserInfo user) {
@@ -221,6 +248,8 @@ public class UserInfo {
         setGrade(user.getGrade());
         setTeacherName(user.getTeacherName());
         setEmergencyContactInfo(user.getEmergencyContactInfo());
+        setUnreadMessages(user.getUnreadMessages());
+        setReadMessages(user.getReadMessages());
     }
 
     // UI for Logcat messages.

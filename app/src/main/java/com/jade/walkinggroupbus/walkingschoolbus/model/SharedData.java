@@ -1,9 +1,5 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
-/**
- * Created by choijun-ha on 2018-03-09.
- */
-
 public class SharedData {
     private static SharedData instance;
 

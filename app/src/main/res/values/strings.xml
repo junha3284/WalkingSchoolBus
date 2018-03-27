@@ -60,7 +60,8 @@
     <string name="modify_empty_fields_ignored">Modify (empty fields ignored)</string>
     <string name="save">Save</string>
     <string name="action_confirm">Confirm</string>
-    <string name="message">MESSAGING</string>
+    <string name="messaging">MESSAGING</string>
+    <string name="message">Unread Messages : </string>
     <string name="my_information">My Information</string>
     <string name="dash_board">DASHBOARD</string>
     <string name="unread_messages">Unread Messages</string>
@@ -72,5 +73,16 @@
     <string name="text_parent_info_email">Email:</string>
     <string name="text_parent_info_cell">Cell Number:</string>
     <string name="text_parent_info_Home">Home Number:</string>
+    <string name="WG_leadGroups">Groups I Lead</string>
+    <string name="WG_joinedGroups">Joined Groups</string>
+    <string name="MGD_leaderTitle">Group Leader</string>
+    <string name="title_activity_on_walk_map">Map</string>
+    <string name="start_walk">Start Walk</string>
+    <string name="action_send">SEND</string>
+    <string name="hint_input_message">input message</string>
+    <string name="recipient">Recipient:</string>
+    <string name="sender">Sender</string>
+    <string name="content">content</string>
+    <string name="date">date</string>
 
 </resources>

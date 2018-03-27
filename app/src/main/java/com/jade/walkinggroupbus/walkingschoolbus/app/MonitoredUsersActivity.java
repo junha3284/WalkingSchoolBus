@@ -55,6 +55,13 @@ public class MonitoredUsersActivity extends AppCompatActivity {
         setBtns();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getMonitoredUsers();
+    }
+
     private void getMonitoredUsers(){
         Call<List<UserInfo>> caller = proxy.getMonitoredUsers(userInfo.getId());
         ProxyBuilder.callProxy(caller,returnedList -> response(returnedList));
@@ -62,10 +69,7 @@ public class MonitoredUsersActivity extends AppCompatActivity {
 
     private void response(List<UserInfo> returnedList) {
         userInfo.setMonitorsUsers(returnedList);
-        updateListView();
-    }
 
-    private void updateListView(){
         ListView listMonitoredUsers = (ListView) findViewById(R.id.list_monitored_users);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_monitored_user, getMonitoredUserDescriptions());
         listMonitoredUsers.setAdapter(adapter);
