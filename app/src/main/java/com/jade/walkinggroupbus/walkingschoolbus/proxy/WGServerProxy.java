@@ -5,6 +5,7 @@ import java.util.List;
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
+import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
 import retrofit2.Call;
@@ -73,6 +74,15 @@ public interface WGServerProxy {
 
     @DELETE("/groups/{groupId}/memberUsers/{userID}")
     Call<Void> leaveGroup(@Path("groupId") Long groupID, @Path("userID") Long userID);
+
+    @POST("/messages/togroup/{groupId}")
+    Call<Message> newMessageToGroup(@Path("groupId") Long groupID, @Body Message msg);
+
+    @POST("/messages/toparentsof/{userId}")
+    Call<Message> newMessageToParents(@Path("userId") Long userID, @Body Message msg);
+
+    @POST("/messages/{messageId}/readby/{userId}")
+    Call<UserInfo> readMessage(@Path("messageId") Long messageID, @Path("userId") Long userID, @Body boolean notRead);
 
     @POST("/users/{id}/lastGpsLocation")
     Call<GPSLocation> setNewGPSLocation(@Path("id") Long userID, @Body GPSLocation newGpsLocation);

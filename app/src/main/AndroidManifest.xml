@@ -61,6 +61,7 @@
         <activity android:name=".app.GroupMembersParentsActivity" />
         <activity android:name=".app.MessageActivity" />
         <activity android:name=".app.ModifyMonitoredUsersActivity" />
+        <activity android:name=".app.ComposeMessageActivity"></activity>
     </application>
 
 </manifest>
