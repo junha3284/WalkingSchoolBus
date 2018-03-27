@@ -240,7 +240,7 @@ public class MyGroupDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Long groupID = groupsInfo.getGroupID(groupName);
-                Intent intent = OnWalkMapActivity.makeIntent(groupID);
+                Intent intent = OnWalkMapActivity.makeIntent(MyGroupDetailsActivity.this, groupID);
 
                 // start OnWalkMapActivity
                 startActivity(intent);
