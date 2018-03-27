@@ -194,9 +194,9 @@ public class OnWalkMapActivity extends FragmentActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.OWA_panic_button:
-                android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                OnWalkMapPanicPrompt dialog = new OnWalkMapPanicPrompt();
-                dialog.show(manager, "MessageDialog");
+                int panic = 1;
+                Intent intent = ComposeMessageActivity.makeIntent(OnWalkMapActivity.this, panic);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
