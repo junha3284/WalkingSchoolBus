@@ -1,14 +1,17 @@
 package com.jade.walkinggroupbus.walkingschoolbus.app;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.CountDownTimer;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -22,7 +25,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
@@ -32,7 +37,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
-import java.security.acl.Group;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +60,8 @@ public class OnWalkMapActivity extends FragmentActivity
     private static final int REQUEST_CODE_LOCATIONPERMISSION = 13116;
 
     private Long onWalkGroupID;
-    GPSLocation gpsLocation;
+    GPSLocation gpsLocation = new GPSLocation();
+    private boolean atDestination = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,16 +141,19 @@ public class OnWalkMapActivity extends FragmentActivity
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
 
-            // TODO:: send location info
             Location location = locationResult.getLastLocation();
 
-            Double[] newGPScoordinates = {location.getLatitude(),location.getLongitude()};
-            gpsLocation.setLocation(newGPScoordinates);
+            // get location and time info
+            Double[] newGPSCoordinates = {location.getLatitude(),location.getLongitude()};
+            gpsLocation.setLocation(newGPSCoordinates);
             gpsLocation.setTimestamp(new Date());
 
+            // send location info
             Call<GPSLocation> gpsLocationCaller = proxy.setNewGPSLocation(userInfo.getId(), gpsLocation);
             ProxyBuilder.callProxy(OnWalkMapActivity.this, gpsLocationCaller, returnedGPSLocation -> updateUser(returnedGPSLocation));
 
+            // retrieve group info
+            // update markers with locations
             Call<List<UserInfo>> groupUsersCaller = proxy.getMembersOfGroup(onWalkGroupID);
             ProxyBuilder.callProxy(OnWalkMapActivity.this, groupUsersCaller, returnedGroupMembers -> updateMarkers(returnedGroupMembers));
 
@@ -162,9 +170,108 @@ public class OnWalkMapActivity extends FragmentActivity
         // clear previous markers
         mMap.clear();
 
-        // TODO:: set markers for members
-        // if does not equal userInfo.getId()
-        // if member is leader, colour green
+        // set/reset route markers
+        // and check if destination is reached
+        Call<com.jade.walkinggroupbus.walkingschoolbus.model.Group> groupCaller = proxy.getGroupByID(onWalkGroupID);
+        ProxyBuilder.callProxy(OnWalkMapActivity.this, groupCaller, returnedGroup -> setRouteMarkers(returnedGroup));
+
+        Long groupLeader = groupsInfo.getLeaderByID(onWalkGroupID);
+
+        for (UserInfo user : returnedGroupMembers) {
+            // if user is not leader, get id
+            // and mark yellow
+            Long id = user.getId();
+            String name = user.getName();
+            if (!id.equals(groupLeader) && !id.equals(userInfo.getId())) {
+                Call<GPSLocation> caller = proxy.getLastGPSLocation(id);
+                ProxyBuilder.callProxy(OnWalkMapActivity.this, caller, returnedLocation -> markUser(name, returnedLocation));
+            }
+            else if (id.equals(groupLeader)) {
+                // if member is leader, colour marker green
+                Call<GPSLocation> leaderCaller = proxy.getLastGPSLocation(id);
+                ProxyBuilder.callProxy(OnWalkMapActivity.this, leaderCaller, returnedLocation -> markLeader(name, returnedLocation));
+            }
+        }
+    }
+
+    private void setRouteMarkers(com.jade.walkinggroupbus.walkingschoolbus.model.Group returnedGroup) {
+        Double[] lat = returnedGroup.getRouteLatArray();
+        Double[] lng = returnedGroup.getRouteLngArray();
+
+        // meeting place
+        Marker meetingPlace = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(lat[0], lng[0]))
+                .title("Meeting Place")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        // destination
+        Marker destination = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(lat[1], lng[1]))
+                .title("Destination")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+        // create Location object with current position
+        Location currentLocation = new Location("");
+        currentLocation.setLatitude(gpsLocation.getLat());
+        currentLocation.setLongitude(gpsLocation.getLng());
+
+        // create Location object with destination position
+        Location destinationLocation = new Location("");
+        destinationLocation.setLatitude(lat[1]);
+        destinationLocation.setLongitude(lng[1]);
+
+        // check if arriving at destination
+        // distance to destination less than 75 meters
+        if (!atDestination && currentLocation.distanceTo(destinationLocation) < 75) {
+            atDestination = true;
+
+            Toast.makeText(OnWalkMapActivity.this,
+                    "You have arrived at the destination",
+                    Toast.LENGTH_SHORT);
+
+            // Alert to end activity
+            FragmentManager manager = getSupportFragmentManager();
+            ExitWalkDialogFragment dialog = new ExitWalkDialogFragment();
+            dialog.show(manager, "ExitWalkDialog");
+
+            // set 10 minute timer on arriving at location
+            new CountDownTimer(600000, 60000) {
+                public void onTick(long millisUntilFinished) {
+                    Toast.makeText(OnWalkMapActivity.this,
+                            "Arrived at destination " + (600000 - millisUntilFinished)/60000  + " minutes ago",
+                            Toast.LENGTH_LONG)
+                            .show();
+                    }
+
+                public void onFinish() {
+                    Toast.makeText(OnWalkMapActivity.this,
+                            "Arrived at destination 10 minutes ago. Walk ended",
+                            Toast.LENGTH_LONG)
+                            .show();
+                    finish();
+                }
+            }.start();
+        }
+    }
+
+    private void markUser(String name, GPSLocation returnedLocation) {
+        Double[] location = returnedLocation.getLocation();
+        if (location[0] != null && location[1] != null) {
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location[0], location[1]))
+                    .title(name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        }
+    }
+
+    private void markLeader(String name, GPSLocation returnedLocation) {
+        Double[] location = returnedLocation.getLocation();
+        if (location[0] != null && location[1] != null) {
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location[0], location[1]))
+                    .title(name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        }
     }
 
     @Override
@@ -174,8 +281,16 @@ public class OnWalkMapActivity extends FragmentActivity
         return false;
     }
 
-    public static Intent makeIntent(Long groupID) {
-        Intent intent = new Intent();
+    @Override
+    public void onBackPressed() {
+        // alert to end activity
+        FragmentManager manager = getSupportFragmentManager();
+        ExitWalkDialogFragment dialog = new ExitWalkDialogFragment();
+        dialog.show(manager, "ExitWalkDialog");
+    }
+
+    public static Intent makeIntent(Context context, Long groupID) {
+        Intent intent = new Intent(context, OnWalkMapActivity.class);
         intent.putExtra(GROUP_ID, groupID.longValue());
         return intent;
     }
