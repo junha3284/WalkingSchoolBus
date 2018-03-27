@@ -85,7 +85,7 @@ public interface WGServerProxy {
     Call<UserInfo> readMessage(@Path("messageId") Long messageID, @Path("userId") Long userID, @Body boolean notRead);
 
     @POST("/users/{id}/lastGpsLocation")
-    Call<GPSLocation> setNewGPSLocation(@Path("id") Long userID, GPSLocation newGpsLocation);
+    Call<GPSLocation> setNewGPSLocation(@Path("id") Long userID, @Body GPSLocation newGpsLocation);
 
     @GET("/users/{id}/lastGpsLocation")
     Call<GPSLocation> getLastGPSLocation(@Path("id") Long userID);
