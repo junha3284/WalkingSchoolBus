@@ -79,4 +79,7 @@ public interface WGServerProxy {
 
     @POST("/messages/toparentsof/{userId}")
     Call<Message> newMessageToParents(@Path("userId") Long userID, @Body Message msg);
+
+    @POST("/messages/{messageId}/readby/{userId}")
+    Call<UserInfo> readMessage(@Path("messageId") Long messageID, @Path("userId") Long userID, @Body boolean notRead);
 }

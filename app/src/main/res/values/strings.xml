@@ -76,5 +76,8 @@
     <string name="action_send">SEND</string>
     <string name="hint_input_message">input message</string>
     <string name="recipient">Recipient:</string>
+    <string name="sender">Sender</string>
+    <string name="content">content</string>
+    <string name="date">date</string>
 
 </resources>
