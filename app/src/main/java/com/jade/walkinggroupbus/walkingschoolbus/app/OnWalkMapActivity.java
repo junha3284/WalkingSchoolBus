@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.CountDownTimer;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -35,7 +36,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
-import java.security.acl.Group;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +60,7 @@ public class OnWalkMapActivity extends FragmentActivity
 
     private Long onWalkGroupID;
     GPSLocation gpsLocation = new GPSLocation();
+    private boolean atDestination = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,14 +204,46 @@ public class OnWalkMapActivity extends FragmentActivity
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
         // destination
-        Marker marker = mMap.addMarker(new MarkerOptions()
+        Marker destination = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat[1], lng[1]))
                 .title("Destination")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
-        // TODO:: if destination reached
-        if (gpsLocation.getLat().equals(lat[1]) && gpsLocation.getLng().equals(lng[1])) {
+        // create Location object with current position
+        Location currentLocation = new Location("");
+        currentLocation.setLatitude(gpsLocation.getLat());
+        currentLocation.setLongitude(gpsLocation.getLng());
 
+        // create Location object with destination position
+        Location destinationLocation = new Location("");
+        destinationLocation.setLatitude(lat[1]);
+        destinationLocation.setLongitude(lng[1]);
+
+        // check if arriving at destination
+        // distance to destination less than 75 meters
+        if (!atDestination && currentLocation.distanceTo(destinationLocation) < 75) {
+            atDestination = true;
+
+            // TODO :: Alert to end activity
+            
+
+            // set 10 minute timer on arriving at location
+            new CountDownTimer(600000, 60000) {
+                public void onTick(long millisUntilFinished) {
+                    Toast.makeText(OnWalkMapActivity.this,
+                            "Arrived at destination " + (600000 - millisUntilFinished)/60000  + " minutes ago",
+                            Toast.LENGTH_LONG)
+                            .show();
+                    }
+
+                public void onFinish() {
+                    Toast.makeText(OnWalkMapActivity.this,
+                            "Arrived at destination 10 minutes ago. Walk ended",
+                            Toast.LENGTH_LONG)
+                            .show();
+                    finish();
+                }
+            }.start();
         }
     }
 
