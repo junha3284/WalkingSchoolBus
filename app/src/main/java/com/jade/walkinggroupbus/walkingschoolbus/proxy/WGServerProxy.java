@@ -3,6 +3,7 @@ package com.jade.walkinggroupbus.walkingschoolbus.proxy;
 import java.util.List;
 
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
@@ -82,4 +83,10 @@ public interface WGServerProxy {
 
     @POST("/messages/{messageId}/readby/{userId}")
     Call<UserInfo> readMessage(@Path("messageId") Long messageID, @Path("userId") Long userID, @Body boolean notRead);
+
+    @POST("/users/{id}/lastGpsLocation")
+    Call<GPSLocation> setNewGPSLocation(@Path("id") Long userID, GPSLocation newGpsLocation);
+
+    @GET("/users/{id}/lastGpsLocation")
+    Call<GPSLocation> getLastGPSLocation(@Path("id") Long userID);
 }

@@ -31,6 +31,7 @@ public class UserInfo {
 
     private List<Message> unreadMessages = new ArrayList<>();
     private List<Message> readMessages = new ArrayList<>();
+    private GPSLocation lastGpsLocation;
 
     private String href;
 
@@ -67,7 +68,6 @@ public class UserInfo {
         manageChild = false;
     }
 
-    // User info
     public String getEmail() {
         return email;
     }
@@ -195,6 +195,14 @@ public class UserInfo {
 
     public void setLeadsGroups(List<Group> leadsGroups) {
         this.leadsGroups = leadsGroups;
+    }
+
+    public GPSLocation getLastGpsLocation() {
+        return lastGpsLocation;
+    }
+
+    public void setLastGpsLocation(GPSLocation lastGpsLocation) {
+        this.lastGpsLocation = lastGpsLocation;
     }
 
     public String getHref() {
