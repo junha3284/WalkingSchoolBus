@@ -4,6 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/OWA_panic_button"
+        android:id="@+id/button_OWA_panic"
         android:title="@string/OWA_panic_button" />
+    <item
+        android:id="@+id/button_OWA_sendMessage"
+        android:title="@string/message" />
 </menu>

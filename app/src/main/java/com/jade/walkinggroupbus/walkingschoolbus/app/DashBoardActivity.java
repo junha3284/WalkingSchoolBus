@@ -76,7 +76,7 @@ public class DashBoardActivity extends AppCompatActivity {
             }
         });
 
-        btnMsg.setText(getString(R.string.message) + " " + userInfo.getUnreadMessages().size());
+        btnMsg.setText(getString(R.string.message) + " ( " + userInfo.getUnreadMessages().size() + " )");
 
         Button addBtn = (Button) findViewById(R.id.button_add);
         addBtn.setOnClickListener(new View.OnClickListener(){

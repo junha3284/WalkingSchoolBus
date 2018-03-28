@@ -52,7 +52,7 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
             @Override
             public void onClick(View view) {
                 EditText edit_panicMessage = (EditText) v.findViewById(R.id.OWA_edit_optional_message);
-                panicMessage = "Emergency: " + edit_panicMessage.getText().toString();
+                panicMessage = "Emergency! " + edit_panicMessage.getText().toString();
 
                 Message message = new Message(panicMessage, true);
 

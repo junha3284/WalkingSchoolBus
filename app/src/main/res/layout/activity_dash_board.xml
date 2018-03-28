@@ -22,7 +22,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Dashboard"
+            android:text="@string/title_dash_board"
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/message" />
+            android:text="@string/unread_messages" />
 
         <Button
             android:id="@+id/button_my_info"
