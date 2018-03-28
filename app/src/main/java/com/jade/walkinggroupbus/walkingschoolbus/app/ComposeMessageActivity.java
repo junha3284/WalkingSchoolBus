@@ -37,6 +37,8 @@ public class ComposeMessageActivity extends AppCompatActivity {
     private List<Group> leadingGroups;
     private boolean sendingToParent = true;
 
+    Boolean panic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,17 +51,32 @@ public class ComposeMessageActivity extends AppCompatActivity {
 
         // check if token is set properly
         if(token != null)
-            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken(), "1");
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
-        leadingGroups = userInfo.getLeadsGroups();
+        // After updateUserInfo, update UIs (Spinner and Btn) recording to it
+        updateUserInfo();
+    }
 
+    private void updateUserInfo() {
+        Call<UserInfo> caller = proxy.getUserById(userInfo.getId());
+        ProxyBuilder.callProxy(ComposeMessageActivity.this, caller, returned->respond(returned));
+    }
+
+    private void respond(UserInfo returnedUser){
+        userInfo.setUserInfo(returnedUser);
+
+        leadingGroups = userInfo.getLeadsGroups();
+        // set Spinner in UI such that the user can choose who a message is sent to
         setSpinner();
         setBtn();
     }
 
+    // set Spinner in UI such that the user can choose who a message is sent to
+    //      first item is parent
+    //      from second, the groups which the user is leading
     private void setSpinner() {
         //create adapter for spinner
         int size = leadingGroups.size();
@@ -69,7 +86,9 @@ public class ComposeMessageActivity extends AppCompatActivity {
         for(int i=0; i < size; i++){
             items[i+1] = leadingGroups.get(i).getGroupDescription();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_template_spinner_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.list_template_spinner_item,
+                items);
 
         // set Adapter for spinner
         Spinner recipientSpinner = (Spinner) findViewById(R.id.spinner_recipient);
@@ -117,7 +136,9 @@ public class ComposeMessageActivity extends AppCompatActivity {
             ProxyBuilder.callProxy(this, caller, returnedMsg -> response(returnedMsg));
             return;
         }
-        Toast.makeText(this,"Content is empty!\n please input content for Message",Toast.LENGTH_SHORT)
+        Toast.makeText(this,
+                "Content is empty!\n please input content for Message",
+                Toast.LENGTH_SHORT)
             .show();
     }
 
@@ -125,31 +146,53 @@ public class ComposeMessageActivity extends AppCompatActivity {
         EditText msgEdit = (EditText) findViewById(R.id.edit_message);
         String message = msgEdit.getText().toString();
 
-        if(message.length() != 0) {
-            Message newMessage = new Message(message,false);
+        Intent intent = getIntent();
+        int panic = intent.getIntExtra("Panic", 0);
+
+        if (panic == 1){
+            Message newMessage = new Message(message, true);
             Call<Message> caller = proxy.newMessageToGroup(idForSending, newMessage);
             ProxyBuilder.callProxy(this, caller, returnedMsg -> response(returnedMsg));
-            return;
         }
-        Toast.makeText(this,"Content is empty!\n please input content for Message",Toast.LENGTH_SHORT)
-                .show();
+        else {
+
+            if (message.length() != 0) {
+                Message newMessage = new Message(message, false);
+                Call<Message> caller = proxy.newMessageToGroup(idForSending, newMessage);
+                ProxyBuilder.callProxy(this, caller, returnedMsg -> response(returnedMsg));
+                return;
+            }
+            Toast.makeText(this,
+                    "Content is empty!\n please input content for Message",
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     private void response(Message returnedMsg) {
-        Toast.makeText(this,"Message Sent successfully!",Toast.LENGTH_SHORT)
+        Toast.makeText(this,
+                "Message Sent successfully!",
+                Toast.LENGTH_SHORT)
                 .show();
     }
 
+
+    public static Intent makeIntent(Context context, int panic){
+        Intent intent = new Intent(context, ComposeMessageActivity.class);
+        intent.putExtra("Panic", panic);
+        return intent;
+    }
+
+    // set newly issued token to proxy and save it on sharedData singleton object
+    private void onReceiveToken(String token) {
+        // Replace the current proxy with one that uses the token!
+        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
+        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token, "1");
+        sharedData.setToken(token);
+    }
 
     public static Intent makeIntent(Context context){
         Intent intent = new Intent(context, ComposeMessageActivity.class);
         return intent;
-    }
-
-    private void onReceiveToken(String token) {
-        // Replace the current proxy with one that uses the token!
-        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
-        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
-        sharedData.setToken(token);
     }
 }

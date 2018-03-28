@@ -61,7 +61,7 @@
     <string name="save">Save</string>
     <string name="action_confirm">Confirm</string>
     <string name="messaging">MESSAGING</string>
-    <string name="message">Message:</string>
+    <string name="message">Unread Messages : </string>
     <string name="my_information">My Information</string>
     <string name="dash_board">DASHBOARD</string>
     <string name="unread_messages">Unread Messages</string>
@@ -87,5 +87,8 @@
     <string name="MGD_leaderTitle">Group Leader</string>
     <string name="title_activity_on_walk_map">Map</string>
     <string name="start_walk">Start Walk</string>
+    <string name="sender">Sender</string>
+    <string name="content">content</string>
+    <string name="date">date</string>
 
 </resources>
