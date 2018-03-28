@@ -7,12 +7,12 @@
     tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.MyGroupDetailsActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/WGDLinearLayout"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout7">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_title"
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="@string/my_group_details_title"
             android:textColor="@android:color/background_dark"
             android:textSize="24sp"
@@ -42,27 +42,29 @@
             android:id="@+id/text_members"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/my_group_details_members"
-            android:textSize="18sp"
-            android:gravity="center" />
+            android:textSize="18sp" />
 
         <ListView
             android:id="@+id/listView_groupMembers"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/WGD_listViewMembers" />
+            android:layout_height="@dimen/WGD_listViewMembers"
+            android:isScrollContainer="true" />
 
         <TextView
             android:id="@+id/text_leader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/MGD_leaderTitle"
-            android:textSize="18sp"
-            android:gravity="center" />
+            android:textSize="18sp" />
 
         <ListView
             android:id="@+id/listView_groupLeader"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/mr_controller_volume_group_list_item_height" />
+            android:layout_height="@dimen/mr_controller_volume_group_list_item_height"
+            android:isScrollContainer="true" />
 
     </LinearLayout>
 
@@ -71,16 +73,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:text="@string/action_LeaveGroup" />
 
     <Button
         android:id="@+id/button_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_leave_group"
-        android:layout_margin="5dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@+id/button_leave_group"
+        android:layout_alignBottom="@+id/button_leave_group"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_toLeftOf="@+id/button_leave_group"
+        android:layout_toStartOf="@+id/button_leave_group"
         android:text="@string/action_refresh" />
 </RelativeLayout>

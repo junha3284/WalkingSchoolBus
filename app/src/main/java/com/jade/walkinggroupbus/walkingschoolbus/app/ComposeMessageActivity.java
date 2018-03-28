@@ -51,16 +51,26 @@ public class ComposeMessageActivity extends AppCompatActivity {
 
         // check if token is set properly
         if(token != null)
-            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken(), "1");
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
-        leadingGroups = userInfo.getLeadsGroups();
+        // After updateUserInfo, update UIs (Spinner and Btn) recording to it
+        updateUserInfo();
+    }
 
+    private void updateUserInfo() {
+        Call<UserInfo> caller = proxy.getUserById(userInfo.getId());
+        ProxyBuilder.callProxy(ComposeMessageActivity.this, caller, returned->respond(returned));
+    }
+
+    private void respond(UserInfo returnedUser){
+        userInfo.setUserInfo(returnedUser);
+
+        leadingGroups = userInfo.getLeadsGroups();
         // set Spinner in UI such that the user can choose who a message is sent to
         setSpinner();
-
         setBtn();
     }
 
@@ -177,7 +187,7 @@ public class ComposeMessageActivity extends AppCompatActivity {
     private void onReceiveToken(String token) {
         // Replace the current proxy with one that uses the token!
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
-        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
+        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token, "1");
         sharedData.setToken(token);
     }
 
