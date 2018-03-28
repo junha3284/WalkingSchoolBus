@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
+import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
@@ -64,6 +65,7 @@ public class OnWalkMapActivity extends AppCompatActivity
     private static final int REQUEST_CODE_LOCATIONPERMISSION = 13116;
 
     private Long onWalkGroupID;
+    private Group onWalkGroup;
     GPSLocation gpsLocation = new GPSLocation();
     private boolean atDestination = false;
 
@@ -76,7 +78,7 @@ public class OnWalkMapActivity extends AppCompatActivity
         String token = sharedData.getToken();
         // check if token is set properly
         if(token != null)
-            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken(), "1");
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
@@ -176,8 +178,14 @@ public class OnWalkMapActivity extends AppCompatActivity
 
         // set/reset route markers
         // and check if destination is reached
-        Call<com.jade.walkinggroupbus.walkingschoolbus.model.Group> groupCaller = proxy.getGroupByID(onWalkGroupID);
-        ProxyBuilder.callProxy(OnWalkMapActivity.this, groupCaller, returnedGroup -> setRouteMarkers(returnedGroup));
+        if (onWalkGroup != null) {
+            // after initial server call
+            setRouteMarkers(onWalkGroup);
+        }
+        else {
+            Call<Group> groupCaller = proxy.getGroupByID(onWalkGroupID);
+            ProxyBuilder.callProxy(OnWalkMapActivity.this, groupCaller, walkGroup -> setRouteMarkers(walkGroup));
+        }
 
         Long groupLeader = groupsInfo.getLeaderByID(onWalkGroupID);
 
@@ -187,20 +195,25 @@ public class OnWalkMapActivity extends AppCompatActivity
             Long id = user.getId();
             String name = user.getName();
             if (!id.equals(groupLeader) && !id.equals(userInfo.getId())) {
-                Call<GPSLocation> caller = proxy.getLastGPSLocation(id);
-                ProxyBuilder.callProxy(OnWalkMapActivity.this, caller, returnedLocation -> markUser(name, returnedLocation));
+                GPSLocation userGPSLocation = user.getLastGpsLocation();
+                markUser(name, userGPSLocation);
             }
             else if (id.equals(groupLeader)) {
                 // if member is leader, colour marker green
-                Call<GPSLocation> leaderCaller = proxy.getLastGPSLocation(id);
-                ProxyBuilder.callProxy(OnWalkMapActivity.this, leaderCaller, returnedLocation -> markLeader(name, returnedLocation));
+                GPSLocation leaderGPSLocation = user.getLastGpsLocation();
+                markLeader(name, leaderGPSLocation);
             }
         }
     }
 
-    private void setRouteMarkers(com.jade.walkinggroupbus.walkingschoolbus.model.Group returnedGroup) {
-        Double[] lat = returnedGroup.getRouteLatArray();
-        Double[] lng = returnedGroup.getRouteLngArray();
+    private void setRouteMarkers(Group walkGroup) {
+        // for initial call of method after server
+        if (onWalkGroup == null) {
+            onWalkGroup = walkGroup;
+        }
+
+        Double[] lat = walkGroup.getRouteLatArray();
+        Double[] lng = walkGroup.getRouteLngArray();
 
         // meeting place
         Marker meetingPlace = mMap.addMarker(new MarkerOptions()

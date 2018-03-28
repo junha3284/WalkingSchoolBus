@@ -3,4 +3,5 @@
     <dimen name="WGLinearLayout">450dp</dimen>
     <dimen name="WGDLinearLayout">400dp</dimen>
     <dimen name="WGD_listViewMembers">180dp</dimen>
+    <dimen name="dashboard_ListView">250dp</dimen>
 </resources>
