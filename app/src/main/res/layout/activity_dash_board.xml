@@ -27,29 +27,34 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/layout_btnContainer"
+        <Button
+            android:id="@+id/button_Message"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/message" />
 
-            <Button
-                android:id="@+id/button_Message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/message" />
+        <Button
+            android:id="@+id/button_my_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/my_information" />
 
-            <Button
-                android:id="@+id/button_my_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/my_information" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/text_MonitoredUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/title_monitored_children"
+            android:textColor="@android:color/background_dark"
+            android:layout_below="@+id/layout_btnContainer"
+            android:layout_marginTop="15dp"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:id="@+id/layout_btnsUSER"
+            android:id="@+id/layout_btnListViews"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -68,18 +73,6 @@
                 android:layout_weight="1"
                 android:text="@string/action_refresh" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/text_MonitoredUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/title_monitored_children"
-            android:textColor="@android:color/background_dark"
-            android:layout_below="@+id/layout_btnsUSER"
-            android:layout_marginTop="15dp"
-            android:textSize="24sp"
-            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/list_monitored_users"
