@@ -29,6 +29,9 @@ public class ChildInfo {
     private List<Group> memberOfGroups = new ArrayList<>();
     private List<Group> leadsGroups = new ArrayList<>();
 
+    private List<Message> unreadMessages = new ArrayList<>();
+    private List<Message> readMessages = new ArrayList<>();
+
     private String href;
 
 
@@ -202,6 +205,22 @@ public class ChildInfo {
 
     public void setEmergencyContactInfo(String emergencyContactInfo) {
         this.emergencyContactInfo = emergencyContactInfo;
+    }
+
+    public List<Message> getUnreadMessages() {
+        return unreadMessages;
+    }
+
+    public void setUnreadMessages(List<Message> unreadMessages) {
+        this.unreadMessages = unreadMessages;
+    }
+
+    public List<Message> getReadMessages() {
+        return readMessages;
+    }
+
+    public void setReadMessages(List<Message> readMessages) {
+        this.readMessages = readMessages;
     }
 
     // UI for Logcat messages.
