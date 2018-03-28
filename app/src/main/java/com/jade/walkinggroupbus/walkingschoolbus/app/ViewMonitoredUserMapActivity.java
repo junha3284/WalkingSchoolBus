@@ -120,7 +120,7 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
 
             GPSLocation userLocation = user.getLastGpsLocation();
 
-            if (userLocation.getLat() != null && userLocation.getLat() != null) {
+            if (userLocation != null && userLocation.getLat() != null && userLocation.getLat() != null) {
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(userLocation.getLat(), userLocation.getLng()))
                         .title(user.getName())
@@ -137,7 +137,7 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
 
         GPSLocation childLocation = childInfo.getLastGpsLocation();
 
-        if (childLocation.getLat() != null && childLocation.getLat() != null) {
+        if (childLocation != null && childLocation.getLat() != null && childLocation.getLat() != null) {
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(childLocation.getLat(), childLocation.getLng()))
                     .title(childInfo.getName())
@@ -159,7 +159,7 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
     private void markLeader(UserInfo returnedLeader) {
         GPSLocation leaderLocation = childInfo.getLastGpsLocation();
 
-        if (leaderLocation.getLat() != null && leaderLocation.getLat() != null) {
+        if (leaderLocation != null && leaderLocation.getLat() != null && leaderLocation.getLat() != null) {
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(leaderLocation.getLat(), leaderLocation.getLng()))
                     .title(returnedLeader.getName())
