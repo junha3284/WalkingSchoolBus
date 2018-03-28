@@ -31,6 +31,7 @@ public class UserInfo {
 
     private List<Message> unreadMessages = new ArrayList<>();
     private List<Message> readMessages = new ArrayList<>();
+
     private GPSLocation lastGpsLocation;
 
     private String href;

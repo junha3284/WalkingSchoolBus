@@ -13,7 +13,11 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -42,7 +46,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class OnWalkMapActivity extends FragmentActivity
+public class OnWalkMapActivity extends AppCompatActivity
         implements OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener {
 
@@ -294,4 +298,24 @@ public class OnWalkMapActivity extends FragmentActivity
         intent.putExtra(GROUP_ID, groupID.longValue());
         return intent;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.OWA_panic_button:
+                int panic = 1;
+                Intent intent = ComposeMessageActivity.makeIntent(OnWalkMapActivity.this, panic);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
