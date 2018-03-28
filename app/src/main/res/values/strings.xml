@@ -90,5 +90,6 @@
     <string name="sender">Sender</string>
     <string name="content">content</string>
     <string name="date">date</string>
+    <string name="title_activity_view_monitored_user_map">Map</string>
 
 </resources>

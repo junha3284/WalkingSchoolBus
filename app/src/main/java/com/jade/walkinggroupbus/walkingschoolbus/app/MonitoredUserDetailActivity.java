@@ -52,7 +52,7 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
         String token = sharedData.getToken();
         if(token != null)
-            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken(), "1");
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }

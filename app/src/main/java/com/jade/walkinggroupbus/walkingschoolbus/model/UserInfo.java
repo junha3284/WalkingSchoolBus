@@ -251,6 +251,7 @@ public class UserInfo {
         setEmergencyContactInfo(user.getEmergencyContactInfo());
         setUnreadMessages(user.getUnreadMessages());
         setReadMessages(user.getReadMessages());
+        setLastGpsLocation(user.getLastGpsLocation());
     }
 
     // UI for Logcat messages.
