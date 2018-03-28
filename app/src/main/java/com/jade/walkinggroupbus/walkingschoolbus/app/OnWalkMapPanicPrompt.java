@@ -21,10 +21,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import retrofit2.Call;
 
-/**
- * Created by Richard Wong on 2018-03-26.
- */
-
 public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
     public String panicMessage;
     private WGServerProxy proxy;
@@ -36,6 +32,7 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        userInfo = UserInfo.userInfo();
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
 
@@ -50,28 +47,27 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.activity_on_walk_map_panic_prompt, null);
 
-        Button panicBtn = (Button) v.findViewById(R.id.button_send);
-        panicBtn.setOnClickListener(new View.OnClickListener() {
+        Button sendBtn = (Button) v.findViewById(R.id.button_send);
+        sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText edit_panicMessage = (EditText) v.findViewById(R.id.OWA_edit_optional_message);
-                panicMessage = edit_panicMessage.getText().toString();
+                panicMessage = "Emergency: " + edit_panicMessage.getText().toString();
 
                 Message message = new Message(panicMessage, true);
 
-                for(UserInfo userInfo: userInfo.getMonitoredByUsers()){
-                    Long id = userInfo.getId();
-                    // Call to Server. Emergency Message
-                    Call<Message> caller = proxy.newMessageToParents(id, message);
-                    ProxyBuilder.callProxy(caller, returnedNothing -> response(returnedNothing));
-                }
+                Long id = userInfo.getId();
+
+                // Call to Server. Emergency Message
+                Call<Message> caller = proxy.newMessageToParents(id, message);
+                ProxyBuilder.callProxy(caller, returnedNothing -> response(returnedNothing));
 
                 getActivity().finish();
             }
         });
 
-        Button cancelBtn = (Button) v.findViewById(R.id.button_cancel);
-        panicBtn.setOnClickListener(new View.OnClickListener() {
+        Button cancelBtn = (Button) v.findViewById(R.id.OWA_btn_cancel);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().finish();

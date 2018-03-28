@@ -323,9 +323,12 @@ public class OnWalkMapActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.OWA_panic_button:
-                int panic = 1;
+                /*int panic = 1;
                 Intent intent = ComposeMessageActivity.makeIntent(OnWalkMapActivity.this, panic);
-                startActivity(intent);
+                startActivity(intent);*/
+                FragmentManager fm = getSupportFragmentManager();
+                OnWalkMapPanicPrompt onWalkPanicMapPrompt = new OnWalkMapPanicPrompt();
+                onWalkPanicMapPrompt.show(fm, "PANIC_BUTTON");
                 break;
         }
         return super.onOptionsItemSelected(item);
