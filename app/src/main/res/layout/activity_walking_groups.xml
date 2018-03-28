@@ -82,24 +82,22 @@
         android:id="@+id/button_join_walking_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_create_group"
+        android:layout_alignBottom="@+id/button_create_group"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/button_refresh"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
         android:text="@string/action_JoinWalkingGroup" />
 
     <Button
         android:id="@+id/button_create_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button_join_walking_group"
-        android:layout_alignBottom="@+id/button_join_walking_group"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="13dp"
+        android:layout_toLeftOf="@+id/button_join_walking_group"
+        android:layout_toStartOf="@+id/button_join_walking_group"
         android:text="@string/action_createWalkingGroup"
         android:visibility="visible" />
 
@@ -107,7 +105,7 @@
         android:id="@+id/button_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout3"
+        android:layout_above="@+id/button_join_walking_group"
         android:layout_centerHorizontal="true"
         android:text="@string/action_refresh" />
 
