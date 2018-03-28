@@ -1,55 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.DashBoardActivity">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/layout_dashboard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <fragment
-            android:id="@+id/Map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <TextView
+            android:id="@+id/text_title"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:layout_editor_absoluteY="37dp" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Dashboard"
+            android:textColor="@android:color/background_dark"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button_monitorGroup"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout_btnContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_Message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/message" />
+
+            <Button
+                android:id="@+id/button_my_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/my_information" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_btnsUSER"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/action_add" />
+
+            <Button
+                android:id="@+id/button_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/action_refresh" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_MonitoredUser"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/Map"
-            android:layout_marginEnd="29dp"
-            android:layout_marginRight="29dp"
-            android:layout_marginTop="37dp"
-            android:text="@string/monitor_groups"
-            tools:layout_editor_absoluteX="183dp"
-            tools:layout_editor_absoluteY="419dp" />
+            android:gravity="center"
+            android:text="@string/title_monitored_children"
+            android:textColor="@android:color/background_dark"
+            android:layout_below="@+id/layout_btnsUSER"
+            android:layout_marginTop="15dp"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/button_Message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button_monitorGroup"
-            android:layout_alignBottom="@+id/button_monitorGroup"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_toLeftOf="@+id/button_monitorGroup"
-            android:layout_toStartOf="@+id/button_monitorGroup"
-            android:text="@string/message"
-            tools:layout_editor_absoluteX="75dp"
-            tools:layout_editor_absoluteY="0dp" />
+        <ListView
+            android:id="@+id/list_monitored_users"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dashboard_ListView" />
 
-    </RelativeLayout>
+        </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
