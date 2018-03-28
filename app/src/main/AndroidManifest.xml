@@ -26,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.MonitoredUsersActivity" />
         <activity android:name=".app.MonitoredUserDetailActivity" />
         <activity android:name=".app.AddMonitoredUserActivity" />
         <activity android:name=".app.RegisterActivity" />
