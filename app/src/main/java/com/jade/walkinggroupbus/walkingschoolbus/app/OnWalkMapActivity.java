@@ -272,22 +272,26 @@ public class OnWalkMapActivity extends AppCompatActivity
     }
 
     private void markUser(String name, GPSLocation returnedLocation) {
-        Double[] location = returnedLocation.getLocation();
-        if (location[0] != null && location[1] != null) {
-            Marker marker = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(location[0], location[1]))
-                    .title(name)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        if (returnedLocation != null) {
+            Double[] location = returnedLocation.getLocation();
+            if (location[0] != null && location[1] != null) {
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(location[0], location[1]))
+                        .title(name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+            }
         }
     }
 
     private void markLeader(String name, GPSLocation returnedLocation) {
-        Double[] location = returnedLocation.getLocation();
-        if (location[0] != null && location[1] != null) {
-            Marker marker = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(location[0], location[1]))
-                    .title(name)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        if (returnedLocation != null) {
+            Double[] location = returnedLocation.getLocation();
+            if (location[0] != null && location[1] != null) {
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(location[0], location[1]))
+                        .title(name)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            }
         }
     }
 
