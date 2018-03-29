@@ -106,8 +106,10 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
             // Hides buttons if user is looking at their own data
             Button btnRemove = (Button) findViewById(R.id.button_remove);
             Button btnWalkingGroups = (Button) findViewById(R.id.button_create_WalkingGroupActivity);
+            Button btnViewUser = (Button) findViewById(R.id.button_view_user);
             btnRemove.setVisibility(View.GONE);
             btnWalkingGroups.setVisibility(View.GONE);
+            btnViewUser.setVisibility(View.GONE);
         }
 
     }
