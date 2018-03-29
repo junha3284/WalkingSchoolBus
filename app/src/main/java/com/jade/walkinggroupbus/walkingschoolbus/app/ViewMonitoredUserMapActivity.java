@@ -112,7 +112,7 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
 
         // set camera to position of first monitored user
         if (monitoredUsers.size() > 0) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerList.get(0).getPosition(), 20));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerList.get(0).getPosition(), 7));
         }
         else {
             Toast.makeText(this,
