@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,14 +36,6 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
 
     UserInfo userInfo = UserInfo.userInfo();
     ChildInfo childInfo = ChildInfo.childInfo();
-
-    // TODO:: delete
-    /*
-    private static final String SHOW_LEADERS = "show leader";
-    private static final String CHILD_ID = "child id";
-    private boolean showAllMonitoredUsers = false;
-    private Long childID;
-    */
 
     private WGServerProxy proxy;
     private SharedData sharedData;
@@ -79,19 +72,6 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
     }
-
-    // TODO:: delete
-    /*
-    private void getIntentData() {
-        Intent intent = getIntent();
-
-        showAllMonitoredUsers = !intent.getBooleanExtra(SHOW_LEADERS, true);
-
-        if (!showAllMonitoredUsers) {
-            childID = intent.getLongExtra(CHILD_ID, 0);
-        }
-    }
-    */
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -130,7 +110,14 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
         }
 
         // set camera to position of first monitored user
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerList.get(0).getPosition(),20));
+        if (monitoredUsers.size() > 0) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerList.get(0).getPosition(), 20));
+        }
+        else {
+            Toast.makeText(this,
+                    "No monitored user locations found",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     private void displayChildLeaders() {
@@ -172,19 +159,4 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
 
         return intent;
     }
-
-    // TODO:: delete
-    /*
-    public static Intent makeIntent(Context context, boolean showLeaders, UserInfo child) {
-
-        Intent intent = new Intent(context, ViewMonitoredUserMapActivity.class);
-        intent.putExtra(SHOW_LEADERS, showLeaders);
-
-        if (showLeaders) {
-            intent.putExtra(CHILD_ID, child.getId());
-        }
-
-        return intent;
-    }
-    */
 }
