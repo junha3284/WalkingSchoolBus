@@ -52,7 +52,7 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
         String token = sharedData.getToken();
         if(token != null)
-            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken(), "1");
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
@@ -116,6 +116,8 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
         Button removeBtn = (Button) findViewById(R.id.button_remove);
         Button walkingGroupBtn = (Button) findViewById(R.id.button_create_WalkingGroupActivity);
         Button modifyBtn = (Button) findViewById(R.id.button_modify);
+        Button viewUserBtn = (Button) findViewById(R.id.button_view_user);
+
         removeBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -151,6 +153,23 @@ public class MonitoredUserDetailActivity extends AppCompatActivity {
 
                 Intent modifyActivity = ModifyMonitoredUsersActivity.makeIntent(MonitoredUserDetailActivity.this, ID);
                startActivity(modifyActivity);
+            }
+        });
+
+        viewUserBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // update child singleton
+                Intent intent = getIntent();
+                Call<UserInfo> caller = proxy.getUserById(intent.getLongExtra(RESULT_KEY_MONITORED_USER_ID, 0));
+                ProxyBuilder.callProxy(caller, returnedUser -> response(returnedUser));
+
+                // activate for use
+                userInfo.startManagingChild();
+
+                Intent viewUserIntent = ViewMonitoredUserMapActivity.makeIntent(MonitoredUserDetailActivity.this);
+                startActivity(viewUserIntent);
             }
         });
     }

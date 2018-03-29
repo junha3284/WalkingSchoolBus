@@ -91,5 +91,10 @@
     <string name="sender">Sender</string>
     <string name="content">content</string>
     <string name="date">date</string>
+    <string name="title_activity_view_monitored_user_map">Map</string>
+    <string name="end_walk">End Walk?</string>
+    <string name="view_all_users">View All Users</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="view_user">View User</string>
 
 </resources>

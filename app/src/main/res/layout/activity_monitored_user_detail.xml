@@ -248,16 +248,24 @@
 
             <Button
                 android:id="@+id/button_remove"
-                android:layout_width="173dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/action_remove" />
+
+            <Button
+                android:id="@+id/button_view_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/view_user" />
 
             <Button
                 android:id="@+id/button_create_WalkingGroupActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_walking_group" />
+
         </LinearLayout>
 
     </LinearLayout>

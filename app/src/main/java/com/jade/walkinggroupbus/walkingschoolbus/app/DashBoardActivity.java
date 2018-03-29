@@ -103,6 +103,15 @@ public class DashBoardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button viewAllUsersBtn = (Button) findViewById(R.id.button_view_all_users);
+        viewAllUsersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = ViewMonitoredUserMapActivity.makeIntent(DashBoardActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getMonitoredUsers(){
