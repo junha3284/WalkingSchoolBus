@@ -37,8 +37,6 @@ public class ComposeMessageActivity extends AppCompatActivity {
     private List<Group> leadingGroups;
     private boolean sendingToParent = true;
 
-    Boolean panic;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,27 +144,16 @@ public class ComposeMessageActivity extends AppCompatActivity {
         EditText msgEdit = (EditText) findViewById(R.id.edit_message);
         String message = msgEdit.getText().toString();
 
-        Intent intent = getIntent();
-        int panic = intent.getIntExtra("Panic", 0);
-
-        if (panic == 1){
-            Message newMessage = new Message(message, true);
+        if (message.length() != 0) {
+            Message newMessage = new Message(message, false);
             Call<Message> caller = proxy.newMessageToGroup(idForSending, newMessage);
             ProxyBuilder.callProxy(this, caller, returnedMsg -> response(returnedMsg));
+            return;
         }
-        else {
-
-            if (message.length() != 0) {
-                Message newMessage = new Message(message, false);
-                Call<Message> caller = proxy.newMessageToGroup(idForSending, newMessage);
-                ProxyBuilder.callProxy(this, caller, returnedMsg -> response(returnedMsg));
-                return;
-            }
-            Toast.makeText(this,
-                    "Content is empty!\n please input content for Message",
-                    Toast.LENGTH_SHORT)
-                    .show();
-        }
+        Toast.makeText(this,
+                "Content is empty!\n please input content for Message",
+                Toast.LENGTH_SHORT)
+                .show();
     }
 
     private void response(Message returnedMsg) {
@@ -174,13 +161,6 @@ public class ComposeMessageActivity extends AppCompatActivity {
                 "Message Sent successfully!",
                 Toast.LENGTH_SHORT)
                 .show();
-    }
-
-
-    public static Intent makeIntent(Context context, int panic){
-        Intent intent = new Intent(context, ComposeMessageActivity.class);
-        intent.putExtra("Panic", panic);
-        return intent;
     }
 
     // set newly issued token to proxy and save it on sharedData singleton object
