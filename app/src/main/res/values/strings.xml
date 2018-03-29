@@ -74,7 +74,7 @@
     <string name="text_parent_info_email">Email:</string>
     <string name="text_parent_info_cell">Cell Number:</string>
     <string name="text_parent_info_Home">Home Number:</string>
-    <string name="OWA_panic_button">Emergency</string>
+    <string name="emergency">Emergency</string>
     <string name="OWA_text_panic_disclaimer">This is for EMERGENCIES only.
         An emergency message will notify all Parents and Leaders of danger.</string>
     <string name="OWA_text_message_optional">Message (optional):</string>

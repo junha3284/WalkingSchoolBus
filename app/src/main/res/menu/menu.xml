@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/button_OWA_panic"
-        android:title="@string/OWA_panic_button" />
+        android:title="@string/emergency" />
     <item
         android:id="@+id/button_OWA_sendMessage"
         android:title="@string/message" />

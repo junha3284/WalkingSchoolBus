@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class ComposeMessageActivity extends AppCompatActivity {
 
     private List<Group> leadingGroups;
     private boolean sendingToParent = true;
+
+    private boolean emergency = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +118,8 @@ public class ComposeMessageActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                CheckBox emergencyCheckBox = (CheckBox) findViewById(R.id.checkBox_emergency);
+                emergency = emergencyCheckBox.isChecked();
                 if(sendingToParent)
                     sendMessageToParent();
                 else
@@ -127,9 +132,11 @@ public class ComposeMessageActivity extends AppCompatActivity {
     private void sendMessageToParent() {
         EditText msgEdit = (EditText) findViewById(R.id.edit_message);
         String message = msgEdit.getText().toString();
+        if(emergency)
+            message = "Emergency! " + message;
 
         if(message.length() != 0) {
-            Message newMessage = new Message(message,false);
+            Message newMessage = new Message(message, emergency);
             Call<Message> caller = proxy.newMessageToParents(idForSending, newMessage);
             ProxyBuilder.callProxy(this, caller, returnedMsg -> response(returnedMsg));
             return;
@@ -143,9 +150,11 @@ public class ComposeMessageActivity extends AppCompatActivity {
     private void sendMessageToClickedGroup() {
         EditText msgEdit = (EditText) findViewById(R.id.edit_message);
         String message = msgEdit.getText().toString();
+        if(emergency)
+            message = "Emergency! " + message;
 
         if (message.length() != 0) {
-            Message newMessage = new Message(message, false);
+            Message newMessage = new Message(message, emergency);
             Call<Message> caller = proxy.newMessageToGroup(idForSending, newMessage);
             ProxyBuilder.callProxy(this, caller, returnedMsg -> response(returnedMsg));
             return;
