@@ -278,6 +278,7 @@ public class OnWalkMapActivity extends AppCompatActivity
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(location[0], location[1]))
                         .title(name)
+                        .snippet(returnedLocation.getTimestamp().toString())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
             }
         }
@@ -290,6 +291,7 @@ public class OnWalkMapActivity extends AppCompatActivity
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(location[0], location[1]))
                         .title(name)
+                        .snippet(returnedLocation.getTimestamp().toString())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
             }
         }
