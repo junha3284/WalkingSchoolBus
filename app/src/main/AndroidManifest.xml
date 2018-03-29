@@ -26,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.MonitoredUsersActivity" />
         <activity android:name=".app.MonitoredUserDetailActivity" />
         <activity android:name=".app.AddMonitoredUserActivity" />
         <activity android:name=".app.RegisterActivity" />
@@ -55,14 +54,16 @@
             android:name=".app.CreateGroupMapActivity"
             android:label="@string/title_activity_create_group_map" />
         <activity android:name=".app.DashBoardActivity" />
-        <activity android:name=".app.GroupMembersParentsActivity"></activity>
-        <activity android:name=".app.MessageActivity"></activity>
-        <activity android:name=".app.ModifyMonitoredUsersActivity"></activity>
-        <activity android:name=".app.ComposeMessageActivity"></activity>
+        <activity android:name=".app.GroupMembersParentsActivity" />
+        <activity android:name=".app.MessageActivity" />
+        <activity android:name=".app.ModifyMonitoredUsersActivity" />
+        <activity android:name=".app.ComposeMessageActivity" />
         <activity
             android:name=".app.OnWalkMapActivity"
             android:label="@string/title_activity_on_walk_map" />
-
+        <activity
+            android:name=".app.ViewMonitoredUserMapActivity"
+            android:label="@string/title_activity_view_monitored_user_map" />
     </application>
 
 </manifest>

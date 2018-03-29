@@ -32,6 +32,8 @@ public class ChildInfo {
     private List<Message> unreadMessages = new ArrayList<>();
     private List<Message> readMessages = new ArrayList<>();
 
+    private GPSLocation lastGpsLocation;
+
     private String href;
 
 
@@ -68,6 +70,7 @@ public class ChildInfo {
         setMonitorsUsers(user.getMonitorsUsers());
         setMemberOfGroups(user.getMemberOfGroups());
         setLeadsGroups(user.getLeadsGroups());
+        setLastGpsLocation(user.getLastGpsLocation());
         setHref(user.getHref());
     }
 
@@ -133,6 +136,14 @@ public class ChildInfo {
 
     public void setLeadsGroups(List<Group> leadsGroups) {
         this.leadsGroups = leadsGroups;
+    }
+
+    public GPSLocation getLastGpsLocation() {
+        return lastGpsLocation;
+    }
+
+    public void setLastGpsLocation(GPSLocation lastGpsLocation) {
+        this.lastGpsLocation = lastGpsLocation;
     }
 
     public String getHref() {

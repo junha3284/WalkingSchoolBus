@@ -102,8 +102,7 @@ public class MessageActivity extends AppCompatActivity {
         newMessageButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                int panic = 0;
-                Intent intent = ComposeMessageActivity.makeIntent(MessageActivity.this, panic);
+                Intent intent = ComposeMessageActivity.makeIntent(MessageActivity.this);
                 startActivity(intent);
             }
         });
