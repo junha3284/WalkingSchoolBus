@@ -2,6 +2,7 @@ package com.jade.walkinggroupbus.walkingschoolbus.model;
 
 import android.util.Log;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
@@ -12,15 +13,17 @@ import java.util.List;
  * class for storing + accessing all info related to user rewards.
  */
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class MyRewards {
 
     // 5 themes default, fire, water, spring, dark
     // ex: if default is obtained, obtainedRewards[0] == true
     private List<Boolean> obtainedRewards;
+
+    @JsonIgnore
     private int numThemes;
 
     // Singleton Implementation
+    @JsonIgnore
     private static MyRewards instance;
 
     private MyRewards() {
