@@ -30,6 +30,10 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * allows user to view their monitored user's last uploaded location
+ */
+
 public class ViewMonitoredUserMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

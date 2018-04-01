@@ -10,6 +10,9 @@ import android.view.View;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 
+/**
+ * alert dialogue that confirms if user wants to leave their walk
+ */
 public class ExitWalkDialogFragment extends AppCompatDialogFragment {
 
     @Override

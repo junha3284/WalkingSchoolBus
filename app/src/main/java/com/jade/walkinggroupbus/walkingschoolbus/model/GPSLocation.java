@@ -3,6 +3,10 @@ package com.jade.walkinggroupbus.walkingschoolbus.model;
 
 import java.util.Date;
 
+/**
+ * class for storing + accessing location data
+ */
+
 public class GPSLocation {
 
     Double lat;

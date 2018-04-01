@@ -18,6 +18,14 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import retrofit2.Call;
 
+/**
+ * allows current user to view their own + their children's info
+ * allows current user to remove a monitored user
+ * allows current user to navigate to view monitored user's location activity
+ * allows current user to navigate to view monitored user's walking groups activity
+ * allows current user to navigate to edit monitored user's info activity
+ */
+
 public class MonitoredUserDetailActivity extends AppCompatActivity {
 
     public static final String RESULT_KEY_USER_NAME = "com.jade.walkinggroupbus.walkingschoolbus-name";

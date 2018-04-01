@@ -22,7 +22,10 @@ import java.util.List;
 
 import retrofit2.Call;
 
-// note: custom list view from https://www.youtube.com/watch?v=FKUlw7mFXRM
+/**
+ * allows current user to view the parental contact information
+ * of a specific group memeber
+ */
 
 public class GroupMembersParentsActivity extends AppCompatActivity {
 

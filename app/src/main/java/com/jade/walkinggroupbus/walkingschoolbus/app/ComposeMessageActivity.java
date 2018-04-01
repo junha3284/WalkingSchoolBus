@@ -26,6 +26,11 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * activity where current user can create messages to send to
+ * their groups and their parents
+ * supports panic message functionality
+ */
 public class ComposeMessageActivity extends AppCompatActivity {
     private static final String TAG = "Proxy";
 

@@ -21,6 +21,10 @@ import java.util.Objects;
 
 import retrofit2.Call;
 
+/**
+ * activity where the current user can add other users to their monitor list
+ * by providing their email + name
+ */
 public class AddMonitoredUserActivity extends AppCompatActivity {
 
     private static final String TAG = "ServerTest";

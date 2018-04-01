@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class for storing + accessing info on a specific group
+ */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Group {
     private Long id;

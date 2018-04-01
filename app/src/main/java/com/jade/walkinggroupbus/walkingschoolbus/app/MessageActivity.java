@@ -34,6 +34,11 @@ import java.util.TimerTask;
 
 import retrofit2.Call;
 
+/**
+ * allows current user to view read and unread messages.
+ * upon clicking an unread message, they will become read
+ * allows current user to navigate to the compose message activity
+ */
 public class MessageActivity extends AppCompatActivity {
     private static final String TAG = "MessageActivity's proxy";
     private static final String TAG_TIMER = "TimerTask";
