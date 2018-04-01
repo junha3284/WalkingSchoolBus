@@ -33,7 +33,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="179dp"
+        android:layout_height="213dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -54,10 +54,17 @@
         <Button
             android:id="@+id/button_walkingGroup"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="37dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:text="@string/walking_group" />
+
+        <Button
+            android:id="@+id/MMA_rewards-centre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/MMA_rewards_centre" />
 
     </LinearLayout>
 
