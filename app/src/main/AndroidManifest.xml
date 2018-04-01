@@ -64,6 +64,10 @@
         <activity
             android:name=".app.ViewMonitoredUserMapActivity"
             android:label="@string/title_activity_view_monitored_user_map" />
+        <activity
+            android:name=".app.RewardsCentreActivity"
+            android:label="@string/title_activity_rewards_centre"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
