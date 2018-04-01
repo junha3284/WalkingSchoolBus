@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * stores all created themes
+ * stores all created themes in a singleton
  */
 
 public class ThemeInfo {
@@ -43,7 +43,7 @@ public class ThemeInfo {
         themes.add(darkTheme);
     }
 
-    // Checks to see if an instance of UserInfo already exists
+    // Checks to see if an instance of ThemeInfo already exists
     public static ThemeInfo ThemeInfo(){
         if (instance == null){
             instance = new ThemeInfo();
