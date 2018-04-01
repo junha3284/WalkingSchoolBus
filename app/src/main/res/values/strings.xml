@@ -105,4 +105,9 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="RA_next">Next</string>
 
+    <string name="RCA_shop">Shop</string>
+    <string name="RCA_leaderboard">Leaderboard</string>
+    <string name="RCA_my_rewards">My Rewards</string>
+    <string name="RCA_name">Name</string>
+
 </resources>
