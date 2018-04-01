@@ -47,6 +47,11 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * shows current user's location on the walk.
+ * allows user to stop current walk + view other member's location on the walk
+ */
+
 public class OnWalkMapActivity extends AppCompatActivity
         implements OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener {

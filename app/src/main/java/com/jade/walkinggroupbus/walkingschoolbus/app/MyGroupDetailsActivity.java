@@ -24,6 +24,14 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * allows current user to view details of a specific group and also :
+ * navigate to an activity that starts a walk
+ * navigate to an activity to see group meeting + destination location
+ * leave walking group
+ * navigate to an activity to view a specific member's parental info activity
+ */
+
 public class MyGroupDetailsActivity extends AppCompatActivity {
 
     private SharedData sharedData;

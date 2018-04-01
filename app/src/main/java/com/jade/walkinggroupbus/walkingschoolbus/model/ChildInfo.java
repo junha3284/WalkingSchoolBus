@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class for storing + accessing current user's children's info
+ */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ChildInfo {
 

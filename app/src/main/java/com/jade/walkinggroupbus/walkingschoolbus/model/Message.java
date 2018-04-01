@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * class for storing + accessing all info related to messages
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Message {
     private Long id;

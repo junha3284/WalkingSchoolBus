@@ -25,6 +25,11 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * displays all walking groups current user is a member of + ones they lead
+ * can see further details by clicking on the group
+ * allows user to navigate to the create + join walking group activities
+ */
 public class WalkingGroupsActivity extends AppCompatActivity {
 
     private SharedData sharedData;

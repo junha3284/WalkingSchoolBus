@@ -17,6 +17,9 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
 
 import java.util.List;
 
+/**
+ * displays a map that shows a groups destination + meeting place
+ */
 public class MyGroupDetailsMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap map;

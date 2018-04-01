@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class for storing + accessing + modifying all user related info
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserInfo {
     private Long id;

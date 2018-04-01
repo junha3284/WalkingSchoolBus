@@ -21,6 +21,9 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import retrofit2.Call;
 
+/**
+ * allows user create a panic message while on walk that sends to parents of the user
+ */
 public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
     public String panicMessage;
     private WGServerProxy proxy;

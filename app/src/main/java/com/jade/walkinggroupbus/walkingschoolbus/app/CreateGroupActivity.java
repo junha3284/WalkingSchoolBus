@@ -22,6 +22,10 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * activity where a user can create a walking group by
+ * setting a name, start point, and destination
+ */
 public class CreateGroupActivity extends AppCompatActivity {
 
     private Float meetingPlaceLat = null;

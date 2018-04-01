@@ -35,6 +35,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.jade.walkinggroupbus.walkingschoolbus.*;
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 
+/**
+ * activity where the user sets the location for their created group
+ */
+
 public class CreateGroupMapActivity extends FragmentActivity
         implements OnMapReadyCallback,
         GoogleMap.OnInfoWindowClickListener,

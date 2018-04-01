@@ -40,6 +40,10 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * allows current user to see groups around the user's current location
+ * clicking on one brings up the group details and allows user to join
+ */
 public class JoinGroupMapActivity extends FragmentActivity
         implements OnMapReadyCallback,
         GoogleMap.OnInfoWindowClickListener,
