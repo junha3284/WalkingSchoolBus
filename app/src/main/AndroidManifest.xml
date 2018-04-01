@@ -67,7 +67,8 @@
         <activity
             android:name=".app.RewardsCentreActivity"
             android:label="@string/title_activity_rewards_centre"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".app.RegisterAdditionalActivity"></activity>
     </application>
 
 </manifest>
