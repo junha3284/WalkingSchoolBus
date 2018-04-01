@@ -8,25 +8,54 @@ import java.util.List;
  */
 
 public class ThemeInfo {
-    private List<Theme> Themes = new ArrayList<Theme>(5);
+    private List<Theme> themes;
 
-    // create default theme - leave blank?
-    private Theme defaultTheme = new Theme("Default");
+    // Singleton Implementation
+    private static ThemeInfo instance;
 
-    
-    // create fire theme
-    private Theme fireTheme = new Theme("Fire");
+    // prevents public instantiation
+    private ThemeInfo(){
+        themes = new ArrayList<Theme>(5);
 
+        // create default theme - leave blank?
+        Theme defaultTheme = new Theme("Default");
 
-    // create water theme
-    private Theme waterTheme = new Theme("Water");
+        themes.add(defaultTheme);
 
+        // create fire theme
+        Theme fireTheme = new Theme("Fire");
 
-    // create spring theme
-    private Theme springTheme = new Theme("Spring");
+        themes.add(fireTheme);
 
+        // create water theme
+        Theme waterTheme = new Theme("Water");
 
-    // create dark theme
-    private Theme darkTheme = new Theme("Dark");
+        themes.add(waterTheme);
 
+        // create spring theme
+        Theme springTheme = new Theme("Spring");
+
+        themes.add(springTheme);
+
+        // create dark theme
+        Theme darkTheme = new Theme("Dark");
+
+        themes.add(darkTheme);
+    }
+
+    // Checks to see if an instance of UserInfo already exists
+    public static ThemeInfo ThemeInfo(){
+        if (instance == null){
+            instance = new ThemeInfo();
+            return instance;
+
+        } else {
+            return instance;
+        }
+    }
+
+    // getter
+    public List<Theme> getThemes() {
+        return themes;
+    }
 }

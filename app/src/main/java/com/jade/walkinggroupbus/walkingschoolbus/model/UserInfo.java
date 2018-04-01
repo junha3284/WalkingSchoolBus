@@ -55,9 +55,9 @@ public class UserInfo {
         if (instance == null){
             instance = new UserInfo();
             return instance;
-        }
-        else
+        } else {
             return instance;
+        }
     }
 
     public boolean managingChild() {
