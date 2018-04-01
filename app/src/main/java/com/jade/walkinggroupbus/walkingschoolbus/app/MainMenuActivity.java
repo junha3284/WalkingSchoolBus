@@ -79,6 +79,15 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button btnRewardsCentre = (Button) findViewById(R.id.MMA_rewards_centre);
+        btnRewardsCentre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = RewardsCentreActivity.makeIntent(MainMenuActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void storeEmail_sharedPreferences(){

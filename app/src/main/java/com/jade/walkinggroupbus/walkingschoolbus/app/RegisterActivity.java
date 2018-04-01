@@ -1,5 +1,6 @@
 package com.jade.walkinggroupbus.walkingschoolbus.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,10 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     // Singleton
     private UserInfo userInfo;
 
-    // Server Details
     private static final String TAG = "ServerTest";
-    private long userId = 0;
-    private WGServerProxy proxy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
         // Singleton
         userInfo = UserInfo.userInfo();
 
-        // Build the server proxy
-        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), null);
-
         // Takes user input, verifies, then passes to server
-        Button button_confirm = (Button) findViewById(R.id.button_confirm);
+        Button button_confirm = (Button) findViewById(R.id.button_next);
         button_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,12 +102,8 @@ public class RegisterActivity extends AppCompatActivity {
             // Store user info in Singleton Pattern
             userInfo.setPassword(password1);
 
-            // Display message to show successful registration
-            Toast.makeText(RegisterActivity.this, "Registration Successful.", Toast.LENGTH_LONG).show();
-
-            // Make call to server to store data
-            Call<UserInfo> caller = proxy.createNewUser(userInfo);
-            ProxyBuilder.callProxy(RegisterActivity.this, caller, returnedUser -> response(returnedUser));
+            Intent intent = new Intent(RegisterActivity.this, RegisterAdditionalActivity.class);
+            startActivity(intent);
 
             finish();
         }
