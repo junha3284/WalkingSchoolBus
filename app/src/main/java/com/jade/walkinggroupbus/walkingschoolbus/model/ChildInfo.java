@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserInfo {
-    private Long id;
+public class ChildInfo {
 
+    private Long id;
     private String email;
+
     private String password;
     private String name;
 
@@ -23,10 +24,9 @@ public class UserInfo {
     private String teacherName;
     private String emergencyContactInfo;
 
-
     private List<UserInfo> monitoredByUsers = new ArrayList<>();
     private List<UserInfo> monitorsUsers = new ArrayList<>();
-    private List<Group> memberOfGroups = new ArrayList<>();   // <-- TO BE IMPLEMENTED
+    private List<Group> memberOfGroups = new ArrayList<>();
     private List<Group> leadsGroups = new ArrayList<>();
 
     private List<Message> unreadMessages = new ArrayList<>();
@@ -36,37 +36,42 @@ public class UserInfo {
 
     private String href;
 
-    // for child
-    private boolean manageChild;
 
     // Singleton Implementation
-    private static UserInfo instance;
+    private static ChildInfo instance;
 
-    private UserInfo() {
-        // private to prevent public instantiation
-        manageChild = false;
+    private ChildInfo() {
+
     }
 
-    // Checks to see if an instance of UserInfo already exists
-    public static UserInfo userInfo(){
+    public static ChildInfo childInfo(){
         if (instance == null){
-            instance = new UserInfo();
+            instance = new ChildInfo();
             return instance;
         }
-        else
-            return instance;
+        return instance;
     }
 
-    public boolean managingChild() {
-        return manageChild;
-    }
+    public void setChildInfo(UserInfo user) {
+        setEmail(user.getEmail());
+        setPassword(user.getPassword());
+        setName(user.getName());
+        setId(user.getId());
+        setBirthMonth(user.getBirthMonth());
+        setBirthYear(user.getBirthYear());
+        setAddress(user.getAddress());
+        setHomePhone(user.getHomePhone());
+        setCellPhone(user.getCellPhone());
+        setGrade(user.getGrade());
+        setTeacherName(user.getTeacherName());
+        setEmergencyContactInfo(user.getEmergencyContactInfo());
 
-    public void startManagingChild() {
-        manageChild = true;
-    }
-
-    public void stopManagingChild() {
-        manageChild = false;
+        setMonitoredByUsers(user.getMonitoredByUsers());
+        setMonitorsUsers(user.getMonitorsUsers());
+        setMemberOfGroups(user.getMemberOfGroups());
+        setLeadsGroups(user.getLeadsGroups());
+        setLastGpsLocation(user.getLastGpsLocation());
+        setHref(user.getHref());
     }
 
     public String getEmail() {
@@ -91,6 +96,62 @@ public class UserInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<UserInfo> getMonitoredByUsers() {
+        return monitoredByUsers;
+    }
+
+    public void setMonitoredByUsers(List<UserInfo> monitoredByUsers) {
+        this.monitoredByUsers = monitoredByUsers;
+    }
+
+    public List<UserInfo> getMonitorsUsers() {
+        return monitorsUsers;
+    }
+
+    public void setMonitorsUsers(List<UserInfo> monitorsUsers) {
+        this.monitorsUsers = monitorsUsers;
+    }
+
+    public List<Group> getMemberOfGroups() {
+        return memberOfGroups;
+    }
+
+    public void setMemberOfGroups(List<Group> memberOfGroups) {
+        this.memberOfGroups = memberOfGroups;
+    }
+
+    public List<Group> getLeadsGroups() {
+        return leadsGroups;
+    }
+
+    public void setLeadsGroups(List<Group> leadsGroups) {
+        this.leadsGroups = leadsGroups;
+    }
+
+    public GPSLocation getLastGpsLocation() {
+        return lastGpsLocation;
+    }
+
+    public void setLastGpsLocation(GPSLocation lastGpsLocation) {
+        this.lastGpsLocation = lastGpsLocation;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
     }
 
     public String getBirthYear() {
@@ -157,64 +218,6 @@ public class UserInfo {
         this.emergencyContactInfo = emergencyContactInfo;
     }
 
-    // Manage User functions
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<UserInfo> getMonitoredByUsers() {
-        return monitoredByUsers;
-    }
-
-    public void setMonitoredByUsers(List<UserInfo> monitoredByUsers) {
-        this.monitoredByUsers = monitoredByUsers;
-    }
-
-    public List<UserInfo> getMonitorsUsers() {
-        return monitorsUsers;
-    }
-
-    public void setMonitorsUsers(List<UserInfo> monitorsUsers) {
-        this.monitorsUsers = monitorsUsers;
-    }
-
-    public List<Group> getMemberOfGroups() {
-        return memberOfGroups;
-    }
-
-    public void setMemberOfGroups(List<Group> memberOfGroups) {
-        this.memberOfGroups = memberOfGroups;
-    }
-
-    public List<Group> getLeadsGroups() {
-        return leadsGroups;
-    }
-
-    public void setLeadsGroups(List<Group> leadsGroups) {
-        this.leadsGroups = leadsGroups;
-    }
-
-    public GPSLocation getLastGpsLocation() {
-        return lastGpsLocation;
-    }
-
-    public void setLastGpsLocation(GPSLocation lastGpsLocation) {
-        this.lastGpsLocation = lastGpsLocation;
-    }
-
-    public String getHref() {
-        return href;
-    }
-
-    public void setHref(String href) {
-        this.href = href;
-    }
-
-
     public List<Message> getUnreadMessages() {
         return unreadMessages;
     }
@@ -229,29 +232,6 @@ public class UserInfo {
 
     public void setReadMessages(List<Message> readMessages) {
         this.readMessages = readMessages;
-    }
-
-    public void setUserInfo(UserInfo user) {
-        setEmail(user.getEmail());
-        setHref(user.getHref());
-        setId(user.getId());
-        setLeadsGroups(user.getLeadsGroups());
-        setMemberOfGroups(user.getMemberOfGroups());
-        setMonitoredByUsers(user.getMonitoredByUsers());
-        setMonitorsUsers(user.getMonitorsUsers());
-        setName(user.getName());
-        setPassword(user.getPassword());
-        setBirthYear(user.getBirthYear());
-        setBirthMonth(user.getBirthMonth());
-        setAddress(user.getAddress());
-        setCellPhone(user.getCellPhone());
-        setHomePhone(user.getHomePhone());
-        setGrade(user.getGrade());
-        setTeacherName(user.getTeacherName());
-        setEmergencyContactInfo(user.getEmergencyContactInfo());
-        setUnreadMessages(user.getUnreadMessages());
-        setReadMessages(user.getReadMessages());
-        setLastGpsLocation(user.getLastGpsLocation());
     }
 
     // UI for Logcat messages.
@@ -275,25 +255,4 @@ public class UserInfo {
                 ", leadsGroups=" + leadsGroups + '\'' +
                 '}';
     }
-
-
-    public String toStringForList() {
-        return "Name: '" + name + '\'' + "\n" +
-                "Email: '" + email;
-    }
-
-    public String toStringContactInfo() {
-        String contactInfo = "Name: " + name;
-        if (email != null) {
-            contactInfo = contactInfo + "\nEmail: " + email;
-        }
-        if (cellPhone != null) {
-            contactInfo = contactInfo + "\nCell Phone: " + cellPhone;
-        }
-        if (homePhone != null) {
-            contactInfo = contactInfo + "\nHome Phone: " + homePhone;
-        }
-        return contactInfo;
-    }
 }
-

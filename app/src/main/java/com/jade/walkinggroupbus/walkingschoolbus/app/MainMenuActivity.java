@@ -1,4 +1,4 @@
-package com.jade.walkinggroupbus.walkingschoolbus;
+package com.jade.walkinggroupbus.walkingschoolbus.app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,16 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
 public class MainMenuActivity extends AppCompatActivity {
 
 
+    // Tags for Shared Preferences
     public static final String SHAREDPREFERENCES_EMAIL = "Email";
     public static final String SHAREDPREFERENCES_LOGIN_EMAIL = "LoginEmail";
     public static final String SHAREDPREFERENCES_PASSWORD = "Name";
     public static final String SHAREDPREFERENCES_LOGIN_PASSWORD = "Login Name";
 
+    // Singleton
     private UserInfo userInfo;
 
     @Override
@@ -25,29 +28,57 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        // Singleton
         userInfo = UserInfo.userInfo();
 
-        TextView text_displayName = (TextView) findViewById(R.id.name);
+        // Welcome message, displays the user's name
+        TextView text_displayName = (TextView) findViewById(R.id.text_name);
         text_displayName.setText(userInfo.getName());
 
-        Button action_logOut = (Button) findViewById(R.id.logOut);
+        setButtons();
+    }
+
+    private void setButtons() {
+        // Log out button
+        Button action_logOut = (Button) findViewById(R.id.button_logOut);
         action_logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userInfo.setName(null);
+                // Wipe saved user data
                 storeEmail_sharedPreferences();
                 storePassword_sharedPreferences();
 
+                // Returns user to the login screen
                 Intent logInScreen = new Intent(MainMenuActivity.this, LoginActivity.class);
                 startActivity(logInScreen);
                 finish();
             }
         });
+
+        Button btnMonitorUsers = (Button) findViewById(R.id.button_monitorGroup);
+        btnMonitorUsers.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = DashBoardActivity.makeIntent(MainMenuActivity.this);
+                startActivity(intent);
+            }
+        });
+
+        Button btnWalkingGroups = (Button) findViewById(R.id.button_walkingGroup);
+        btnWalkingGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = WalkingGroupsActivity.makeIntent(MainMenuActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     private void storeEmail_sharedPreferences(){
+        // Wipes user email
         String extractedEmail = null;
 
+        // Stores user email to be null
         SharedPreferences emailPref = getSharedPreferences(SHAREDPREFERENCES_EMAIL, MODE_PRIVATE);
         SharedPreferences.Editor emailEditor = emailPref.edit();
         emailEditor.putString(SHAREDPREFERENCES_LOGIN_EMAIL, extractedEmail);
@@ -55,11 +86,15 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     private void storePassword_sharedPreferences() {
+        // Wipes user password
         String extractedPassword = null;
 
+        // Stores user password to be null
         SharedPreferences passwordPref = getSharedPreferences(SHAREDPREFERENCES_PASSWORD, MODE_PRIVATE);
         SharedPreferences.Editor passwordEditor = passwordPref.edit();
         passwordEditor.putString(SHAREDPREFERENCES_LOGIN_PASSWORD, extractedPassword);
         passwordEditor.commit();
     }
+
+
 }
