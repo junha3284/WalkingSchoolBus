@@ -154,7 +154,7 @@ public class RewardsCentreActivity extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context) {
-        Intent intent = new Intent(context, MyGroupDetailsActivity.class);
+        Intent intent = new Intent(context, RewardsCentreActivity.class);
         return intent;
     }
 }
