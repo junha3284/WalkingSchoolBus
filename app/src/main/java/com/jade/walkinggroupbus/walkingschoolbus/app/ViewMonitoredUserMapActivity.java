@@ -104,6 +104,7 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(userLocation.getLat(), userLocation.getLng()))
                         .title(user.getName())
+                        .snippet(userLocation.getTimestamp().toString())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                 markerList.add(marker);
             }
@@ -111,7 +112,7 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
 
         // set camera to position of first monitored user
         if (monitoredUsers.size() > 0) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerList.get(0).getPosition(), 20));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerList.get(0).getPosition(), 7));
         }
         else {
             Toast.makeText(this,
@@ -128,6 +129,7 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(childLocation.getLat(), childLocation.getLng()))
                     .title(childInfo.getName())
+                    .snippet(childLocation.getTimestamp().toString())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(),11));
         }
@@ -150,6 +152,7 @@ public class ViewMonitoredUserMapActivity extends FragmentActivity implements On
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(leaderLocation.getLat(), leaderLocation.getLng()))
                     .title(returnedLeader.getName())
+                    .snippet(leaderLocation.getTimestamp().toString())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         }
     }
