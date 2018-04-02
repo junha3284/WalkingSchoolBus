@@ -4,7 +4,12 @@ import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -126,5 +131,20 @@ public class MyRewards {
             return;
         }
         obtainedRewards.set(rewardIndex, true);
+    }
+
+
+    // JSON FUNCTIONS
+    public String convertToJsonString() {
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String obtrainedRewardsJsonString = new Gson().toJson(obtainedRewards);
+        return obtrainedRewardsJsonString;
+    }
+
+    // note: this function can be easily abused. only input json string for obtainedRewards or
+    // obtainedRewards variable will get messed up
+    public void setRewardsWithJson(String jsonString) {
+        Type typeToken = new TypeToken<List<Boolean>>(){}.getType();
+        obtainedRewards = new Gson().fromJson(jsonString, typeToken);
     }
 }
