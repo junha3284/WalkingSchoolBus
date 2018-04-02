@@ -1,5 +1,6 @@
 package com.jade.walkinggroupbus.walkingschoolbus.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     // Singleton
     private UserInfo userInfo;
+    Boolean preview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,48 +48,62 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     private void setButtons() {
-        // Log out button
         Button action_logOut = (Button) findViewById(R.id.button_logOut);
-        action_logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Wipe saved user data
-                storeEmail_sharedPreferences();
-                storePassword_sharedPreferences();
-
-                // Returns user to the login screen
-                Intent logInScreen = new Intent(MainMenuActivity.this, LoginActivity.class);
-                startActivity(logInScreen);
-                finish();
-            }
-        });
-
         Button btnMonitorUsers = (Button) findViewById(R.id.button_monitorGroup);
-        btnMonitorUsers.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = DashBoardActivity.makeIntent(MainMenuActivity.this);
-                startActivity(intent);
-            }
-        });
-
         Button btnWalkingGroups = (Button) findViewById(R.id.button_walkingGroup);
-        btnWalkingGroups.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = WalkingGroupsActivity.makeIntent(MainMenuActivity.this);
-                startActivity(intent);
-            }
-        });
-
         Button btnRewardsCentre = (Button) findViewById(R.id.MMA_rewards_centre);
-        btnRewardsCentre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = RewardsCentreActivity.makeIntent(MainMenuActivity.this);
-                startActivity(intent);
-            }
-        });
+
+        // Checks to see if the user is trying to preview a theme
+        Intent intent = getIntent();
+        preview = intent.getBooleanExtra("preview", false);
+
+        if (preview){
+            action_logOut.setVisibility(View.GONE);
+            btnMonitorUsers.setVisibility(View.GONE);
+            btnWalkingGroups.setVisibility(View.GONE);
+            btnRewardsCentre.setVisibility(View.GONE);
+        }
+        // Else, resume application functionality.
+        else {
+            // Log out button
+            action_logOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Wipe saved user data
+                    storeEmail_sharedPreferences();
+                    storePassword_sharedPreferences();
+
+                    // Returns user to the login screen
+                    Intent logInScreen = new Intent(MainMenuActivity.this, LoginActivity.class);
+                    startActivity(logInScreen);
+                    finish();
+                }
+            });
+
+            btnMonitorUsers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = DashBoardActivity.makeIntent(MainMenuActivity.this);
+                    startActivity(intent);
+                }
+            });
+
+            btnWalkingGroups.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = WalkingGroupsActivity.makeIntent(MainMenuActivity.this);
+                    startActivity(intent);
+                }
+            });
+
+            btnRewardsCentre.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = RewardsCentreActivity.makeIntent(MainMenuActivity.this);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void storeEmail_sharedPreferences(){
@@ -112,5 +128,20 @@ public class MainMenuActivity extends AppCompatActivity {
         passwordEditor.commit();
     }
 
+    // Ensure main menu operates after preview finishes
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(preview) {
+            preview = false;
+        }
+    }
+
+    // Passes the preview value that determines whether buttons should be disabled or not.
+    public static Intent makeIntent(Context context, Boolean preview){
+        Intent intent = new Intent(context, MainMenuActivity.class);
+        intent.putExtra("preview", preview);
+        return intent;
+    }
 
 }
