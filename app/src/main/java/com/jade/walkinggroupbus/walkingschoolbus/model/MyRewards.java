@@ -137,8 +137,8 @@ public class MyRewards {
     // JSON FUNCTIONS
     public String convertToJsonString() {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String obtrainedRewardsJsonString = new Gson().toJson(obtainedRewards);
-        return obtrainedRewardsJsonString;
+        String obtainedRewardsJsonString = new Gson().toJson(obtainedRewards);
+        return obtainedRewardsJsonString;
     }
 
     // note: this function can be easily abused. only input json string for obtainedRewards or
