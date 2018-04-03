@@ -22,6 +22,10 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * activity which lists the current user's monitored users
+ * links user to message + personal info + adding user + viewing user location activities
+ */
 public class DashBoardActivity extends AppCompatActivity {
 
     private UserInfo userInfo;

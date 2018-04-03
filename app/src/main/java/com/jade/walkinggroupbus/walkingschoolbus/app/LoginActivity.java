@@ -20,6 +20,10 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * allows current user to login to their account by providing
+ * email + password
+ */
 public class LoginActivity extends AppCompatActivity {
 
     public static final String SHAREDPREFERENCES_EMAIL = "Email";

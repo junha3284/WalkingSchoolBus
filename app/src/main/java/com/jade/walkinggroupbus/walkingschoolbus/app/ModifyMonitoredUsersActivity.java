@@ -18,6 +18,9 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import retrofit2.Call;
 
+/**
+ * allows user to edit their children's info
+ */
 public class ModifyMonitoredUsersActivity extends AppCompatActivity {
 
     public static final String RESULT_KEY_MONITORED_USER_ID = "com.jade.walkinggroupbus.walkingschoolbus-monitored_user_id";

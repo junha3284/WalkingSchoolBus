@@ -3,6 +3,9 @@ package com.jade.walkinggroupbus.walkingschoolbus.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class for storing + accessing all groups
+ */
 
 public class GroupsInfo {
 

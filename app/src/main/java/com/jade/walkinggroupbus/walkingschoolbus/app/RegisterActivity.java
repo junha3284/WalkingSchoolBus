@@ -17,6 +17,9 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import retrofit2.Call;
 
+/**
+ * allows a new user to register by providing an email + password
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     // Singleton

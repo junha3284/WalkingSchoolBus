@@ -11,6 +11,13 @@ import android.widget.TextView;
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
+/**
+ * Main menu allows current user to :
+ * navigate to dashboard
+ * navigate to the groups section of the app
+ * logout
+ */
+
 public class MainMenuActivity extends AppCompatActivity {
 
 

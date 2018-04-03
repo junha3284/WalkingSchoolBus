@@ -16,6 +16,9 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import retrofit2.Call;
 
+/**
+ * allows new user to add optional info to their profile
+ */
 public class RegisterAdditionalActivity extends AppCompatActivity {
     public String birth_year;
     public String birth_month;

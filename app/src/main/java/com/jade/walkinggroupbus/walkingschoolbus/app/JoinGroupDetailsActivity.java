@@ -22,6 +22,10 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * allows current user to see the members of a specific group
+ * and also join the group
+ */
 public class JoinGroupDetailsActivity extends AppCompatActivity {
 
     private GroupsInfo groupsInfo = GroupsInfo.getInstance();
