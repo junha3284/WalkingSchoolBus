@@ -35,6 +35,8 @@ public class MyRewardsFragment extends Fragment{
         
         myRewards = MyRewards.MyRewards();
 
+        //myRewards = MyRewards.MyRewards();
+
         setButtons(view);
 
         // TODO this function currently breaks the build, most likely due to uninitialized arrays in the rewards
