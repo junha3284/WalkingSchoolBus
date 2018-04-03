@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,20 +22,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
-import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
-import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
-import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
-import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.LeaderboardFragment;
-import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.MyRewardsFragment;
-import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.ShopFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RewardsCentreActivity extends AppCompatActivity {
-    private SharedData sharedData;
-    private WGServerProxy proxy;
-    private static final String TAG = "ServerTest";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -58,36 +45,53 @@ public class RewardsCentreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rewards_centre);
 
-        sharedData = SharedData.getSharedData();
-        String token = sharedData.getToken();
-
-        // check if token is set properly
-        if(token != null)
-            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
-        else {
-            ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
-        }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        setupViewPager(mViewPager);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-    }
-
-    private void setupViewPager(ViewPager viewPager){
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        mSectionsPagerAdapter.addFragment(new MyRewardsFragment(), "MyRewards");
-        mSectionsPagerAdapter.addFragment(new ShopFragment(), "Shop");
-        mSectionsPagerAdapter.addFragment(new LeaderboardFragment(), "Leaderboard");
-
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_rewards_centre, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -118,19 +122,9 @@ public class RewardsCentreActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-
-            View rootView = null;
-            switch (getArguments().getInt(ARG_SECTION_NUMBER)){
-                case 1:
-                    rootView = inflater.inflate(R.layout.fragment_my_rewards_tab, container, false);
-                    break;
-                case 2:
-                    rootView = inflater.inflate(R.layout.fragment_shop_tab, container, false);
-                    break;
-                case 3:
-                    rootView = inflater.inflate(R.layout.fragment_leaderboard_tab, container, false);
-                    break;
-            }
+            View rootView = inflater.inflate(R.layout.fragment_rewards_centre, container, false);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -141,47 +135,26 @@ public class RewardsCentreActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final List<Fragment> mFragmentsList = new ArrayList<>();
-        private final List<String> mFragmentsTitleList = new ArrayList<>();
-
-        public void addFragment(Fragment fragment, String title){
-            mFragmentsList.add(fragment);
-            mFragmentsTitleList.add(title);
-        }
-
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-        }
-
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentsTitleList.get(position);
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return mFragmentsList.get(position);
+            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return mFragmentsList.size();
+            return 3;
         }
     }
 
-    public static Intent makeIntent(Context context){
+    public static Intent makeIntent(Context context) {
         Intent intent = new Intent(context, RewardsCentreActivity.class);
         return intent;
-    }
-
-    private void onReceiveToken(String token) {
-        // Replace the current proxy with one that uses the token!
-        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
-        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
-        sharedData.setToken(token);
     }
 }
