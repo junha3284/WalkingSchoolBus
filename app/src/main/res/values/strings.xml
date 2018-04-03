@@ -105,4 +105,16 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="RA_next">Next</string>
 
+    <string name="RCA_shop">Shop</string>
+    <string name="RCA_leaderboard">Leaderboard</string>
+    <string name="RCA_my_rewards">My Rewards</string>
+    <string name="RCA_name">Name</string>
+    <string name="RCA_app_themes">App Themes:</string>
+    <string name="RCA_instructions">Select a reward to apply:</string>
+    <string name="RCA_set">Set</string>
+    <string name="RCA_preview">Preview</string>
+    <string name="RCA_purchase">Purchase</string>
+    <string name="RCA_fire_preview">Fire (preview):</string>
+    <string name="RCA_disclaimer">This theme will cost you 100 points! Would you like to purchase this theme?</string>
+
 </resources>
