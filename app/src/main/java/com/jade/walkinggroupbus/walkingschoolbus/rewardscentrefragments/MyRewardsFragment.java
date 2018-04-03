@@ -33,6 +33,8 @@ public class MyRewardsFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_rewards_tab, container, false);
 
+        //myRewards = MyRewards.MyRewards();
+
         setButtons(view);
 
         // TODO this function currently breaks the build, most likely due to uninitialized arrays in the rewards

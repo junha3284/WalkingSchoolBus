@@ -51,7 +51,7 @@ public class RewardsCentreBuyPrompt extends AppCompatDialogFragment{
             @Override
             public void onClick(View view) {
                 // TODO subtract points from total, and add theme to collection. Perform a check to see if user has already bought this theme.
-                getActivity().finish();
+                dismiss();
             }
         });
 
@@ -60,7 +60,7 @@ public class RewardsCentreBuyPrompt extends AppCompatDialogFragment{
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().finish();
+                dismiss();
             }
         });
 
