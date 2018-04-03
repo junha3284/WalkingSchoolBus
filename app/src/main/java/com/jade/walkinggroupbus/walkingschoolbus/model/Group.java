@@ -13,6 +13,7 @@ import java.util.List;
 public class Group {
     private Long id;
     private String groupDescription;
+    private String customJson;
 
     private Double[] routeLatArray;
     private Double[] routeLngArray;
@@ -30,6 +31,10 @@ public class Group {
 
     public String getGroupDescription(){
         return groupDescription;
+    }
+
+    public String getCustomJson() {
+        return customJson;
     }
 
     public Double[] getRouteLatArray(){
@@ -63,6 +68,10 @@ public class Group {
 
     public void setGroupDescription(String description) {
         groupDescription = description;
+    }
+
+    public void setCustomJson(String customJson) {
+        this.customJson = customJson;
     }
 
     public void setRouteLatArray(Double[] routeLatArray) {

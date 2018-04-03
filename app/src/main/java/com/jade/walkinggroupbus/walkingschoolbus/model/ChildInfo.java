@@ -28,6 +28,11 @@ public class ChildInfo {
     private String teacherName;
     private String emergencyContactInfo;
 
+    // fields for Gamification
+    private int currentPoints;
+    private int totalPointsEarned;
+    private String customJson;
+
     private List<UserInfo> monitoredByUsers = new ArrayList<>();
     private List<UserInfo> monitorsUsers = new ArrayList<>();
     private List<Group> memberOfGroups = new ArrayList<>();
@@ -75,6 +80,11 @@ public class ChildInfo {
         setMemberOfGroups(user.getMemberOfGroups());
         setLeadsGroups(user.getLeadsGroups());
         setLastGpsLocation(user.getLastGpsLocation());
+
+        setCurrentPoints(user.getCurrentPoints());
+        setTotalPointsEarned(user.getTotalPointsEarned());
+        setCustomJson(user.getCustomJson());
+
         setHref(user.getHref());
     }
 
@@ -238,6 +248,30 @@ public class ChildInfo {
         this.readMessages = readMessages;
     }
 
+    public int getCurrentPoints() {
+        return currentPoints;
+    }
+
+    public void setCurrentPoints(int currentPoints) {
+        this.currentPoints = currentPoints;
+    }
+
+    public int getTotalPointsEarned() {
+        return totalPointsEarned;
+    }
+
+    public void setTotalPointsEarned(int totalPointsEarned) {
+        this.totalPointsEarned = totalPointsEarned;
+    }
+
+    public String getCustomJson() {
+        return customJson;
+    }
+
+    public void setCustomJson(String customJson) {
+        this.customJson = customJson;
+    }
+
     // UI for Logcat messages.
     @Override
     public String toString() {
@@ -257,6 +291,9 @@ public class ChildInfo {
                 ", monitorsUsers=" + monitorsUsers + '\'' +
                 ", membersOfGroups" + memberOfGroups + '\'' +
                 ", leadsGroups=" + leadsGroups + '\'' +
+                ", currentPoints=" + currentPoints + '\'' +
+                ", totalPointsEarned=" + totalPointsEarned + '\'' +
+                ", customJson=" + customJson + '\'' +
                 '}';
     }
 }
