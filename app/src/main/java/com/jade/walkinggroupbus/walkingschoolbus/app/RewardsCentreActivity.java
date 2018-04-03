@@ -26,6 +26,12 @@ import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
+import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.LeaderboardFragment;
+import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.MyRewardsFragment;
+import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.ShopFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RewardsCentreActivity extends AppCompatActivity {
     private SharedData sharedData;
@@ -64,19 +70,24 @@ public class RewardsCentreActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        setupViewPager(mViewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager){
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mSectionsPagerAdapter.addFragment(new MyRewardsFragment(), "MyRewards");
+        mSectionsPagerAdapter.addFragment(new ShopFragment(), "Shop");
+        mSectionsPagerAdapter.addFragment(new LeaderboardFragment(), "Leaderboard");
+
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
     }
 
     /**
@@ -130,21 +141,35 @@ public class RewardsCentreActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private final List<Fragment> mFragmentsList = new ArrayList<>();
+        private final List<String> mFragmentsTitleList = new ArrayList<>();
+
+        public void addFragment(Fragment fragment, String title){
+            mFragmentsList.add(fragment);
+            mFragmentsTitleList.add(title);
+        }
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+        }
+
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentsTitleList.get(position);
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return mFragmentsList.get(position);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return mFragmentsList.size();
         }
     }
 

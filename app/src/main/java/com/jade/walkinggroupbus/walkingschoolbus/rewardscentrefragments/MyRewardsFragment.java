@@ -34,7 +34,9 @@ public class MyRewardsFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_my_rewards_tab, container, false);
 
         setButtons(view);
-        setUpRewardsDisplay(view);
+
+        // TODO this function currently breaks the build, most likely due to uninitialized arrays in the rewards
+        //setUpRewardsDisplay(view);
 
         return view;
     }
@@ -88,6 +90,7 @@ public class MyRewardsFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 // For each of the objects in the spinner
+                // TODO Display all the obtained rewards here in the spinner
                 if( position == 0) {
 
                 }
