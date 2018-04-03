@@ -32,6 +32,8 @@ public class MyRewardsFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_rewards_tab, container, false);
+        
+        myRewards = MyRewards.MyRewards();
 
         //myRewards = MyRewards.MyRewards();
 
