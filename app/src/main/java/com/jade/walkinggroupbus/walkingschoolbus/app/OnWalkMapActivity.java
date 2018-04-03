@@ -37,6 +37,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
@@ -73,6 +74,9 @@ public class OnWalkMapActivity extends AppCompatActivity
     private Group onWalkGroup;
     GPSLocation gpsLocation = new GPSLocation();
     private boolean atDestination = false;
+
+    // for gamification
+    private Long distanceTravelled = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +158,20 @@ public class OnWalkMapActivity extends AppCompatActivity
 
             Location location = locationResult.getLastLocation();
 
+            // earn points
+            if (gpsLocation.getLat() != null) {
+                // if progress made in walk
+                Location oldLocation = new Location("");
+                oldLocation.setLatitude(gpsLocation.getLat());
+                oldLocation.setLongitude(gpsLocation.getLng());
+
+                Location currentLocation = new Location("");
+                currentLocation.setLatitude(location.getLatitude());
+                currentLocation.setLongitude(location.getLongitude());
+
+                calculatePoint(oldLocation, currentLocation);
+            }
+
             // get location and time info
             Double[] newGPSCoordinates = {location.getLatitude(),location.getLongitude()};
             gpsLocation.setLocation(newGPSCoordinates);
@@ -172,6 +190,32 @@ public class OnWalkMapActivity extends AppCompatActivity
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
         }
     };
+
+    private void calculatePoint(Location oldLocation, Location currentLocation) {
+        if (distanceTravelled == null) {
+            distanceTravelled = (long) 0;
+        }
+        // calculate distance travelled
+        distanceTravelled += (long) oldLocation.distanceTo(currentLocation);
+
+        // add point
+        if (distanceTravelled > 250) {
+            // if travelled more than 250 metres
+            userInfo.addPoint();
+
+            // update user on server
+            Call<UserInfo> caller = proxy.editUser(userInfo.getId(), userInfo);
+            ProxyBuilder.callProxy(OnWalkMapActivity.this, caller, returnedUser -> updateUser(returnedUser));
+
+            // reset distance travelled
+            distanceTravelled %= 250;
+        }
+    }
+
+    private void updateUser(UserInfo returnedUser) {
+        userInfo.setUserInfo(returnedUser);
+
+    }
 
     private void updateUser(GPSLocation returnedGPSLocation) {
         userInfo.setLastGpsLocation(returnedGPSLocation);

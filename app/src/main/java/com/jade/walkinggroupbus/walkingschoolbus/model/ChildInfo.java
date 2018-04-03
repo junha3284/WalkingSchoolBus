@@ -264,6 +264,12 @@ public class ChildInfo {
         this.totalPointsEarned = totalPointsEarned;
     }
 
+    // earned point
+    public void addPoint() {
+        this.currentPoints++;
+        this.totalPointsEarned++;
+    }
+
     public String getCustomJson() {
         return customJson;
     }
