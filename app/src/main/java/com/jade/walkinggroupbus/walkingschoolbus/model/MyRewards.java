@@ -42,7 +42,6 @@ public class MyRewards {
         for (int i = 0; i < numThemes; i++) {
             obtainedRewards.add(false);
         }
-        //Collections.fill(obtainedRewards, false);
         obtainedRewards.set(0, true);
 
 
