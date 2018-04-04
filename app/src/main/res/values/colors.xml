@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- default theme -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- fire theme -->
+    <color name="fireBackground">#000000</color>
+    <color name="fireTextColor">#F1C40F</color>
+    <color name="fireButtonColor">#BA4A00</color>
+    <color name="fireAccent">#922B21</color>
+
+    <!-- water theme -->
+    <color name="waterBackground">#2E86C1</color>
+    <color name="waterTextColor">#FBFCFC</color>
+    <color name="waterButtonColor">#D68910</color>
+
+    <!-- spring theme -->
+    <color name="springBackground">#239B56</color>
+    <color name="springTextColor">#1B4F72</color>
+    <color name="springButtonColor">#D4AC0D</color>
+
+    <!-- dark theme -->
+    <color name="darkBackground">#1f2733</color>
+    <color name="darkTextColor">#A6ACAF</color>
+    <color name="darkButtonColor">#424949</color>
 </resources>
