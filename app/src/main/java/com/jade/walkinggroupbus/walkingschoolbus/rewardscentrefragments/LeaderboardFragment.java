@@ -47,21 +47,24 @@ public class LeaderboardFragment extends Fragment{
 
         // check if token is set properly
         if(token != null)
-            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken(), "2");
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
         else {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
+        // get the data about all users and display their name and totalPointsEarned
         getAllUsersInformation();
 
         return view;
     }
 
+    // get the data about all users and display their name and totalPointsEarned
     void getAllUsersInformation(){
         Call<List<UserInfo>> caller = proxy.getUsers();
         ProxyBuilder.callProxy(caller,returnedList->response(returnedList));
     }
 
+    // set the LeaderBoard listView with returned data from the server
     private void response(List<UserInfo> returnedList) {
         allUser = returnedList;
 
@@ -72,6 +75,19 @@ public class LeaderboardFragment extends Fragment{
 
     }
 
+    // set newly issued token to proxy and save it on sharedData singleton object
+    private void onReceiveToken(String token) {
+        // Replace the current proxy with one that uses the token!
+        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
+        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
+        sharedData.setToken(token);
+    }
+
+    /*
+    --------------------------------
+    PRIVATE
+    --------------------------------
+    */
     private class UserPointsAdapter extends ArrayAdapter<UserInfo> {
         public UserPointsAdapter(){
             super(getActivity().getApplicationContext(), R.layout.list_template_leaderboard, allUser);
@@ -101,14 +117,5 @@ public class LeaderboardFragment extends Fragment{
 
             return itemView;
         }
-    }
-
-
-    // set newly issued token to proxy and save it on sharedData singleton object
-    private void onReceiveToken(String token) {
-        // Replace the current proxy with one that uses the token!
-        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
-        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token, "2");
-        sharedData.setToken(token);
     }
 }
