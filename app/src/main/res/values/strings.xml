@@ -116,5 +116,6 @@
     <string name="RCA_purchase">Purchase</string>
     <string name="RCA_fire_preview">Fire (preview):</string>
     <string name="RCA_disclaimer">This theme will cost you 100 points! Would you like to purchase this theme?</string>
+    <string name="points">Points</string>
 
 </resources>

@@ -39,7 +39,9 @@ public class MyRewards {
 
         // setting up the server object
         obtainedRewards = new ArrayList<Boolean>(numThemes);
-        Collections.fill(obtainedRewards, false);
+        for(int i=0; i < numThemes; i++)
+            obtainedRewards.add(false);
+        //Collections.fill(obtainedRewards, false);
         obtainedRewards.set(0, true);
 
 
