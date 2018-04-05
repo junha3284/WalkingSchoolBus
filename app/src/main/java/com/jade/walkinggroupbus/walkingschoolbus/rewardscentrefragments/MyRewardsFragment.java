@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,24 @@ import android.widget.Toast;
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.app.MainMenuActivity;
 import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
+import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
+import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+
 public class MyRewardsFragment extends Fragment{
     private static final String TAG = "MyRewardsFragment";
 
     private UserInfo userInfo;
+
+    private SharedData sharedData;
+    private WGServerProxy proxy;
 
     // Rewards singleton
     private MyRewards myRewards;
@@ -36,15 +45,24 @@ public class MyRewardsFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_rewards_tab, container, false);
 
+        sharedData = SharedData.getSharedData();
+        String token = sharedData.getToken();
+
+        if(token != null)
+            proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), sharedData.getToken());
+        else {
+            ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
+        }
+
         userInfo = UserInfo.userInfo();
         myRewards = MyRewards.MyRewards();
 
-        setButtons(view);
+        //setButtons(view);
         setUpRewardsDisplay(view);
 
         return view;
     }
-
+/*
     private void setButtons(View view) {
         // Sets the theme
         Button setThemeBtn = (Button) view.findViewById(R.id.RCA_button_set);
@@ -66,7 +84,7 @@ public class MyRewardsFragment extends Fragment{
             }
         });
     }
-
+//*/
     private void setUpRewardsDisplay(View view) {
         obtainedRewards = myRewards.getObtainedRewards();
         setSpinner(view);
@@ -74,8 +92,6 @@ public class MyRewardsFragment extends Fragment{
 
     // Set up the spinner
     private void setSpinner(View view) {
-        // TODO: if user has null custom json, GIVE THEM A BLANK ONE TO WORK WITH
-
 
         // pull my rewards info from userInfo and update MyRewards singleton
         String jsonString = userInfo.getCustomJson();
@@ -110,11 +126,17 @@ public class MyRewardsFragment extends Fragment{
                     String themeName = myRewards.getThemes().get(position).getThemeName();
                     myRewards.setSelectedTheme(themeName);
 
-                    // TODO: update server info on selected theme
+                    // update server info on selected theme
+                    String myRewardsJsonString = myRewards.convertToJsonString();
+                    userInfo.setCustomJson(myRewardsJsonString);
 
+                    Call<UserInfo> editUser = proxy.editUser(userInfo.getId(), userInfo);
+                    ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
 
                 } else {
-                    Toast.makeText(getActivity(), "You have not purchased this theme yet!", Toast.LENGTH_SHORT)
+                    Toast.makeText(getActivity(),
+                            "You have not purchased this theme yet!",
+                            Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -123,5 +145,16 @@ public class MyRewardsFragment extends Fragment{
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
+    }
+
+    private void response(UserInfo returnedUser) {
+        Log.w(TAG, "    User: " + returnedUser);
+    }
+
+    private void onReceiveToken(String token) {
+        // Replace the current proxy with one that uses the token!
+        Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
+        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
+        sharedData.setToken(token);
     }
 }

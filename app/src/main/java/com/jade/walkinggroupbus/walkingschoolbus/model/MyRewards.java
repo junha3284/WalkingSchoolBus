@@ -46,13 +46,10 @@ public class MyRewards {
         // setting up the server object
         obtainedRewards = new ArrayList<Boolean>(numThemes);
         for (int i = 0; i < numThemes; i++) {
-            //obtainedRewards.add(false);
-            obtainedRewards.add(true);
+            obtainedRewards.add(false);
         }
         obtainedRewards.set(0, true);
 
-        // test
-        obtainedRewards.set(1, false);
 
         // implementing themes here
         themes = new ArrayList<Theme>(numThemes);
@@ -111,11 +108,6 @@ public class MyRewards {
         return previewTheme;
     }
 
-    public void setPreviewTheme(String previewTheme) {
-        this.previewTheme = previewTheme;
-    }
-
-
     @JsonIgnore
     public List<Theme> getThemes() {
         return themes;
@@ -139,6 +131,15 @@ public class MyRewards {
     // setters
     public void setSelectedTheme(String selectedTheme) {
         this.selectedTheme = selectedTheme;
+    }
+
+    // setters
+    public void setPreviewTheme(String previewTheme) {
+        this.previewTheme = previewTheme;
+    }
+
+    public void setObtainedRewards(List<Boolean> obtainedRewards) {
+        this.obtainedRewards = obtainedRewards;
     }
 
 
@@ -196,6 +197,9 @@ public class MyRewards {
     // obtainedRewards variable will get messed up
     public void setRewardsWithJson(String jsonString) {
         Type typeToken = new TypeToken<MyRewards>(){}.getType();
-        instance = new Gson().fromJson(jsonString, typeToken);
+        MyRewards jsonObj = new Gson().fromJson(jsonString, typeToken);
+
+        instance.setSelectedTheme(jsonObj.getSelectedTheme());
+        instance.setObtainedRewards(jsonObj.getObtainedRewards());
     }
 }

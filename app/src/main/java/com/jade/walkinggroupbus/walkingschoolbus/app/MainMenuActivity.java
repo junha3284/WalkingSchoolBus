@@ -32,6 +32,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     // Singleton
     private UserInfo userInfo;
+    private MyRewards myRewards;
     Boolean preview;
 
     @Override
@@ -39,16 +40,26 @@ public class MainMenuActivity extends AppCompatActivity {
         Log.v("Example", "onCreate");
         getIntent().setAction("Already created");
 
+        // Singleton
+        userInfo = UserInfo.userInfo();
+        myRewards = MyRewards.MyRewards();
+
+
+        // get theme info from server
+        String serverJson = userInfo.getCustomJson();
+
+        if (serverJson != null ) {
+            myRewards.setRewardsWithJson(serverJson);
+        }
+
         // set theme
-        MyRewards myRewards = MyRewards.MyRewards();
         setTheme(myRewards.getSelectedThemeID());
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        // Singleton
-        userInfo = UserInfo.userInfo();
+
 
         // Welcome message, displays the user's name
         TextView text_displayName = (TextView) findViewById(R.id.text_name);
