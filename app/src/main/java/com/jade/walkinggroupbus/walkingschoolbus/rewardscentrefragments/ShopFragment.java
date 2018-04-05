@@ -17,6 +17,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.app.ExitWalkDialogFragment;
 import com.jade.walkinggroupbus.walkingschoolbus.app.MainMenuActivity;
 import com.jade.walkinggroupbus.walkingschoolbus.app.OnWalkMapPanicPrompt;
 import com.jade.walkinggroupbus.walkingschoolbus.app.RewardsCentreBuyPrompt;
+import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 
 /**
  * Created by Richard Wong on 2018-04-01.
@@ -24,11 +25,14 @@ import com.jade.walkinggroupbus.walkingschoolbus.app.RewardsCentreBuyPrompt;
 
 public class ShopFragment extends Fragment{
     private static final String TAG = "ShopFragment";
+    private MyRewards myRewards;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop_tab, container, false);
+
+        myRewards = MyRewards.MyRewards();
 
         setUpPreviewButton(view);
         setUpBuyButtons(view);
@@ -39,6 +43,7 @@ public class ShopFragment extends Fragment{
 
         return view;
     }
+
 
     // TODO open mainmenu activity to preview the theme. Currently isn't launching MainMenuActivity
     private void setUpPreviewButton(View view) {
@@ -94,24 +99,32 @@ public class ShopFragment extends Fragment{
         buyFireBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myRewards.setPreviewTheme("Fire");
+                myRewards.setSelectedIndex(1);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 RewardsCentreBuyPrompt rewardsCentreBuyPrompt = new RewardsCentreBuyPrompt();
                 rewardsCentreBuyPrompt.show(fragmentManager, "buyFire");
+
             }
         });
 
         buyWaterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myRewards.setPreviewTheme("Water");
+                myRewards.setSelectedIndex(2);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 RewardsCentreBuyPrompt rewardsCentreBuyPrompt = new RewardsCentreBuyPrompt();
                 rewardsCentreBuyPrompt.show(fragmentManager, "buyWater");
+
             }
         });
 
         buySpringBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myRewards.setPreviewTheme("Spring");
+                myRewards.setSelectedIndex(3);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 RewardsCentreBuyPrompt rewardsCentreBuyPrompt = new RewardsCentreBuyPrompt();
                 rewardsCentreBuyPrompt.show(fragmentManager, "buySpring");
@@ -121,6 +134,8 @@ public class ShopFragment extends Fragment{
         buyDarkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myRewards.setPreviewTheme("Dark");
+                myRewards.setSelectedIndex(4);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 RewardsCentreBuyPrompt rewardsCentreBuyPrompt = new RewardsCentreBuyPrompt();
                 rewardsCentreBuyPrompt.show(fragmentManager, "buyDark");

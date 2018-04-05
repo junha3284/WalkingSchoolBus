@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
+import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
@@ -25,6 +27,7 @@ public class RewardsCentreBuyPrompt extends AppCompatDialogFragment{
     private UserInfo userInfo;
     private SharedData sharedData;
     private WGServerProxy proxy;
+    private MyRewards myRewards;
     private static final String TAG = "ServerTest";
 
     @Override
@@ -32,6 +35,7 @@ public class RewardsCentreBuyPrompt extends AppCompatDialogFragment{
 
         userInfo = UserInfo.userInfo();
         sharedData = SharedData.getSharedData();
+        myRewards = MyRewards.MyRewards();
         String token = sharedData.getToken();
 
         // check if token is set properly
@@ -50,8 +54,25 @@ public class RewardsCentreBuyPrompt extends AppCompatDialogFragment{
         purchaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO subtract points from total, and add theme to collection. Perform a check to see if user has already bought this theme.
-                dismiss();
+                // Checks to see if user has already obtained the theme
+                if (myRewards.checkObtainedRewardsByName(myRewards.getPreviewTheme())){
+                    Toast.makeText(getActivity(), "Theme already purchased. Returning to Rewards Centre.", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
+                // Checks to see if the user has enough points
+                else if(userInfo.getCurrentPoints() < 100){
+                    Toast.makeText(getActivity(), "You do not have enough points. Returning to Rewards Centre.", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
+                // Awards the theme and subtracts the points from current points.
+                else{
+                    myRewards.unlockReward(myRewards.getSelectedIndex());
+                    int currentPoints = userInfo.getCurrentPoints() - 100;
+                    userInfo.setCurrentPoints(currentPoints);
+
+                    Toast.makeText(getActivity(), "Purchase Successful. Returning to Rewards Centre.", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
             }
         });
 
