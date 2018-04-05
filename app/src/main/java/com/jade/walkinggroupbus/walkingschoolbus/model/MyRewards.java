@@ -81,7 +81,7 @@ public class MyRewards {
 
 
         // set default theme type
-        selectedTheme = darkTheme.getThemeName();
+        selectedTheme = defaultTheme.getThemeName();
     }
 
     // singleton function
