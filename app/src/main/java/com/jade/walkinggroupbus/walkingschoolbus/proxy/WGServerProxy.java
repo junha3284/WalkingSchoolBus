@@ -107,5 +107,5 @@ public interface WGServerProxy {
     Call<Permission> getPermissionByID(@Path("id") Long permissionID);
 
     @POST("/permissions/{id}")
-    Call<Permission> respondToPermissionRequest(@Path("id") Long permissionID);
+    Call<Permission> respondToPermissionRequest(@Path("id") Long permissionID, @Body String response);
 }
