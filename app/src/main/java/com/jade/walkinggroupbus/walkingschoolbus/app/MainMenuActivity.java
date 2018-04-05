@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
+import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
 /**
@@ -34,6 +35,11 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // set theme
+        MyRewards myRewards = MyRewards.MyRewards();
+        setTheme(myRewards.getSelectedThemeID());
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 

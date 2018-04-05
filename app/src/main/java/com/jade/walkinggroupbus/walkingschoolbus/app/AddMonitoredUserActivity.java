@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
+import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
@@ -37,6 +38,10 @@ public class AddMonitoredUserActivity extends AppCompatActivity {
     private String string_email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // set theme
+        MyRewards myRewards = MyRewards.MyRewards();
+        setTheme(myRewards.getSelectedThemeID());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_monitored_user);
 

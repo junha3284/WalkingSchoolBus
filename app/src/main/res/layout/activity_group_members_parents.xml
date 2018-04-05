@@ -22,7 +22,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:text="@string/group_members_parents_title"
-            android:textColor="@android:color/background_dark"
             android:textSize="24sp"
             android:textStyle="bold" />
 
