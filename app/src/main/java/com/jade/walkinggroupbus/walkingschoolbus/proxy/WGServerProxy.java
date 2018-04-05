@@ -94,6 +94,9 @@ public interface WGServerProxy {
     @GET("/permissions")
     Call<List<Permission>> getAllPermissions();
 
+    @GET("/permissions?userId={id}&statusForUser=PENDING")
+    Call<List<Permission>> getPendingPermissionsByUserID(@Path("id") Long userID);
+
     @GET("/permissions?userId={id}&statusForUser=APPROVED")
     Call<List<Permission>> getApprovedPermissionsByUserID(@Path("id") Long userID);
 
