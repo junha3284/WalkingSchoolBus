@@ -51,6 +51,8 @@ public class MyRewards {
         }
         obtainedRewards.set(0, true);
 
+        // test
+        obtainedRewards.set(1, false);
 
         // implementing themes here
         themes = new ArrayList<Theme>(numThemes);
