@@ -15,6 +15,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.ChildInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.GroupsInfo;
+import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
@@ -48,6 +49,9 @@ public class WalkingGroupsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MyRewards myRewards = MyRewards.MyRewards();
+        setTheme(myRewards.getSelectedThemeID());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walking_groups);
 

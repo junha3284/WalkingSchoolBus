@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jade.walkinggroupbus.walkingschoolbus.R;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -24,6 +25,10 @@ public class MyRewards {
     // ex: if default is obtained, obtainedRewards[0] == true
     private List<Boolean> obtainedRewards;
 
+    private String selectedTheme;
+
+    private String previewTheme;
+
     @JsonIgnore
     private List<Theme> themes;
 
@@ -39,12 +44,14 @@ public class MyRewards {
 
         // setting up the server object
         obtainedRewards = new ArrayList<Boolean>(numThemes);
-        Collections.fill(obtainedRewards, false);
+        for (int i = 0; i < numThemes; i++) {
+            //obtainedRewards.add(false);
+            obtainedRewards.add(true);
+        }
         obtainedRewards.set(0, true);
 
 
         // implementing themes here
-        // TODO: implement themes
         themes = new ArrayList<Theme>(numThemes);
 
         // create default theme - leave blank?
@@ -71,6 +78,10 @@ public class MyRewards {
         Theme darkTheme = new Theme("Dark");
 
         themes.add(darkTheme);
+
+
+        // set default theme type
+        selectedTheme = darkTheme.getThemeName();
     }
 
     // singleton function
@@ -89,10 +100,44 @@ public class MyRewards {
         return Collections.unmodifiableList(obtainedRewards);
     }
 
+    public String getSelectedTheme() {
+        return selectedTheme;
+    }
+
+    public String getPreviewTheme() {
+        return previewTheme;
+    }
+
+    public void setPreviewTheme(String previewTheme) {
+        this.previewTheme = previewTheme;
+    }
+
+
     @JsonIgnore
     public List<Theme> getThemes() {
         return themes;
     }
+
+    @JsonIgnore
+    public int getSelectedThemeID() {
+        if (selectedTheme.equals("Dark")) {
+            return R.style.Dark;
+        } else if (selectedTheme.equals("Fire")) {
+            return R.style.Fire;
+        } else if (selectedTheme.equals("Water")) {
+            return R.style.Water;
+        } else if (selectedTheme.equals("Spring")) {
+            return R.style.Spring;
+        } else {
+            return R.style.Default;
+        }
+    }
+
+    // setters
+    public void setSelectedTheme(String selectedTheme) {
+        this.selectedTheme = selectedTheme;
+    }
+
 
 
     // general functions

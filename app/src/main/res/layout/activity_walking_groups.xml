@@ -30,7 +30,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:text="@string/walking_groups_title"
-                android:textColor="@android:color/background_dark"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
