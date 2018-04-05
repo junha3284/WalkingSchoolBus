@@ -1,4 +1,9 @@
 <resources>
+    <!--
+        colorPrimary  modifies the Top Title Bar colo
+        colorPrimaryDark modifies the Notification bar color
+        colorAccent modifies "unknown"
+        -->
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +11,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -14,7 +20,130 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+
+    <!-- Default theme. -->
+    <style name="Default" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="Default.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Default.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Default.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+
+    <!-- fire theme -->
+    <style name="Fire" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/fireAccent</item>
+
+        <item name="android:background">@color/fireBackground</item>
+        <item name="android:textColor">@color/fireTextColor</item>
+        <item name="colorButtonNormal">@color/fireButtonColor</item>
+        <item name="android:colorBackground">@android:color/darker_gray</item>
+        <item name="android:colorForeground">@color/colorPrimary</item>
+    </style>
+
+    <style name="Fire.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Fire.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Fire.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+
+    <!-- water theme -->
+    <style name="Water" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:background">@color/waterBackground</item>
+        <item name="android:textColor">@color/waterTextColor</item>
+        <item name="colorButtonNormal">@color/waterButtonColor</item>
+        <item name="android:colorBackground">@android:color/darker_gray</item>
+        <item name="android:colorForeground">@color/colorPrimary</item>
+    </style>
+
+    <style name="Water.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Water.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Water.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+
+
+    <!-- spring theme -->
+    <style name="Spring" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:background">@color/springBackground</item>
+        <item name="android:textColor">@color/springTextColor</item>
+        <item name="colorButtonNormal">@color/springButtonColor</item>
+        <item name="android:colorBackground">@android:color/darker_gray</item>
+        <item name="android:colorForeground">@color/colorPrimary</item>
+    </style>
+
+    <style name="Spring.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Spring.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Spring.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+
+
+
+    <!-- dark theme -->
+    <style name="Dark" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/darkBackground</item>
+        <item name="colorPrimaryDark">@color/darkBackground</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:background">@color/darkBackground</item>
+        <item name="android:textColor">@color/darkTextColor</item>
+        <item name="colorButtonNormal">@color/darkButtonColor</item>
+        <item name="android:colorBackground">@android:color/darker_gray</item>
+        <item name="android:colorForeground">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="Dark.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Dark.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Dark.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
