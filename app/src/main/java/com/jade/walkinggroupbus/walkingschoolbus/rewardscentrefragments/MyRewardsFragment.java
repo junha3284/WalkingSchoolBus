@@ -16,6 +16,8 @@ import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.app.MainMenuActivity;
 import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ public class MyRewardsFragment extends Fragment{
         setButtons(view);
 
         // TODO this function currently breaks the build, most likely due to uninitialized arrays in the rewards
-        //setUpRewardsDisplay(view);
+        setUpRewardsDisplay(view);
 
         return view;
     }
@@ -74,30 +76,35 @@ public class MyRewardsFragment extends Fragment{
 
     // Set up the spinner
     private void setSpinner(View view) {
+        // TODO: pull my rewards info from server and updated MyRewards
+        
+
         //create adapter for spinner
         int size = obtainedRewards.size();
-        String[] items = new String[size + 1];
+        ArrayList<String> items = new ArrayList<String>(size);
 
         // Parse collection for all obtained rewards
-        items[0] = "Default - Light";
-        for(int i=0; i < size; i++){
-            items[i+1] = String.valueOf(myRewards.checkObtainedRewardsByIndex(i));
+        for (int i = 0; i < size; i++){
+            items.add(myRewards.getThemes().get(i).getThemeName());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_template_spinner_item, items);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.list_template_spinner_item,
+                items);
 
         // set Adapter for spinner
-        Spinner recipientSpinner = (Spinner) view.findViewById(R.id.spinner_recipient);
+        Spinner recipientSpinner = (Spinner) view.findViewById(R.id.rewardSpinner);
         recipientSpinner.setAdapter(adapter);
 
         // set OnItemListener
         recipientSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                // For each of the objects in the spinner
-                // TODO Display all the obtained rewards here in the spinner
-                if( position == 0) {
 
-                }
+                String themeName = myRewards.getThemes().get(position).getThemeName();
+                myRewards.setSelectedTheme(themeName);
+
+                // TODO: update server info on selected theme
             }
 
             // Do nothing if nothing is selected

@@ -27,6 +27,7 @@ public class MyRewards {
 
     private String selectedTheme;
 
+    @JsonIgnore
     private String previewTheme;
 
     @JsonIgnore
@@ -179,17 +180,20 @@ public class MyRewards {
     }
 
 
+
+
+
     // JSON FUNCTIONS
     public String convertToJsonString() {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String obtainedRewardsJsonString = new Gson().toJson(obtainedRewards);
-        return obtainedRewardsJsonString;
+        String myRewardsJsonString = new Gson().toJson(instance);
+        return myRewardsJsonString;
     }
 
     // note: this function can be easily abused. only input json string for obtainedRewards or
     // obtainedRewards variable will get messed up
     public void setRewardsWithJson(String jsonString) {
-        Type typeToken = new TypeToken<List<Boolean>>(){}.getType();
-        obtainedRewards = new Gson().fromJson(jsonString, typeToken);
+        Type typeToken = new TypeToken<MyRewards>(){}.getType();
+        instance = new Gson().fromJson(jsonString, typeToken);
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,6 +36,9 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.v("Example", "onCreate");
+        getIntent().setAction("Already created");
+
         // set theme
         MyRewards myRewards = MyRewards.MyRewards();
         setTheme(myRewards.getSelectedThemeID());
@@ -51,6 +55,25 @@ public class MainMenuActivity extends AppCompatActivity {
         text_displayName.setText(userInfo.getName());
 
         setButtons();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.v("Example", "onResume");
+
+        String action = getIntent().getAction();
+        // Prevent endless loop by adding a unique action, don't restart if action is present
+        if(action == null || !action.equals("Already created")) {
+            Log.v("Example", "Force restart");
+            Intent intent = new Intent(this, MainMenuActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        // Remove the unique action so the next time onResume is called it will restart
+        else
+            getIntent().setAction(null);
+
+        super.onResume();
     }
 
     private void setButtons() {
