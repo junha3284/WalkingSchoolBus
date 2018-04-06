@@ -31,6 +31,9 @@ public class MyRewards {
     private String previewTheme;
 
     @JsonIgnore
+    private int selectedIndex;
+
+    @JsonIgnore
     private List<Theme> themes;
 
     @JsonIgnore
@@ -108,6 +111,11 @@ public class MyRewards {
         return previewTheme;
     }
 
+    public int getSelectedIndex() {
+        return selectedIndex;
+    }
+
+
     @JsonIgnore
     public List<Theme> getThemes() {
         return themes;
@@ -143,6 +151,9 @@ public class MyRewards {
     }
 
 
+    public void setSelectedIndex(int selectedIndex) {
+        this.selectedIndex = selectedIndex;
+    }
 
     // general functions
     public boolean checkObtainedRewardsByIndex(int themeIndex) {
