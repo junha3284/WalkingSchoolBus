@@ -22,6 +22,8 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -65,13 +67,13 @@ public class LeaderboardFragment extends Fragment{
     }
 
     // set the LeaderBoard listView with returned data from the server
-    private void response(List<UserInfo> returnedList) {
+    private void response( List<UserInfo> returnedList) {
         allUser = returnedList;
-
+        Collections.sort( allUser, new UserInfoComparatorByPoints());
         ArrayAdapter<UserInfo> adapterForUsersTotalPointsEarned = new UserPointsAdapter();
         ListView usersTotalPointsEarned = (ListView) getView()
                 .findViewById(R.id.listView_UsersTotalPointsEarned);
-        usersTotalPointsEarned.setAdapter(adapterForUsersTotalPointsEarned);
+        usersTotalPointsEarned.setAdapter( adapterForUsersTotalPointsEarned);
 
     }
 
@@ -88,9 +90,12 @@ public class LeaderboardFragment extends Fragment{
     PRIVATE
     --------------------------------
     */
+    // Adapter for List of Users
     private class UserPointsAdapter extends ArrayAdapter<UserInfo> {
         public UserPointsAdapter(){
-            super(getActivity().getApplicationContext(), R.layout.list_template_leaderboard, allUser);
+            super(getActivity().getApplicationContext(), // Context
+                    R.layout.list_template_leaderboard, // Layout for iteam of list
+                    allUser);   // List of items
         }
 
         @NonNull
@@ -118,4 +123,14 @@ public class LeaderboardFragment extends Fragment{
             return itemView;
         }
     }
+
+    // custom Comparator for sorting Users by totalPointsEarned
+    private class UserInfoComparatorByPoints implements Comparator<UserInfo> {
+        @Override
+        public int compare(UserInfo user1, UserInfo user2){
+            // for reverse order (make the list descending order), times -1
+            return -1*(user1.getTotalPointsEarned()-user2.getTotalPointsEarned());
+        }
+    }
+
 }
