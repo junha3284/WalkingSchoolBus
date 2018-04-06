@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,26 +32,59 @@ public class MainMenuActivity extends AppCompatActivity {
 
     // Singleton
     private UserInfo userInfo;
+    private MyRewards myRewards;
     Boolean preview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.v("Example", "onCreate");
+        getIntent().setAction("Already created");
+
+        // Singleton
+        userInfo = UserInfo.userInfo();
+        myRewards = MyRewards.MyRewards();
+
+
+        // get theme info from server
+        String serverJson = userInfo.getCustomJson();
+
+        if (serverJson != null ) {
+            myRewards.setRewardsWithJson(serverJson);
+        }
+
         // set theme
-        MyRewards myRewards = MyRewards.MyRewards();
         setTheme(myRewards.getSelectedThemeID());
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        // Singleton
-        userInfo = UserInfo.userInfo();
+
 
         // Welcome message, displays the user's name
         TextView text_displayName = (TextView) findViewById(R.id.text_name);
         text_displayName.setText(userInfo.getName());
 
         setButtons();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.v("Example", "onResume");
+
+        String action = getIntent().getAction();
+        // Prevent endless loop by adding a unique action, don't restart if action is present
+        if(action == null || !action.equals("Already created")) {
+            Log.v("Example", "Force restart");
+            Intent intent = new Intent(this, MainMenuActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        // Remove the unique action so the next time onResume is called it will restart
+        else
+            getIntent().setAction(null);
+
+        super.onResume();
     }
 
     private void setButtons() {
