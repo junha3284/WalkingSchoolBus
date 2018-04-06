@@ -117,5 +117,8 @@
     <string name="RCA_fire_preview">Fire (preview):</string>
     <string name="RCA_disclaimer">This theme will cost you 100 points! Would you like to purchase this theme?</string>
     <string name="points">Points</string>
+    <string name="permission_centre">Permission Centre</string>
+    <string name="old_permission">OLD PERMISSION</string>
+    <string name="pending_permission">PENDING PERMISSION</string>
 
 </resources>
