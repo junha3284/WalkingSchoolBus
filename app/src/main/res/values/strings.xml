@@ -120,5 +120,7 @@
     <string name="permission_centre">Permission Centre</string>
     <string name="old_permission">OLD PERMISSION</string>
     <string name="pending_permission">PENDING PERMISSION</string>
+    <string name="PPA_approved_permissions">Approved Permissions</string>
+    <string name="PPA_denied_permissions">Denied Permissions</string>
 
 </resources>
