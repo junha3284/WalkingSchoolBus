@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
+import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
@@ -25,6 +26,9 @@ public class RegisterActivity extends AppCompatActivity {
     // Singleton
     private UserInfo userInfo;
 
+    // implement rewards
+    private MyRewards myRewards;
+
     private static final String TAG = "ServerTest";
 
     @Override
@@ -34,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Singleton
         userInfo = UserInfo.userInfo();
+        myRewards = MyRewards.MyRewards();
 
         // Takes user input, verifies, then passes to server
         Button button_confirm = (Button) findViewById(R.id.button_next);
@@ -56,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                 action_confirmEmail(email);
                 action_confirmName(name);
                 action_confirmPassword(password1, password2);
+                action_addRewards();
             }
         });
 
@@ -111,6 +117,11 @@ public class RegisterActivity extends AppCompatActivity {
             String message = "Error, a field was left blank";
             action_errorMessage(message);
         }
+    }
+
+    private void action_addRewards() {
+        String myRewardsJson = myRewards.convertToJsonString();
+        userInfo.setCustomJson(myRewardsJson);
     }
 
     // Handles error messages

@@ -29,24 +29,12 @@
                 android:textSize="18sp" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/rewardSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/RCA_button_preview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/RCA_preview" />
-
-        <Button
-            android:id="@+id/RCA_button_set"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/RCA_set" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

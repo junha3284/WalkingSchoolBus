@@ -27,6 +27,7 @@ public class MyRewards {
 
     private String selectedTheme;
 
+    @JsonIgnore
     private String previewTheme;
 
     @JsonIgnore
@@ -45,8 +46,7 @@ public class MyRewards {
         // setting up the server object
         obtainedRewards = new ArrayList<Boolean>(numThemes);
         for (int i = 0; i < numThemes; i++) {
-            //obtainedRewards.add(false);
-            obtainedRewards.add(true);
+            obtainedRewards.add(false);
         }
         obtainedRewards.set(0, true);
 
@@ -81,7 +81,7 @@ public class MyRewards {
 
 
         // set default theme type
-        selectedTheme = darkTheme.getThemeName();
+        selectedTheme = defaultTheme.getThemeName();
     }
 
     // singleton function
@@ -108,11 +108,6 @@ public class MyRewards {
         return previewTheme;
     }
 
-    public void setPreviewTheme(String previewTheme) {
-        this.previewTheme = previewTheme;
-    }
-
-
     @JsonIgnore
     public List<Theme> getThemes() {
         return themes;
@@ -136,6 +131,15 @@ public class MyRewards {
     // setters
     public void setSelectedTheme(String selectedTheme) {
         this.selectedTheme = selectedTheme;
+    }
+
+    // setters
+    public void setPreviewTheme(String previewTheme) {
+        this.previewTheme = previewTheme;
+    }
+
+    public void setObtainedRewards(List<Boolean> obtainedRewards) {
+        this.obtainedRewards = obtainedRewards;
     }
 
 
@@ -179,17 +183,23 @@ public class MyRewards {
     }
 
 
+
+
+
     // JSON FUNCTIONS
     public String convertToJsonString() {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String obtainedRewardsJsonString = new Gson().toJson(obtainedRewards);
-        return obtainedRewardsJsonString;
+        String myRewardsJsonString = new Gson().toJson(instance);
+        return myRewardsJsonString;
     }
 
     // note: this function can be easily abused. only input json string for obtainedRewards or
     // obtainedRewards variable will get messed up
     public void setRewardsWithJson(String jsonString) {
-        Type typeToken = new TypeToken<List<Boolean>>(){}.getType();
-        obtainedRewards = new Gson().fromJson(jsonString, typeToken);
+        Type typeToken = new TypeToken<MyRewards>(){}.getType();
+        MyRewards jsonObj = new Gson().fromJson(jsonString, typeToken);
+
+        instance.setSelectedTheme(jsonObj.getSelectedTheme());
+        instance.setObtainedRewards(jsonObj.getObtainedRewards());
     }
 }
