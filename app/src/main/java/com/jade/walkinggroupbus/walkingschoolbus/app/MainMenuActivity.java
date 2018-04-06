@@ -58,6 +58,7 @@ public class MainMenuActivity extends AppCompatActivity {
         Button btnMonitorUsers = (Button) findViewById(R.id.button_monitorGroup);
         Button btnWalkingGroups = (Button) findViewById(R.id.button_walkingGroup);
         Button btnRewardsCentre = (Button) findViewById(R.id.MMA_rewards_centre);
+        Button btnPermissionCentre = (Button) findViewById(R.id.button_permissionCentre);
 
         // Checks to see if the user is trying to preview a theme
         Intent intent = getIntent();
@@ -68,6 +69,7 @@ public class MainMenuActivity extends AppCompatActivity {
             btnMonitorUsers.setVisibility(View.GONE);
             btnWalkingGroups.setVisibility(View.GONE);
             btnRewardsCentre.setVisibility(View.GONE);
+            btnPermissionCentre.setVisibility(View.GONE);
         }
         // Else, resume application functionality.
         else {
@@ -106,6 +108,14 @@ public class MainMenuActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = RewardsCentreActivity.makeIntent(MainMenuActivity.this);
+                    startActivity(intent);
+                }
+            });
+
+            btnPermissionCentre.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view){
+                    Intent intent = PermissionCentreActivity.makeIntent(MainMenuActivity.this);
                     startActivity(intent);
                 }
             });

@@ -43,6 +43,8 @@ public class ChildInfo {
 
     private GPSLocation lastGpsLocation;
 
+    private List<Permission> pendingPermissionRequests;
+
     private String href;
 
 
@@ -84,6 +86,8 @@ public class ChildInfo {
         setCurrentPoints(user.getCurrentPoints());
         setTotalPointsEarned(user.getTotalPointsEarned());
         setCustomJson(user.getCustomJson());
+
+        setPendingPermissionRequests(user.getPendingPermissionRequests());
 
         setHref(user.getHref());
     }
@@ -276,6 +280,14 @@ public class ChildInfo {
 
     public void setCustomJson(String customJson) {
         this.customJson = customJson;
+    }
+
+    public List<Permission> getPendingPermissionRequests() {
+        return pendingPermissionRequests;
+    }
+
+    public void setPendingPermissionRequests(List<Permission> pendingPermissionRequests) {
+        this.pendingPermissionRequests = pendingPermissionRequests;
     }
 
     // UI for Logcat messages.
