@@ -69,6 +69,7 @@
             android:name=".app.RewardsCentreActivity"
             android:label="@string/title_activity_rewards_centre"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".app.PermissionCentreActivity"></activity>
     </application>
 
 </manifest>

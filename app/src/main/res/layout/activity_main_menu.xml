@@ -54,8 +54,7 @@
         <Button
             android:id="@+id/button_walkingGroup"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/walking_group" />
 
@@ -65,6 +64,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/MMA_rewards_centre" />
+
+        <Button
+            android:id="@+id/button_permissionCentre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/permission_centre" />
 
     </LinearLayout>
 
