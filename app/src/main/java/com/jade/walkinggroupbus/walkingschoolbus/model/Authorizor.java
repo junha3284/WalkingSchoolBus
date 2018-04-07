@@ -39,4 +39,9 @@ public class Authorizor {
     public void setWhoApprovedOrDenied(UserInfo whoApprovedOrDenied) {
         this.whoApprovedOrDenied = whoApprovedOrDenied;
     }
+
+    public String toStringForList() {
+        return "Name: " + whoApprovedOrDenied.getName() + "\n" +
+               "Status: " + status;
+    }
 }

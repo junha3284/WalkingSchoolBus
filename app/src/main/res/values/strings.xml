@@ -122,5 +122,6 @@
     <string name="pending_permission">PENDING PERMISSION</string>
     <string name="PPA_approved_permissions">Approved Permissions</string>
     <string name="PPA_denied_permissions">Denied Permissions</string>
+    <string name="PPDA_authorizors">Authorizors</string>
 
 </resources>

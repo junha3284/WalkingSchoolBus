@@ -75,6 +75,7 @@ public class PreviousPermissionsActivity extends AppCompatActivity {
         int i = 0;
         for (Permission permission : approvedPermissions) {
             permissionMessages[i] = permission.getMessage();
+            i++;
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -92,6 +93,7 @@ public class PreviousPermissionsActivity extends AppCompatActivity {
         int i = 0;
         for (Permission permission : deniedPermissions) {
             permissionMessages[i] = permission.getMessage();
+            i++;
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -112,8 +114,8 @@ public class PreviousPermissionsActivity extends AppCompatActivity {
                 Long permissionID = approvedPermissions.get(i).getId();
 
                 //TODO: make activity (with 1 depth), display all authorizors and status
-                // Intent intent = PreviousPermissionsDetailsAcitivty.makeIntent(PreviousPermissionsActivity.this, permissionID);
-                // startActivity(intent);
+                Intent intent = PreviousPermissionsDetailsActivity.makeIntent(PreviousPermissionsActivity.this, permissionID);
+                startActivity(intent);
             }
         });
 
@@ -124,8 +126,8 @@ public class PreviousPermissionsActivity extends AppCompatActivity {
                 Long permissionID = deniedPermissions.get(i).getId();
 
                 //TODO: make activity (with 1 depth), display all authorizors and status
-                // Intent intent = PreviousPermissionsDetailsAcitivty.makeIntent(PreviousPermissionsActivity.this, permissionID);
-                // startActivity(intent);
+                Intent intent = PreviousPermissionsDetailsActivity.makeIntent(PreviousPermissionsActivity.this, permissionID);
+                startActivity(intent);
             }
         });
     }
