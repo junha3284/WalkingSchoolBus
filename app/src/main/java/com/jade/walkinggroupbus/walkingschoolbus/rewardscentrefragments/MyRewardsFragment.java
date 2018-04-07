@@ -62,36 +62,14 @@ public class MyRewardsFragment extends Fragment{
 
         return view;
     }
-/*
-    private void setButtons(View view) {
-        // Sets the theme
-        Button setThemeBtn = (Button) view.findViewById(R.id.RCA_button_set);
-        setThemeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Handle theme setting here
-            }
-        });
 
-        // Allows the user to preview a theme
-        Button previewBtn = (Button) view.findViewById(R.id.RCA_button_preview);
-        previewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
-    }
-//*/
     private void setUpRewardsDisplay(View view) {
         obtainedRewards = myRewards.getObtainedRewards();
-        setSpinner(view);
+        setSpinners(view);
     }
 
     // Set up the spinner
-    private void setSpinner(View view) {
+    private void setSpinners(View view) {
 
         // pull my rewards info from userInfo and update MyRewards singleton
         String jsonString = userInfo.getCustomJson();
@@ -145,6 +123,28 @@ public class MyRewardsFragment extends Fragment{
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
+
+
+        // setup preview spinner
+        Spinner previewSpinner = (Spinner) view.findViewById(R.id.previewSpinner);
+        previewSpinner.setAdapter(adapter);
+
+        // on click listener for spinner
+        previewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+                String previewTheme = myRewards.getThemes().get(position).getThemeName();
+                myRewards.setPreviewTheme(previewTheme);
+
+                // TODO: move to preview activity
+            }
+
+            // Do nothing if nothing is selected
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
     }
 
     private void response(UserInfo returnedUser) {

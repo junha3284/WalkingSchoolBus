@@ -120,5 +120,6 @@
     <string name="permission_centre">Permission Centre</string>
     <string name="old_permission">OLD PERMISSION</string>
     <string name="pending_permission">PENDING PERMISSION</string>
+    <string name="RCA_previewTitle">Preview: Test Rewards before you buy!</string>
 
 </resources>
