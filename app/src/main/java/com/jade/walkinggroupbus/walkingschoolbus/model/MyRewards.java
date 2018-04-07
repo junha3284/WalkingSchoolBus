@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * class for storing + accessing all info related to user rewards.
+ * stores theme info + theme preferences
  */
 
 public class MyRewards {

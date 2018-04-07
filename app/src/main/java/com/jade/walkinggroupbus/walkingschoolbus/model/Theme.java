@@ -1,9 +1,7 @@
 package com.jade.walkinggroupbus.walkingschoolbus.model;
 
-import android.graphics.Color;
-
 /**
- * hols the color values or image string names for all the themes
+ * holds image string names + theme names for all the themes
  */
 
 public class Theme {
