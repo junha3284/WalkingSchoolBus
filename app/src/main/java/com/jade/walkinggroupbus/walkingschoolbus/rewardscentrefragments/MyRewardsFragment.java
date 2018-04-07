@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.app.MainMenuActivity;
+import com.jade.walkinggroupbus.walkingschoolbus.app.PreviewThemeActivity;
 import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
@@ -57,11 +58,25 @@ public class MyRewardsFragment extends Fragment{
         userInfo = UserInfo.userInfo();
         myRewards = MyRewards.MyRewards();
 
-        //setButtons(view);
+        setButtons(view);
         setUpRewardsDisplay(view);
 
         return view;
     }
+
+
+    private void setButtons(View view) {
+        // Allows the user to preview a theme
+        Button previewBtn = (Button) view.findViewById(R.id.preview);
+        previewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = PreviewThemeActivity.makeIntent(getActivity());
+                startActivity(intent);
+            }
+        });
+    }
+
 
     private void setUpRewardsDisplay(View view) {
         obtainedRewards = myRewards.getObtainedRewards();
@@ -134,10 +149,9 @@ public class MyRewardsFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
+                // sets preview theme in myRewards
                 String previewTheme = myRewards.getThemes().get(position).getThemeName();
                 myRewards.setPreviewTheme(previewTheme);
-
-                // TODO: move to preview activity
             }
 
             // Do nothing if nothing is selected

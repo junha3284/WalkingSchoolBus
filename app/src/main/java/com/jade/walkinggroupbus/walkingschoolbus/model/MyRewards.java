@@ -64,7 +64,7 @@ public class MyRewards {
         themes.add(defaultTheme);
 
         // create fire theme
-        Theme fireTheme = new Theme("Fire");
+        Theme fireTheme = new Theme("Halloween");
 
         themes.add(fireTheme);
 
@@ -126,7 +126,7 @@ public class MyRewards {
     public int getSelectedThemeID() {
         if (selectedTheme.equals("Dark")) {
             return R.style.Dark;
-        } else if (selectedTheme.equals("Fire")) {
+        } else if (selectedTheme.equals("Halloween")) {
             return R.style.Fire;
         } else if (selectedTheme.equals("Water")) {
             return R.style.Water;
@@ -136,6 +136,22 @@ public class MyRewards {
             return R.style.Default;
         }
     }
+
+    @JsonIgnore
+    public int getPreviewThemeID() {
+        if (previewTheme.equals("Dark")) {
+            return R.style.Dark;
+        } else if (previewTheme.equals("Halloween")) {
+            return R.style.Fire;
+        } else if (previewTheme.equals("Water")) {
+            return R.style.Water;
+        } else if (previewTheme.equals("Spring")) {
+            return R.style.Spring;
+        } else {
+            return R.style.Default;
+        }
+    }
+
 
     // setters
     public void setSelectedTheme(String selectedTheme) {
