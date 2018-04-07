@@ -20,6 +20,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 import retrofit2.Call;
 
 public class PendingPermissionDetailActivity extends AppCompatActivity {
+
     private static final String TAG = "PPDA";
     // Codes for Extra in intent
     public static final String EXTRA_CODE_ID = "com.jade.walkinggroupbus.walkingschoolbus.app-id";
@@ -54,21 +55,27 @@ public class PendingPermissionDetailActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
+        // extract and store data into private variables of Activity
         extractExtraDataFromIntent();
+
+        //populate TextViews
         updateUI();
+
+        // set response buttons (Approve button and deny button)
         setBtns();
     }
 
+    // extract and store data into private variables of Activity
     private void extractExtraDataFromIntent(){
         Intent intent = getIntent();
 
-        // extract and store data into private variables of Activity
         permissionId = intent.getLongExtra(EXTRA_CODE_ID, -1);
         message = intent.getStringExtra(EXTRA_CODE_MESSAGE);
         requestingUserName = intent.getStringExtra(EXTRA_CODE_REQUESTINGUSERNAME);
         action = intent.getStringExtra(EXTRA_CODE_ACTION);
     }
 
+    //populate TextViews
     private void updateUI(){
         TextView messageTextView = (TextView) findViewById(R.id.text_message);
         TextView requestingUserTextView = (TextView) findViewById(R.id.text_requestingUserName);
@@ -79,6 +86,7 @@ public class PendingPermissionDetailActivity extends AppCompatActivity {
         actionTextView.setText(action);
     }
 
+    // set response buttons (Approve button and deny button)
     private void setBtns(){
         Button approveBtn = (Button) findViewById(R.id.button_approve);
         Button denyBtn = (Button) findViewById(R.id.button_deny);
@@ -88,6 +96,7 @@ public class PendingPermissionDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Call<Permission> caller = proxy.respondToPermissionRequest(permissionId, "APPROVED");
                 ProxyBuilder.callProxy(caller, returned->response(returned));
+                finish();
             }
         });
         denyBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,9 +104,9 @@ public class PendingPermissionDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Call<Permission> caller = proxy.respondToPermissionRequest(permissionId, "DENIED");
                 ProxyBuilder.callProxy(caller, returned->response(returned));
+                finish();
             }
         });
-        finish();
     }
 
     private void response(Permission permission){

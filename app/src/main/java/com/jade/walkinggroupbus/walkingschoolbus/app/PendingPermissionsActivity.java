@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Permission;
@@ -21,6 +23,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,7 +36,7 @@ public class PendingPermissionsActivity extends AppCompatActivity {
 
     private WGServerProxy proxy;
 
-    private List<Permission> pendingPermssions;
+    private List<Permission> pendingPermissions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +55,23 @@ public class PendingPermissionsActivity extends AppCompatActivity {
             ProxyBuilder.setOnTokenReceiveCallback(token1 -> onReceiveToken(token1));
         }
 
+        // get new UserInfo with depth 1 and populate the listView
         getDetailedPermissionRequests();
-
-        setOnClickListener();
+        // set OnItemClickListener for the listView
+        setClickListener();
+        // set refresh button
+        setBtn();
     }
 
+    // get new UserInfo with depth 1 and populate the listView
     public void getDetailedPermissionRequests() {
-        Call<UserInfo> caller = proxy.getUserById(userInfo.getId());
+        Call<UserInfo> caller = proxy.getUserById( userInfo.getId());
         ProxyBuilder.callProxy(PendingPermissionsActivity.this, caller, returned -> response(returned));
     }
 
-    private void response(UserInfo returned) {
-        userInfo.setUserInfo(returned);
-        pendingPermssions = userInfo.getPendingPermissionRequests();
+    private void response( UserInfo returned) {
+        userInfo.setUserInfo( returned);
+        pendingPermissions = userInfo.getPendingPermissionRequests();
         populatePendingPermissionList();
     }
 
@@ -74,14 +81,27 @@ public class PendingPermissionsActivity extends AppCompatActivity {
         pendingPermissionsList.setAdapter(adapter);
     }
 
-    private void setOnClickListener() {
-        ListView pendingPermissionList = (ListView) findViewById(R.id.listView_pendingPermissions);
-        pendingPermissionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    // set OnItemClickListener for the listView
+    private void setClickListener() {
+        ListView pendingPermissionList = (ListView) findViewById( R.id.listView_pendingPermissions);
+        pendingPermissionList.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = PendingPermissionDetailActivity.makeIntent(PendingPermissionsActivity.this,
-                        pendingPermssions.get(position));
+                        pendingPermissions.get( position ));
+              //  Intent intent = MessageActivity.makeIntent(PendingPermissionsActivity.this);
                 startActivity(intent);
+            }
+        });
+    }
+
+    // set refresh button
+    private void setBtn() {
+        Button refreshBtn = (Button) findViewById( R.id.button_refresh);
+        refreshBtn.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick( View view) {
+                getDetailedPermissionRequests();
             }
         });
     }
@@ -90,12 +110,12 @@ public class PendingPermissionsActivity extends AppCompatActivity {
     private void onReceiveToken(String token) {
         // Replace the current proxy with one that uses the token!
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
-        proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token, "2");
+        proxy = ProxyBuilder.getProxy( getString(R.string.API_KEY), token, "2");
         sharedData.setToken(token);
     }
 
-    static public Intent makeIntent (Context context){
-        Intent intent = new Intent(context, PendingPermissionsActivity.class);
+    static public Intent makeIntent ( Context context){
+        Intent intent = new Intent( context, PendingPermissionsActivity.class);
         return intent;
     }
 
@@ -107,21 +127,21 @@ public class PendingPermissionsActivity extends AppCompatActivity {
     */
     private class PendingPermissionsListAdapter extends ArrayAdapter<Permission> {
         public PendingPermissionsListAdapter(){
-            super(PendingPermissionsActivity.this, R.layout.list_template_permission, pendingPermssions);
+            super(PendingPermissionsActivity.this, R.layout.list_template_permission, pendingPermissions);
         }
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView( int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             // Make sure we have a view to work with
             View itemView = convertView;
-            if (itemView == null) {
+            if ( itemView == null) {
                 itemView = getLayoutInflater()
                         .inflate(R.layout.list_template_permission, parent, false);
             }
 
             // Find the message to work with.
-            Permission currentPermission = pendingPermssions.get(position);
+            Permission currentPermission = pendingPermissions.get(position);
 
             // Fill the view
             // requesting User:
