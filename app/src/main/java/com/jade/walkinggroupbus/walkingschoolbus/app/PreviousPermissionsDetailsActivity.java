@@ -86,7 +86,7 @@ public class PreviousPermissionsDetailsActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context, Long permissionID) {
         // create intent, save id
-        Intent intent = new Intent();
+        Intent intent = new Intent(context, PreviousPermissionsDetailsActivity.class);
         intent.putExtra(PERMISSION_ID, permissionID);
         
         return intent;

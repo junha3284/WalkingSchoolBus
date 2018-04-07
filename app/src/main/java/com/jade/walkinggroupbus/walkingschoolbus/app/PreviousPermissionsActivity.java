@@ -113,7 +113,6 @@ public class PreviousPermissionsActivity extends AppCompatActivity {
                 // get permission id
                 Long permissionID = approvedPermissions.get(i).getId();
 
-                //TODO: make activity (with 1 depth), display all authorizors and status
                 Intent intent = PreviousPermissionsDetailsActivity.makeIntent(PreviousPermissionsActivity.this, permissionID);
                 startActivity(intent);
             }
@@ -125,7 +124,6 @@ public class PreviousPermissionsActivity extends AppCompatActivity {
                 // get permission id
                 Long permissionID = deniedPermissions.get(i).getId();
 
-                //TODO: make activity (with 1 depth), display all authorizors and status
                 Intent intent = PreviousPermissionsDetailsActivity.makeIntent(PreviousPermissionsActivity.this, permissionID);
                 startActivity(intent);
             }
