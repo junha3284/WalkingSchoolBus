@@ -87,9 +87,9 @@ public class PendingPermissionsActivity extends AppCompatActivity {
         pendingPermissionList.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = PendingPermissionDetailActivity.makeIntent(PendingPermissionsActivity.this,
+                Intent intent = PendingPermissionDetailActivity.makeIntent(
+                        PendingPermissionsActivity.this,
                         pendingPermissions.get( position ));
-              //  Intent intent = MessageActivity.makeIntent(PendingPermissionsActivity.this);
                 startActivity(intent);
             }
         });
