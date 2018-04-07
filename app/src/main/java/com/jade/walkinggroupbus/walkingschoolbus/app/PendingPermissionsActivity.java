@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,6 +53,8 @@ public class PendingPermissionsActivity extends AppCompatActivity {
         }
 
         getDetailedPermissionRequests();
+
+        setOnClickListener();
     }
 
     public void getDetailedPermissionRequests() {
@@ -69,6 +72,18 @@ public class PendingPermissionsActivity extends AppCompatActivity {
         ArrayAdapter<Permission> adapter = new PendingPermissionsListAdapter();
         ListView pendingPermissionsList = (ListView) findViewById (R.id.listView_pendingPermissions);
         pendingPermissionsList.setAdapter(adapter);
+    }
+
+    private void setOnClickListener() {
+        ListView pendingPermissionList = (ListView) findViewById(R.id.listView_pendingPermissions);
+        pendingPermissionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = PendingPermissionDetailActivity.makeIntent(PendingPermissionsActivity.this,
+                        pendingPermssions.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
     // set newly issued token to proxy and save it on sharedData singleton object

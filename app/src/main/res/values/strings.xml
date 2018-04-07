@@ -120,5 +120,9 @@
     <string name="permission_centre">Permission Centre</string>
     <string name="old_permission">OLD PERMISSION</string>
     <string name="pending_permission">PENDING PERMISSION</string>
+    <string name="action">Action:</string>
+    <string name="requester">Requester</string>
+    <string name="action_deny">DENY</string>
+    <string name="action_approve">APPROVE</string>
 
 </resources>
