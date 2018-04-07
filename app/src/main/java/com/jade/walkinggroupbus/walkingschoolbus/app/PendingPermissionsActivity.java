@@ -102,7 +102,7 @@ public class PendingPermissionsActivity extends AppCompatActivity {
             View itemView = convertView;
             if (itemView == null) {
                 itemView = getLayoutInflater()
-                        .inflate(R.layout.list_template_messages, parent, false);
+                        .inflate(R.layout.list_template_permission, parent, false);
             }
 
             // Find the message to work with.
