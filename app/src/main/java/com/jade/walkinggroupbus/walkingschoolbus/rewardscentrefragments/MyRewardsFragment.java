@@ -171,7 +171,8 @@ public class MyRewardsFragment extends Fragment{
         Spinner previewSpinner = (Spinner) view.findViewById(R.id.previewSpinner);
         previewSpinner.setAdapter(adapter);
         previewSpinner.setBackgroundColor(Color.WHITE);
-        
+
+
         // on click listener for spinner
         previewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
