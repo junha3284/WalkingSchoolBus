@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.app.MainMenuActivity;
+import com.jade.walkinggroupbus.walkingschoolbus.app.PreviewThemeActivity;
 import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
@@ -57,41 +58,35 @@ public class MyRewardsFragment extends Fragment{
         userInfo = UserInfo.userInfo();
         myRewards = MyRewards.MyRewards();
 
-        //setButtons(view);
+        setButtons(view);
         setUpRewardsDisplay(view);
 
         return view;
     }
-/*
-    private void setButtons(View view) {
-        // Sets the theme
-        Button setThemeBtn = (Button) view.findViewById(R.id.RCA_button_set);
-        setThemeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Handle theme setting here
-            }
-        });
 
+
+    private void setButtons(View view) {
         // Allows the user to preview a theme
-        Button previewBtn = (Button) view.findViewById(R.id.RCA_button_preview);
+        Button previewBtn = (Button) view.findViewById(R.id.preview);
         previewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
+                if (myRewards.getPreviewTheme() != null) {
+                    Intent intent = PreviewThemeActivity.makeIntent(getActivity());
+                    startActivity(intent);
+                }
             }
         });
     }
-//*/
+
+
     private void setUpRewardsDisplay(View view) {
         obtainedRewards = myRewards.getObtainedRewards();
-        setSpinner(view);
+        setSpinners(view);
     }
 
     // Set up the spinner
-    private void setSpinner(View view) {
+    private void setSpinners(View view) {
 
         // pull my rewards info from userInfo and update MyRewards singleton
         String jsonString = userInfo.getCustomJson();
@@ -101,6 +96,9 @@ public class MyRewardsFragment extends Fragment{
         //create adapter for spinner
         int size = obtainedRewards.size();
         ArrayList<String> items = new ArrayList<String>(size);
+
+        // need an empty (null) selection so theme doesnt switch when u just enter the activity
+        items.add("Select Here");
 
         // Parse collection for all obtained rewards
         for (int i = 0; i < size; i++){
@@ -122,8 +120,10 @@ public class MyRewardsFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
-                if (myRewards.getObtainedRewards().get(position)) {
-                    String themeName = myRewards.getThemes().get(position).getThemeName();
+                if (position == 0) {
+                    // do nothing
+                } else if (myRewards.getObtainedRewards().get(position - 1)) {
+                    String themeName = myRewards.getThemes().get(position - 1).getThemeName();
                     myRewards.setSelectedTheme(themeName);
 
                     // update server info on selected theme
@@ -145,6 +145,29 @@ public class MyRewardsFragment extends Fragment{
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
+
+
+        // setup preview spinner
+        Spinner previewSpinner = (Spinner) view.findViewById(R.id.previewSpinner);
+        previewSpinner.setAdapter(adapter);
+
+        // on click listener for spinner
+        previewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+                if (position != 0) {
+                    // sets preview theme in myRewards
+                    String previewTheme = myRewards.getThemes().get(position - 1).getThemeName();
+                    myRewards.setPreviewTheme(previewTheme);
+                }
+            }
+
+            // Do nothing if nothing is selected
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
     }
 
     private void response(UserInfo returnedUser) {

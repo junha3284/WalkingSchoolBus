@@ -18,14 +18,13 @@ import com.jade.walkinggroupbus.walkingschoolbus.app.MainMenuActivity;
 import com.jade.walkinggroupbus.walkingschoolbus.app.OnWalkMapPanicPrompt;
 import com.jade.walkinggroupbus.walkingschoolbus.app.RewardsCentreBuyPrompt;
 import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
-
-/**
- * Created by Richard Wong on 2018-04-01.
- */
+import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
 public class ShopFragment extends Fragment{
     private static final String TAG = "ShopFragment";
     private MyRewards myRewards;
+    private UserInfo userInfo;
+    private String message;
 
     @Nullable
     @Override
@@ -33,60 +32,16 @@ public class ShopFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_shop_tab, container, false);
 
         myRewards = MyRewards.MyRewards();
+        userInfo = UserInfo.userInfo();
+        message = "" + userInfo.getCurrentPoints();
 
-        setUpPreviewButton(view);
         setUpBuyButtons(view);
 
         // TODO track points in the activity
         TextView pointsView = (TextView) view.findViewById(R.id.RCA_text_point_display);
-        pointsView.setText("");
+        pointsView.setText(message);
 
         return view;
-    }
-
-
-    // TODO open mainmenu activity to preview the theme. Currently isn't launching MainMenuActivity
-    private void setUpPreviewButton(View view) {
-        // Allows the user to preview a theme
-        Button firePreviewBtn = (Button) view.findViewById(R.id.RCA_button_fire_preview);
-        firePreviewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
-
-        Button waterPreviewBtn = (Button) view.findViewById(R.id.RCA_button_water_preview);
-        waterPreviewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
-
-        Button springPreviewBtn = (Button) view.findViewById(R.id.RCA_button_spring_preview);
-        springPreviewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
-
-        Button darkPreviewBtn = (Button) view.findViewById(R.id.RCA_button_dark_preview);
-        darkPreviewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
     }
 
     // TODO prompt user to confirm their purchase, check if they already have it, and to subtract their current points

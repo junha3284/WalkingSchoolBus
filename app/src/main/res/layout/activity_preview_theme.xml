@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.DashBoardActivity">
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.PreviewThemeActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="@string/title_dash_board"
+            android:text="@string/PTA_preview"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -49,14 +49,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/message" />
+            android:text="@string/PTA_preview" />
 
         <Button
             android:id="@+id/button_my_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/my_information" />
+            android:text="@string/PTA_preview" />
 
         <TextView
             android:id="@+id/text_MonitoredUser"
@@ -65,7 +65,7 @@
             android:layout_below="@+id/layout_btnContainer"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="@string/title_monitored_children"
+            android:text="@string/PTA_preview"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -80,21 +80,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/action_add" />
+                android:text="@string/PTA_preview" />
 
             <Button
                 android:id="@+id/button_view_all_users"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/view_all_users" />
+                android:text="@string/PTA_preview" />
 
             <Button
                 android:id="@+id/button_refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/action_refresh" />
+                android:text="@string/PTA_preview" />
         </LinearLayout>
 
         <ListView
@@ -102,6 +102,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dashboard_ListView" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
