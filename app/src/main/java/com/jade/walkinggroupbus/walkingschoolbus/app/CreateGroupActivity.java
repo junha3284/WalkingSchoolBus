@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
@@ -56,6 +57,18 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
+
+        // set background
+        if (!myRewards.getSelectedTheme().equals("Default")
+                && !myRewards.getSelectedTheme().equals("Dark")) {
+            ImageView img = (ImageView) findViewById(R.id.imageView);
+            img.setImageResource(myRewards.getSelectedImgID());
+        } else {
+            // if theme is default or dark, disable filter
+            View filter = (View) findViewById(R.id.filter);
+            filter.setVisibility(View.GONE);
+        }
+
 
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();

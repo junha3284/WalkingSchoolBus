@@ -226,7 +226,7 @@ public class MyRewards {
     }
 
     public void unlockReward(int rewardIndex) {
-        if (rewardIndex > numThemes || rewardIndex < 0) {
+        if (rewardIndex > numThemes - 1 || rewardIndex < 0) {
             Log.i("error", "rewardIndex out of bounds!");
             return;
         }

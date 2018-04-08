@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
@@ -45,6 +46,18 @@ public class DashBoardActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+
+        // set background
+        if (!myRewards.getSelectedTheme().equals("Default")
+                && !myRewards.getSelectedTheme().equals("Dark")) {
+            ImageView img = (ImageView) findViewById(R.id.imageView);
+            img.setImageResource(myRewards.getSelectedImgID());
+        } else {
+            // if theme is default or dark, disable filter
+            View filter = (View) findViewById(R.id.filter);
+            filter.setVisibility(View.GONE);
+        }
+
 
         // produce the references for singleton objects
         userInfo = UserInfo.userInfo();
