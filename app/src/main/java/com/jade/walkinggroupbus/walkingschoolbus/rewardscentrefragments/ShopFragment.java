@@ -20,10 +20,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.app.RewardsCentreBuyPrompt;
 import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
-/**
- * Created by Richard Wong on 2018-04-01.
- */
-
 public class ShopFragment extends Fragment{
     private static final String TAG = "ShopFragment";
     private MyRewards myRewards;
