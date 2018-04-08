@@ -3,7 +3,6 @@ package com.jade.walkinggroupbus.walkingschoolbus.model;
 import android.util.Log;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
@@ -64,14 +63,14 @@ public class MyRewards {
         themes.add(defaultTheme);
 
         // create fire theme
-        Theme fireTheme = new Theme("Halloween");
+        Theme fireTheme = new Theme("Fire");
 
         themes.add(fireTheme);
 
         // create water theme
-        Theme waterTheme = new Theme("Water");
+        Theme oceanTheme = new Theme("Ocean");
 
-        themes.add(waterTheme);
+        themes.add(oceanTheme);
 
         // create spring theme
         Theme springTheme = new Theme("Spring");
@@ -126,10 +125,10 @@ public class MyRewards {
     public int getSelectedThemeID() {
         if (selectedTheme.equals("Dark")) {
             return R.style.Dark;
-        } else if (selectedTheme.equals("Halloween")) {
+        } else if (selectedTheme.equals("Fire")) {
             return R.style.Fire;
-        } else if (selectedTheme.equals("Water")) {
-            return R.style.Water;
+        } else if (selectedTheme.equals("Ocean")) {
+            return R.style.Ocean;
         } else if (selectedTheme.equals("Spring")) {
             return R.style.Spring;
         } else {
@@ -141,15 +140,39 @@ public class MyRewards {
     public int getPreviewThemeID() {
         if (previewTheme.equals("Dark")) {
             return R.style.Dark;
-        } else if (previewTheme.equals("Halloween")) {
+        } else if (previewTheme.equals("Fire")) {
             return R.style.Fire;
-        } else if (previewTheme.equals("Water")) {
-            return R.style.Water;
+        } else if (previewTheme.equals("Ocean")) {
+            return R.style.Ocean;
         } else if (previewTheme.equals("Spring")) {
             return R.style.Spring;
         } else {
             return R.style.Default;
         }
+    }
+
+    @JsonIgnore
+    public int getSelectedImgID() {
+        if (selectedTheme.equals("Fire")) {
+            return R.drawable.fire;
+        } else if (selectedTheme.equals("Ocean")) {
+            return R.drawable.ocean;
+        } else if (selectedTheme.equals("Spring")) {
+            return R.drawable.spring;
+        }
+        return -1;
+    }
+
+    @JsonIgnore
+    public int getPreviewImgID() {
+        if (previewTheme.equals("Fire")) {
+            return R.drawable.fire;
+        } else if (previewTheme.equals("Ocean")) {
+            return R.drawable.ocean;
+        } else if (previewTheme.equals("Spring")) {
+            return R.drawable.spring;
+        }
+        return -1;
     }
 
 
