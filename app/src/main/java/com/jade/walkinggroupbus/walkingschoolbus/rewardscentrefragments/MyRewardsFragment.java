@@ -95,6 +95,9 @@ public class MyRewardsFragment extends Fragment{
         int size = obtainedRewards.size();
         ArrayList<String> items = new ArrayList<String>(size);
 
+        // need an empty (null) selection so theme doesnt switch when u just enter the activity
+        items.add("Select Here");
+
         // Parse collection for all obtained rewards
         for (int i = 0; i < size; i++){
             items.add(myRewards.getThemes().get(i).getThemeName());
@@ -115,8 +118,10 @@ public class MyRewardsFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
-                if (myRewards.getObtainedRewards().get(position)) {
-                    String themeName = myRewards.getThemes().get(position).getThemeName();
+                if (position == 0) {
+                    // do nothing
+                } else if (myRewards.getObtainedRewards().get(position - 1)) {
+                    String themeName = myRewards.getThemes().get(position - 1).getThemeName();
                     myRewards.setSelectedTheme(themeName);
 
                     // update server info on selected theme
@@ -149,9 +154,11 @@ public class MyRewardsFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
-                // sets preview theme in myRewards
-                String previewTheme = myRewards.getThemes().get(position).getThemeName();
-                myRewards.setPreviewTheme(previewTheme);
+                if (position != 0) {
+                    // sets preview theme in myRewards
+                    String previewTheme = myRewards.getThemes().get(position - 1).getThemeName();
+                    myRewards.setPreviewTheme(previewTheme);
+                }
             }
 
             // Do nothing if nothing is selected
