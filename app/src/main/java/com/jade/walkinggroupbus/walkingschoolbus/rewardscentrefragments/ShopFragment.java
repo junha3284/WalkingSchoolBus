@@ -26,6 +26,8 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 public class ShopFragment extends Fragment{
     private static final String TAG = "ShopFragment";
     private MyRewards myRewards;
+    private UserInfo userInfo;
+    private String message;
 
     @Nullable
     @Override
@@ -33,12 +35,14 @@ public class ShopFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_shop_tab, container, false);
 
         myRewards = MyRewards.MyRewards();
+        userInfo = UserInfo.userInfo();
+        message = "" + userInfo.getCurrentPoints();
 
         setUpBuyButtons(view);
 
         // TODO track points in the activity
         TextView pointsView = (TextView) view.findViewById(R.id.RCA_text_point_display);
-        pointsView.setText("");
+        pointsView.setText(message);
 
         return view;
     }
