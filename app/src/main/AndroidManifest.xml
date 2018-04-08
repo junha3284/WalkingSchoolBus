@@ -71,6 +71,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".app.PermissionCentreActivity" />
         <activity android:name=".app.PreviewThemeActivity"></activity>
+        <activity android:name=".app.PermissionCentreActivity" />
+        <activity android:name=".app.PendingPermissionsActivity" />
+        <activity android:name=".app.PendingPermissionDetailActivity"></activity>
     </application>
 
 </manifest>

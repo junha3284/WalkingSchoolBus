@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
@@ -40,6 +42,14 @@ public class PermissionCentreActivity extends AppCompatActivity {
 
     void setBtns(){
         //TODO: connect permission-related activity with PermissionCentreActivity
+        Button btnPendingPermissions = (Button) findViewById (R.id.button_pendingPermissions);
+        btnPendingPermissions.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = PendingPermissionsActivity.makeIntent(PermissionCentreActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
     static Intent makeIntent(Context context){
