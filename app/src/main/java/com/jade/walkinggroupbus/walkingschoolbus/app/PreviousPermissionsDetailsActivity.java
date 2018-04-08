@@ -60,8 +60,10 @@ public class PreviousPermissionsDetailsActivity extends AppCompatActivity {
 
     private void showPermissionsAuthorizors() {
         // get permission info from server
-        Call<Permission> caller = proxy.getPermissionByID(permissionID);
-        ProxyBuilder.callProxy(this, caller, returnedPermission -> displayAuthorizorsList(returnedPermission));
+        if (permissionID != null) {
+            Call<Permission> caller = proxy.getPermissionByID(permissionID);
+            ProxyBuilder.callProxy(this, caller, returnedPermission -> displayAuthorizorsList(returnedPermission));
+        }
     }
 
     private void displayAuthorizorsList(Permission returnedPermission) {

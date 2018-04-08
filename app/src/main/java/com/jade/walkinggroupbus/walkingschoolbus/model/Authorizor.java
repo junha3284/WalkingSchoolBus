@@ -41,7 +41,11 @@ public class Authorizor {
     }
 
     public String toStringForList() {
-        return "Name: " + whoApprovedOrDenied.getName() + "\n" +
-               "Status: " + status;
+        String detail = "\n" + status;
+        if (whoApprovedOrDenied != null) {
+            detail = "Name: " + whoApprovedOrDenied.getName() + "\n" +
+                     "Status: " + status;
+        }
+        return detail;
     }
 }
