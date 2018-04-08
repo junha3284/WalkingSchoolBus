@@ -71,8 +71,10 @@ public class MyRewardsFragment extends Fragment{
         previewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = PreviewThemeActivity.makeIntent(getActivity());
-                startActivity(intent);
+                if (myRewards.getPreviewTheme() != null) {
+                    Intent intent = PreviewThemeActivity.makeIntent(getActivity());
+                    startActivity(intent);
+                }
             }
         });
     }

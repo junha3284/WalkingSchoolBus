@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/RCA_shop"
+            android:gravity="center"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -25,7 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="My Points: "
+                android:text="@string/my_points"
                 android:textSize="24sp" />
 
             <TextView
@@ -49,38 +50,24 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/RCA_button_fire_preview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/RCA_fire_preview" />
-
-            <Button
                 android:id="@+id/RCA_button_fire_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/RCA_purchase" />
+                android:text="@string/purchase_fire" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/RCA_button_water_preview"
-                android:layout_width="127dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Water (preview):" />
 
             <Button
                 android:id="@+id/RCA_button_water_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/RCA_purchase" />
+                android:text="@string/purchase_water" />
         </LinearLayout>
 
         <LinearLayout
@@ -89,18 +76,11 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/RCA_button_spring_preview"
-                android:layout_width="127dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Spring (preview):" />
-
-            <Button
                 android:id="@+id/RCA_button_spring_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/RCA_purchase" />
+                android:text="@string/purchase_spring" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,18 +89,11 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/RCA_button_dark_preview"
-                android:layout_width="127dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Dark (preview):" />
-
-            <Button
                 android:id="@+id/RCA_button_dark_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/RCA_purchase" />
+                android:text="@string/purchase_dark" />
         </LinearLayout>
 
     </LinearLayout>

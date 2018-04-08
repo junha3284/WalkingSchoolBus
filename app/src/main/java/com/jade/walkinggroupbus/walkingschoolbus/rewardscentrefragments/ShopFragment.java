@@ -34,7 +34,6 @@ public class ShopFragment extends Fragment{
 
         myRewards = MyRewards.MyRewards();
 
-        setUpPreviewButton(view);
         setUpBuyButtons(view);
 
         // TODO track points in the activity
@@ -42,51 +41,6 @@ public class ShopFragment extends Fragment{
         pointsView.setText("");
 
         return view;
-    }
-
-
-    // TODO open mainmenu activity to preview the theme. Currently isn't launching MainMenuActivity
-    private void setUpPreviewButton(View view) {
-        // Allows the user to preview a theme
-        Button firePreviewBtn = (Button) view.findViewById(R.id.RCA_button_fire_preview);
-        firePreviewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
-
-        Button waterPreviewBtn = (Button) view.findViewById(R.id.RCA_button_water_preview);
-        waterPreviewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
-
-        Button springPreviewBtn = (Button) view.findViewById(R.id.RCA_button_spring_preview);
-        springPreviewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
-
-        Button darkPreviewBtn = (Button) view.findViewById(R.id.RCA_button_dark_preview);
-        darkPreviewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean preview = true;
-                Intent intent = MainMenuActivity.makeIntent(getActivity(), preview);
-                startActivity(intent);
-            }
-        });
     }
 
     // TODO prompt user to confirm their purchase, check if they already have it, and to subtract their current points
