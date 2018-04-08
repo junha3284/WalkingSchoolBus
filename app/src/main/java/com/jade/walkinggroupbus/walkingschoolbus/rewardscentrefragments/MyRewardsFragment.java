@@ -2,6 +2,7 @@ package com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -132,7 +133,7 @@ public class MyRewardsFragment extends Fragment{
         // set Adapter for spinner
         Spinner recipientSpinner = (Spinner) view.findViewById(R.id.rewardSpinner);
         recipientSpinner.setAdapter(adapter);
-
+        recipientSpinner.setBackgroundColor(Color.WHITE);
 
         // set OnItemListener
         recipientSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -169,7 +170,8 @@ public class MyRewardsFragment extends Fragment{
         // setup preview spinner
         Spinner previewSpinner = (Spinner) view.findViewById(R.id.previewSpinner);
         previewSpinner.setAdapter(adapter);
-
+        previewSpinner.setBackgroundColor(Color.WHITE);
+        
         // on click listener for spinner
         previewSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
