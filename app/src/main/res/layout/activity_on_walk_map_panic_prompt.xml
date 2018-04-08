@@ -12,8 +12,10 @@
             android:id="@+id/text_panic_disclaimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/OWA_text_panic_disclaimer"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/OWA_text_message_optional"
+                android:gravity="center"
                 android:textSize="18sp" />
 
             <EditText
