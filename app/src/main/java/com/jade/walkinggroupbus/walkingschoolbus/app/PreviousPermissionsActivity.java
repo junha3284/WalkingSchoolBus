@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Permission;
+import com.jade.walkinggroupbus.walkingschoolbus.model.PermissionStatus;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
@@ -58,11 +59,11 @@ public class PreviousPermissionsActivity extends AppCompatActivity {
     private void showPreviousPermissions() {
 
         // retrieve list of approved permissions
-        Call<List<Permission>> approvedCaller = proxy.getApprovedPermissionsByUserID(userInfo.getId());
+        Call<List<Permission>> approvedCaller = proxy.getApprovedPermissionsByUserID(userInfo.getId(), PermissionStatus.APPROVED);
         ProxyBuilder.callProxy(this, approvedCaller, returnedPermissions -> createApprovedListView(returnedPermissions));
 
         // retrieve list of denied permissions
-        Call<List<Permission>> deniedCaller = proxy.getDeniedPermissionsByUserID(userInfo.getId());
+        Call<List<Permission>> deniedCaller = proxy.getDeniedPermissionsByUserID(userInfo.getId(), PermissionStatus.DEINIED);
         ProxyBuilder.callProxy(this, deniedCaller, returnedPermissions -> createDeniedListView(returnedPermissions));
 
     }
