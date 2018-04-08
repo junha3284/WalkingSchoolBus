@@ -1,20 +1,25 @@
 package com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
 import com.jade.walkinggroupbus.walkingschoolbus.app.MessageActivity;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
+import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
@@ -42,7 +47,24 @@ public class LeaderboardFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_leaderboard_tab, container, false);
+        MyRewards myRewards = MyRewards.MyRewards();
+
+        // set theme
+        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), myRewards.getSelectedThemeID());
+        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+
+        View view = localInflater.inflate(R.layout.fragment_leaderboard_tab, container, false);
+
+        // set background
+        if (!myRewards.getSelectedTheme().equals("Default")
+                && !myRewards.getSelectedTheme().equals("Dark")) {
+            ImageView img = (ImageView) view.findViewById(R.id.imageView);
+            img.setImageResource(myRewards.getSelectedImgID());
+        } else {
+            // if theme is default or dark, disable filter
+            View filter = (View) view.findViewById(R.id.filter);
+            filter.setVisibility(View.GONE);
+        }
 
         sharedData = SharedData.getSharedData();
         String token = sharedData.getToken();
@@ -70,7 +92,9 @@ public class LeaderboardFragment extends Fragment{
     private void response( List<UserInfo> returnedList) {
         allUser = returnedList;
         Collections.sort( allUser, new UserInfoComparatorByPoints());
+
         ArrayAdapter<UserInfo> adapterForUsersTotalPointsEarned = new UserPointsAdapter();
+
         ListView usersTotalPointsEarned = (ListView) getView()
                 .findViewById(R.id.listView_UsersTotalPointsEarned);
         usersTotalPointsEarned.setAdapter( adapterForUsersTotalPointsEarned);
@@ -93,7 +117,7 @@ public class LeaderboardFragment extends Fragment{
     // Adapter for List of Users
     private class UserPointsAdapter extends ArrayAdapter<UserInfo> {
         public UserPointsAdapter(){
-            super(getActivity().getApplicationContext(), // Context
+            super(getActivity().getBaseContext(), // Context
                     R.layout.list_template_leaderboard, // Layout for iteam of list
                     allUser);   // List of items
         }
@@ -120,6 +144,7 @@ public class LeaderboardFragment extends Fragment{
             TextView pointsText = (TextView) itemView.findViewById(R.id.item_totalPointsEarned);
             pointsText.setText(""+currentUser.getTotalPointsEarned());
 
+            itemView.setBackgroundColor(Color.WHITE);
             return itemView;
         }
     }
