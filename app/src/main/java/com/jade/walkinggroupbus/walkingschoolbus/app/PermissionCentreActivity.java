@@ -14,8 +14,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 
 public class PermissionCentreActivity extends AppCompatActivity {
 
-    private MyRewards myRewards;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // set theme
