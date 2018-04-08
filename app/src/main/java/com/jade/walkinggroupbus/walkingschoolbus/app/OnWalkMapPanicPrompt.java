@@ -3,6 +3,7 @@ package com.jade.walkinggroupbus.walkingschoolbus.app;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jade.walkinggroupbus.walkingschoolbus.R;
@@ -18,6 +20,8 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
+
+import java.util.Collections;
 
 import retrofit2.Call;
 
@@ -84,6 +88,18 @@ public class OnWalkMapPanicPrompt extends AppCompatDialogFragment {
 
             }
         };
+
+        TextView tv = (TextView)v.findViewById(R.id.text_panic_disclaimer);
+        tv.setTextColor(Color.WHITE);
+        TextView tvMsg = (TextView) v.findViewById(R.id.OWA_text_optional_message);
+        tvMsg.setTextColor(Color.WHITE);
+
+        EditText et = (EditText) v.findViewById(R.id.OWA_edit_optional_message);
+        et.setTextColor(Color.WHITE);
+
+        v.setBackgroundColor(Color.RED);
+
+
 
         // Build the alert dialog
         return new AlertDialog.Builder(getActivity())
