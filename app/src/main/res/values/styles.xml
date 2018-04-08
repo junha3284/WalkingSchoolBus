@@ -51,7 +51,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/fireAccent</item>
 
-        <item name="android:background">@color/fireBackground</item>
+        <!-- fire theme
+        <item name="android:background">@color/fireBackground</item>-->
         <item name="android:textColor">@color/fireTextColor</item>
         <item name="colorButtonNormal">@color/fireButtonColor</item>
         <item name="android:colorBackground">@android:color/darker_gray</item>
@@ -71,26 +72,27 @@
 
 
     <!-- water theme -->
-    <style name="Water" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Ocean" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:background">@color/waterBackground</item>
+        <!-- water
+        <item name="android:background">@color/waterBackground</item> -->
         <item name="android:textColor">@color/waterTextColor</item>
         <item name="colorButtonNormal">@color/waterButtonColor</item>
         <item name="android:colorBackground">@android:color/darker_gray</item>
         <item name="android:colorForeground">@color/colorPrimary</item>
     </style>
 
-    <style name="Water.NoActionBar">
+    <style name="Ocean.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Water.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Ocean.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Water.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Ocean.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 
@@ -102,7 +104,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:background">@color/springBackground</item>
+        <!-- spring
+        <item name="android:background">@color/springBackground</item> -->
         <item name="android:textColor">@color/springTextColor</item>
         <item name="colorButtonNormal">@color/springButtonColor</item>
         <item name="android:colorBackground">@android:color/darker_gray</item>
