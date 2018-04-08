@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jade.walkinggroupbus.walkingschoolbus.app.PendingPermissionDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="52dp"
+            android:text="Requesting User:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text_requestingUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView1"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/textView1"
+            android:layout_toRightOf="@+id/textView1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignStart="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:layout_marginTop="20dp"
+            android:text="@string/action"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView8"
+            android:layout_alignBottom="@+id/textView8"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/textView8"
+            android:layout_toRightOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView8"
+            android:layout_alignStart="@+id/textView8"
+            android:layout_below="@+id/textView8"
+            android:layout_marginTop="26dp"
+            android:text="@string/message"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView10"
+            android:layout_alignStart="@+id/textView10"
+            android:layout_below="@+id/textView10"
+            android:layout_marginTop="22dp"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/button_deny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="47dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginRight="41dp"
+            android:text="@string/action_deny" />
+
+        <Button
+            android:id="@+id/button_approve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button_deny"
+            android:layout_alignBottom="@+id/button_deny"
+            android:layout_toLeftOf="@+id/button_deny"
+            android:layout_toStartOf="@+id/button_deny"
+            android:text="@string/action_approve" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

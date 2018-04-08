@@ -199,10 +199,12 @@ public class ProxyBuilder {
             if (token != null) {
                 builder.header("Authorization", token);
             }
-
+            // Add Depth
             if (depth != null) {
                 builder.header("JSON-DEPTH", depth);
             }
+            // Enable Permission request
+            builder.header("permissions-enabled", "true");
 
             Request modifiedRequest = builder.build();
 
