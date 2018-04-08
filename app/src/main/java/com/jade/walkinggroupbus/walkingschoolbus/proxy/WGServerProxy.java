@@ -7,6 +7,7 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.GPSLocation;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Group;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Message;
 import com.jade.walkinggroupbus.walkingschoolbus.model.Permission;
+import com.jade.walkinggroupbus.walkingschoolbus.model.PermissionStatus;
 import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 
 import retrofit2.Call;
@@ -94,14 +95,17 @@ public interface WGServerProxy {
     @GET("/permissions")
     Call<List<Permission>> getAllPermissions();
 
-    @GET("/permissions?userId={id}&statusForUser=PENDING")
-    Call<List<Permission>> getPendingPermissionsByUserID(@Path("id") Long userID);
+    @GET("/permissions")
+    Call<List<Permission>> getPendingPermissionsByUserID(@Query("userId") Long userID,
+                                                         @Query("statusForUser") PermissionStatus statusPending);
 
-    @GET("/permissions?userId={id}&statusForUser=APPROVED")
-    Call<List<Permission>> getApprovedPermissionsByUserID(@Path("id") Long userID);
+    @GET("/permissions")
+    Call<List<Permission>> getApprovedPermissionsByUserID(@Query("userId") Long userID,
+                                                          @Query("statusForUser") PermissionStatus statusApproved);
 
-    @GET("/permissions?userId={id}&statusForUser=DENIED")
-    Call<List<Permission>> getDeniedPermissionsByUserID(@Path("id") Long userID);
+    @GET("/permissions")
+    Call<List<Permission>> getDeniedPermissionsByUserID(@Query("userId") Long userID,
+                                                        @Query("statusForUser") PermissionStatus statusDenied);
 
     @GET("/permissions/{id}")
     Call<Permission> getPermissionByID(@Path("id") Long permissionID);

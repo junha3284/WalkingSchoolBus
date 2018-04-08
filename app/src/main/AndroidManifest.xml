@@ -73,6 +73,8 @@
         <activity android:name=".app.PreviewThemeActivity"/>
         <activity android:name=".app.PendingPermissionsActivity" />
         <activity android:name=".app.PendingPermissionDetailActivity"/>
+        <activity android:name=".app.PreviousPermissionsActivity" />
+        <activity android:name=".app.PreviousPermissionsDetailsActivity" />
     </application>
 
 </manifest>

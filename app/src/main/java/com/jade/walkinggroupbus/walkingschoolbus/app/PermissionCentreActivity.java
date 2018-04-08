@@ -39,12 +39,21 @@ public class PermissionCentreActivity extends AppCompatActivity {
     }
 
     void setBtns(){
-        //TODO: connect permission-related activity with PermissionCentreActivity
+        // Set button for pending permissions activity
         Button btnPendingPermissions = (Button) findViewById (R.id.button_pendingPermissions);
         btnPendingPermissions.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = PendingPermissionsActivity.makeIntent(PermissionCentreActivity.this);
+                startActivity(intent);
+            }
+        });
+        // Set button for previous permissions activity
+        Button btnPreviousPermissions = findViewById(R.id.button_previousPermissions);
+        btnPreviousPermissions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = PreviousPermissionsActivity.makeIntent(PermissionCentreActivity.this);
                 startActivity(intent);
             }
         });

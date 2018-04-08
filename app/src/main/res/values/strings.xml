@@ -130,5 +130,8 @@
     <string name="purchase_water">Purchase Water</string>
     <string name="purchase_spring">Purchase Spring</string>
     <string name="purchase_dark">Purchase Dark</string>
+    <string name="PPA_approved_permissions">Approved Permissions</string>
+    <string name="PPA_denied_permissions">Denied Permissions</string>
+    <string name="PPDA_authorizors">Authorizors</string>
 
 </resources>
