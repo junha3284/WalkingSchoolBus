@@ -63,7 +63,7 @@ public class PreviousPermissionsActivity extends AppCompatActivity {
         ProxyBuilder.callProxy(this, approvedCaller, returnedPermissions -> createApprovedListView(returnedPermissions));
 
         // retrieve list of denied permissions
-        Call<List<Permission>> deniedCaller = proxy.getDeniedPermissionsByUserID(userInfo.getId(), PermissionStatus.DEINIED);
+        Call<List<Permission>> deniedCaller = proxy.getDeniedPermissionsByUserID(userInfo.getId(), PermissionStatus.DENIED);
         ProxyBuilder.callProxy(this, deniedCaller, returnedPermissions -> createDeniedListView(returnedPermissions));
 
     }
