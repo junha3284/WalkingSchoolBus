@@ -45,6 +45,9 @@ public class MainMenuActivity extends AppCompatActivity {
         userInfo = UserInfo.userInfo();
         myRewards = MyRewards.MyRewards();
 
+        // update MyRewards
+        String serverCustomJson = userInfo.getCustomJson();
+        myRewards.setRewardsWithJson(serverCustomJson);
 
         // get theme info from server
         String serverJson = userInfo.getCustomJson();
