@@ -100,7 +100,7 @@ public class MyRewards {
 
     // getters
     public List<Boolean> getObtainedRewards() {
-        return Collections.unmodifiableList(obtainedRewards);
+        return obtainedRewards;
     }
 
     public String getSelectedTheme() {

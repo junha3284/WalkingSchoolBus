@@ -120,8 +120,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void action_addRewards() {
+        for (int i = 1; i < 5; i++) {
+            myRewards.getObtainedRewards().set(i, false);
+        }
+        myRewards.setSelectedTheme("Default");
+
         String myRewardsJson = myRewards.convertToJsonString();
         userInfo.setCustomJson(myRewardsJson);
+
+        // test case enable points
+        // userInfo.setCurrentPoints(1000);
     }
 
     // Handles error messages

@@ -19,6 +19,8 @@ import com.jade.walkinggroupbus.walkingschoolbus.model.UserInfo;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
+import retrofit2.Call;
+
 /**
  * Created by Richard Wong on 2018-04-01.
  */
@@ -70,6 +72,13 @@ public class RewardsCentreBuyPrompt extends AppCompatDialogFragment{
                     int currentPoints = userInfo.getCurrentPoints() - 100;
                     userInfo.setCurrentPoints(currentPoints);
 
+                    // update server once reward is bought
+                    String myRewardsJsonString = myRewards.convertToJsonString();
+                    userInfo.setCustomJson(myRewardsJsonString);
+
+                    Call<UserInfo> editUser = proxy.editUser(userInfo.getId(), userInfo);
+                    ProxyBuilder.callProxy(editUser, returnedUser -> response(returnedUser));
+
                     Toast.makeText(getActivity(), "Purchase Successful. Returning to Rewards Centre.", Toast.LENGTH_SHORT).show();
                     dismiss();
                 }
@@ -100,10 +109,16 @@ public class RewardsCentreBuyPrompt extends AppCompatDialogFragment{
                 .create();
     }
 
+    private void response(UserInfo returnedUser) {
+        Log.w(TAG, "    User: " + returnedUser);
+    }
+
     private void onReceiveToken(String token) {
         // Replace the current proxy with one that uses the token!
         Log.w(TAG, "   --> NOW HAVE TOKEN: " + token);
         proxy = ProxyBuilder.getProxy(getString(R.string.API_KEY), token);
         sharedData.setToken(token);
     }
+
+
 }
