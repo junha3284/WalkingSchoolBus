@@ -3,8 +3,6 @@ package com.jade.walkinggroupbus.walkingschoolbus.app;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -15,21 +13,16 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
-
 import com.jade.walkinggroupbus.walkingschoolbus.R;
-import com.jade.walkinggroupbus.walkingschoolbus.model.MyRewards;
 import com.jade.walkinggroupbus.walkingschoolbus.model.SharedData;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.ProxyBuilder;
 import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
-import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.LeaderboardFragment;
-import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.MyRewardsFragment;
-import com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments.ShopFragment;
+import com.jade.walkinggroupbus.walkingschoolbus.app.rewardscentrefragments.LeaderboardFragment;
+import com.jade.walkinggroupbus.walkingschoolbus.app.rewardscentrefragments.MyRewardsFragment;
+import com.jade.walkinggroupbus.walkingschoolbus.app.rewardscentrefragments.ShopFragment;
 
 import java.util.ArrayList;
 import java.util.List;

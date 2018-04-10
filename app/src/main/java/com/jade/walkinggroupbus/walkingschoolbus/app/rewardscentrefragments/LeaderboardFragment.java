@@ -1,4 +1,4 @@
-package com.jade.walkinggroupbus.walkingschoolbus.rewardscentrefragments;
+package com.jade.walkinggroupbus.walkingschoolbus.app.rewardscentrefragments;
 
 import android.content.Context;
 import android.graphics.Color;

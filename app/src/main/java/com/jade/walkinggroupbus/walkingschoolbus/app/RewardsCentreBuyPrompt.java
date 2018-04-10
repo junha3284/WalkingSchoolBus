@@ -21,10 +21,6 @@ import com.jade.walkinggroupbus.walkingschoolbus.proxy.WGServerProxy;
 
 import retrofit2.Call;
 
-/**
- * Created by Richard Wong on 2018-04-01.
- */
-
 public class RewardsCentreBuyPrompt extends AppCompatDialogFragment{
     private UserInfo userInfo;
     private SharedData sharedData;
