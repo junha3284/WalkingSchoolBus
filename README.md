@@ -1,3 +1,7 @@
+# ORIGINAL REPOSITORY
+
+https://csil-git1.cs.surrey.sfu.ca/276-181-Jade/walkinggroupapp.git
+
 # User Case
 
 <img src = "https://github.com/junha3284/WalkingSchoolBus/blob/master/UseCaseDiagram.png" alt = "user case diagram" >
