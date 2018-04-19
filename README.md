@@ -1,5 +1,7 @@
 # Use Case
 
+https://github.com/junha3284/WalkingSchoolBus/blob/master/UseCaseDiagram.png
+
 ## Walking Group: Iteration 1
 
 1. Craete Account, Log-in, Log-out,
