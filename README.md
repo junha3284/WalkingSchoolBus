@@ -1,13 +1,13 @@
 # WalkingSchoolBus (Project from cmpt 276 sfu)
 
-Teammates:
+## Teammates:
 
 Junha Choi, junhac@sfu.ca (Me)
 Richard Wong, rbw4@sfu.ca
 Brandon Lin, bslin@sfu.ca
 Gurpreet Khosa, gskhosa@sfu.ca
 
-Peer Reviews about my performance
+## Peer Reviews about my performance
 
 Iteration 1:
 
