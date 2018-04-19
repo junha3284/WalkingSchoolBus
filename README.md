@@ -1,6 +1,6 @@
 # Use Case
 
-https://github.com/junha3284/WalkingSchoolBus/blob/master/UseCaseDiagram.png
+<img src = "https://github.com/junha3284/WalkingSchoolBus/blob/master/UseCaseDiagram.png" alt = "user case diagram" >
 
 ## Walking Group: Iteration 1
 
