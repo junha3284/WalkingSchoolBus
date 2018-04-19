@@ -1,4 +1,4 @@
-# WalkingSchoolBus (Project from cmpt 276 sfu)
+# WalkingSchoolBus
 
 ## Teammates:
 
