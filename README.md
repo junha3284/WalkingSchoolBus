@@ -1,4 +1,4 @@
-# Use Case
+# User Case
 
 <img src = "https://github.com/junha3284/WalkingSchoolBus/blob/master/UseCaseDiagram.png" alt = "user case diagram" >
 
